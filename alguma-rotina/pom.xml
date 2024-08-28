@@ -6,10 +6,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.ufscar.dc.compiladores</groupId>
-    <artifactId>alguma-grammar</artifactId>
+    <artifactId>alguma-rotina</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>alguma-grammar</name>
+    <name>alguma-rotina</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
@@ -55,7 +55,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>br.ufscar.dc.compiladores.alguma.grammar.Principal</mainClass>
+                            <mainClass>br.ufscar.dc.compiladores.alguma.rotina.Principal</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

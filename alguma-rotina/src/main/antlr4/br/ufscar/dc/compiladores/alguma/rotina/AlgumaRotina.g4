@@ -1,65 +1,72 @@
 grammar AlgumaRotina;
-CATEG_EVENTO: 'pessoal' | 'aula' | 'trabalho';
-
-DIAS_SEM: 'DOMINGO' | 'SEGUNDA' | 'TERCA' | 'QUARTA' | 'QUINTA' | 'SEXTA' | 'SABADO';
 
 IDENT: ('a'..'z'|'A'..'Z') ('_'|'a'..'z'|'A'..'Z'|'0'..'9')*;
+
+HORA: ('0'..'9')+(':' ('0'..'9')+)?'h';
+
+COMENTARIO : '{' ~('\n'|'}')* '}' -> skip;
 
 CADEIA: ('"' ( ESC_SEQ | ~('"'|'\\'|'\n') )* '"' ) | ('\'' ( ESC_SEQ_SQ | ~('\''|'\\'|'\n') )* '\'');
 
 fragment ESC_SEQ : '\\"';
 fragment ESC_SEQ_SQ : '\\\'';
 
-PROGRAMA: ROTINA CORPO EOF;
+CADEIA_NAO_FECHADA : '"' ( ESC_SEQ | ~('"'|'\\'|'\n'))* '\n' -> skip;
 
-ROTINA: 'ROTINA' (IDENT':' REGISTRO)+;
+COMENTARIO_NAO_FECHADO : '{' (~('\n'|'}'))* '\n' -> skip;
 
+categ_evento: 'pessoal' | 'aula' | 'trabalho';
 
-AGENDA: (DIAS_SEM PROG_DIA)+;
+dias_sem: 'DOMINGO' | 'SEGUNDA' | 'TERCA' | 'QUARTA' | 'QUINTA' | 'SEXTA' | 'SABADO';
 
-PROG_DIA: ('quero_estudar' (CADEIA)*)? ','
+prior_tipo: 'alta' | 'media' | 'baixa';
+
+modals: 'estudo_para_prova' | 'projeto' | 'estudo_teorico' | 'lista_de_exercicios' | 'revisao';
+
+rotina: 'TOPICOS' (IDENT':' '(' registro ')')+;
+
+programa: 'ROTINA' rotina corpo 'FIMROTINA' EOF;
+
+corpo: 'AGENDA' agenda 'FIMAGENDA' seq_evento seq_comp;
+
+agenda: (dias_sem '(' prog_dia ')')+;
+
+seq_evento: 'EVENTOS' evento_parc 'FIMEVENTOS';
+
+evento_parc: '(' 'nome' CADEIA ',' 'inicio' HORA ',' 'fim' HORA ',' 'data' date ')';
+
+seq_comp: 'COMPROMISSOS' (comp_parc)+ 'FIMCOMPROMISSOS';
+
+comp_parc:
+	'(' IDENT ':' 'nome' CADEIA ',' 'descricao' CADEIA ',' 'data_compromisso' date ')';  
+
+registro: 'nome' CADEIA ',' 
+    'descricao' CADEIA ',' 
+    'prioridade'  prior_tipo ',' 
+    'modalidade' modals ',' 
+    'tempo_desejado' HORA ',' 
+    'compromisso' IDENT;
+
+date: DAY '/' MONTH '/' YEAR;
+
+DIGIT: [0-9];
+
+DAY: DIGIT DIGIT;
+
+MONTH: DIGIT DIGIT;
+
+YEAR: DIGIT DIGIT DIGIT DIGIT;
+
+WS: [ \t\r\n]+ -> skip;
+
+prog_dia: ('quero_estudar' (CADEIA)*)? ','
 	'inicio' HORA ','
 	'fim' HORA ','
-	'eventos' evento_agenda*;
+	'eventos' evento_agenda (',' evento_agenda)*;
 
 evento_agenda: 
-	'(' 'categoria' CATEG_EVENTO ','
+	'(' 'categoria' categ_evento ','
 	'inicio' HORA ','
 	'fim' HORA ')';
 
-PRIOR_TIPO: 'alta' | 'media' | 'baixa';
-
-MODALS: 'estudo_para_prova' | 'projeto' | 'estudo_teorico' | 'lista_de_exercicios' | 'revisao';
-
-// /[0-59]/
-HORA: ('0'..'9')+(':' ('0'..'9')+)?'h';
-
-DATE: DAY '/' MONTH '/' YEAR;
-
-DAY: '0'[1-9]  // 01-09
-    | [12][0-9] // 10-29
-    | '3'[01]   // 30-31
-    ;
-
-MONTH: '0'[1-9]  // 01-09
-    | '1'[0-2]  // 10-12
-    ;
-
-YEAR: [0-9]{4}  // Qualquer sequência de 4 dígitos
-    ;
-
-WS: [ \t\r\n]+ -> skip
-    ;
-
-EVENTO: 'nome' CADEIA ',' 'inicio' HORA ',' 'fim' HORA ',' 'data' DATE;
-
-SEQ_EVENTO: 'EVENTOS' EVENTO+ 'FIMEVENTOS';
-
-CORPO: 'AGENDA' AGENDA 'FIMAGENDA' EVENTO* SEQ_COMP*;
-
-SEQ_COMP: 'COMPROMISSOS' COMP+ 'FIMCOMPROMISSOS';
-
-COMP:
-	IDENT ':' 'nome' CADEIA ',' 'descricao' CADEIA ',' 'data_compromisso' DATE;  
-
-REGISTRO: 'nome' CADEIA ',' 'descricao' CADEIA ',' 'prioridade'  PRIOR_TIPO ',' 'modalidade' MODALS ',' 'tempo_desejado' HORA ',' 'compromisso' IDENT;
+// A regra `ERRO` foi removida para evitar problemas na geração de código.

@@ -4,7 +4,7 @@ Desenvolvido por:
 - Lara Santiago Rodrigues, 769701
 - Letícia Bossatto Marchezi, 791003
 */
-package br.ufscar.dc.compiladores.alguma.grammar;
+package br.ufscar.dc.compiladores.alguma.rotina;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;

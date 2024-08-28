@@ -1,4 +1,4 @@
-package br.ufscar.dc.compiladores.alguma.grammar;
+package br.ufscar.dc.compiladores.alguma.rotina;
 
 import org.antlr.v4.runtime.BaseErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
