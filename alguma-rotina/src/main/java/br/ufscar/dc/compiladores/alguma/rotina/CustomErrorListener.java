@@ -28,19 +28,19 @@ public class CustomErrorListener extends BaseErrorListener {
         */
         switch (t.getType()) { 
             case -1: // -1 refere-se ao token EOF, que indica o fim do programa analisado
-                buffer.append("Linha " + line + ": erro sintatico proximo a EOF"+"\nFim da compilacao\n");
+                buffer.append("Linha " + line + ": erro sintatico proximo a EOF"+"\n");
                 break;
-            case 65: // 65 refere-se ao erro em uma cadeia literal NÃO fechada
-                buffer.append("Linha " + line + ": cadeia literal nao fechada"+"\nFim da compilacao\n");
+            case 50: // 65 refere-se ao erro em uma cadeia literal NÃO fechada
+                buffer.append("Linha " + line + ": cadeia literal nao fechada"+"\n");
                 break;
-            case 66: // 66 refere-se ao erro em um comentário NÃO fechado
-                buffer.append("Linha " + line + ": comentario nao fechado"+"\nFim da compilacao\n");
+            case 51: // 66 refere-se ao erro em um comentário NÃO fechado
+                buffer.append("Linha " + line + ": comentario nao fechado"+"\n");
                 break;
-            case 68: // 68 refere-se a um erro na identificação de símbolos
-                buffer.append("Linha " + line + ": " + t.getText() + " - simbolo nao identificado"+"\nFim da compilacao\n");
+            case 46: // 68 refere-se a um erro na identificação de símbolos
+                buffer.append("Linha " + line + ": " + t.getText() + " - simbolo nao identificado"+"\n");
                 break;
             default: // Por padrão, o programa exibe a mensagem de erro sintático genérica
-                buffer.append("Linha " + line + ": erro sintatico proximo a " + t.getText()+"\nFim da compilacao\n");
+                buffer.append("Linha " + line + ": erro sintatico proximo a " + t.getText()+"\n");
                 break;
         }  
         // Lança a exceção para finalizar o programa

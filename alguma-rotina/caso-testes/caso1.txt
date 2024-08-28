@@ -1,4 +1,5 @@
 ROTINA
+
 rotina1: 
     (nome "Revisão para prova", 
         descricao "Revisar conteúdo de cálculo", 
@@ -20,7 +21,7 @@ AGENDA
         quero_estudar "Cálculo",
         inicio 08:00h,
         fim 10:00h,
-        eventos (categoria estudo_teorico, inicio 08:30h, fim 09:30h)
+        eventos (categoria pessoal, inicio 08:30h, fim 09:30h)
     )
 
     QUARTA (

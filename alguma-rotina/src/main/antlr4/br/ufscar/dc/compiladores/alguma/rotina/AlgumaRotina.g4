@@ -23,7 +23,7 @@ prior_tipo: 'alta' | 'media' | 'baixa';
 
 modals: 'estudo_para_prova' | 'projeto' | 'estudo_teorico' | 'lista_de_exercicios' | 'revisao';
 
-rotina: 'TOPICOS' (IDENT':' '(' registro ')')+;
+rotina:  (IDENT':' '(' registro ')')+;
 
 programa: 'ROTINA' rotina corpo 'FIMROTINA' EOF;
 
@@ -31,14 +31,14 @@ corpo: 'AGENDA' agenda 'FIMAGENDA' seq_evento seq_comp;
 
 agenda: (dias_sem '(' prog_dia ')')+;
 
-seq_evento: 'EVENTOS' evento_parc 'FIMEVENTOS';
+seq_evento: 'EVENTOS' (evento_parc)+ 'FIMEVENTOS';
 
 evento_parc: '(' 'nome' CADEIA ',' 'inicio' HORA ',' 'fim' HORA ',' 'data' date ')';
 
 seq_comp: 'COMPROMISSOS' (comp_parc)+ 'FIMCOMPROMISSOS';
 
 comp_parc:
-	'(' IDENT ':' 'nome' CADEIA ',' 'descricao' CADEIA ',' 'data_compromisso' date ')';  
+	 IDENT ':' '(' 'nome' CADEIA ',' 'descricao' CADEIA ',' 'data_compromisso' date ')';  
 
 registro: 'nome' CADEIA ',' 
     'descricao' CADEIA ',' 
@@ -47,19 +47,13 @@ registro: 'nome' CADEIA ','
     'tempo_desejado' HORA ',' 
     'compromisso' IDENT;
 
-date: DAY '/' MONTH '/' YEAR;
+date: DIGIT DIGIT '/' DIGIT DIGIT '/' DIGIT DIGIT DIGIT DIGIT;
 
 DIGIT: [0-9];
 
-DAY: DIGIT DIGIT;
-
-MONTH: DIGIT DIGIT;
-
-YEAR: DIGIT DIGIT DIGIT DIGIT;
-
 WS: [ \t\r\n]+ -> skip;
 
-prog_dia: ('quero_estudar' (CADEIA)*)? ','
+prog_dia: ('quero_estudar' (CADEIA)* ',')? 
 	'inicio' HORA ','
 	'fim' HORA ','
 	'eventos' evento_agenda (',' evento_agenda)*;

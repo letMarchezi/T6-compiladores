@@ -38,10 +38,10 @@ public class Principal {
 
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             AlgumaRotinaParser parser = new AlgumaRotinaParser(tokens);
-            //parser.removeErrorListeners();
+            parser.removeErrorListeners();
             
             // Adicionando a classe CustomErrorListener com método customizado para erros de sintaxe (syntaxError)
-            //parser.addErrorListener(new CustomErrorListener(buffer));
+            parser.addErrorListener(new CustomErrorListener(buffer));
             // Invocando o parser
             parser.programa();
             
@@ -49,7 +49,7 @@ public class Principal {
             // Detecção de exceções
             System.err.println("Erro: " + ex.getMessage());
         }
-
+        buffer.append("Fim da compilacao\n");
         // Escreve o resultado do buffer no arquivo de saída
         writeOutputToFile(args[1]);
     }
