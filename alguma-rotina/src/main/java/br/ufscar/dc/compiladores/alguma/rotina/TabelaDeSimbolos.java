@@ -37,6 +37,14 @@ public class TabelaDeSimbolos {
         SABADO
     }
 
+    // Criação das especificação das CATEGORIAS DE EVENTO
+    public enum CatEvento {
+        PESSOAL,
+        TRABALHO,
+        AULA,
+        INVALIDO
+    }
+
     // Especificação das tabelas de símbolos para cada caso relacionada a agenda de estudos
     private Map<String, Rotina> rotinas;
     private Map<String, Eventos> eventos;

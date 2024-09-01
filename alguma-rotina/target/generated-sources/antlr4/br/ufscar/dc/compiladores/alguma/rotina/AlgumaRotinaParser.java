@@ -127,6 +127,11 @@ public class AlgumaRotinaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitCateg_evento(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitCateg_evento(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Categ_eventoContext categ_evento() throws RecognitionException {
@@ -172,6 +177,11 @@ public class AlgumaRotinaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitDias_sem(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitDias_sem(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -219,6 +229,11 @@ public class AlgumaRotinaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitPrior_tipo(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitPrior_tipo(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Prior_tipoContext prior_tipo() throws RecognitionException {
@@ -264,6 +279,11 @@ public class AlgumaRotinaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitModals(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitModals(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -320,6 +340,11 @@ public class AlgumaRotinaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitRotina(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitRotina(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -386,6 +411,11 @@ public class AlgumaRotinaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitPrograma(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitPrograma(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ProgramaContext programa() throws RecognitionException {
@@ -439,6 +469,11 @@ public class AlgumaRotinaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitCorpo(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitCorpo(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -496,6 +531,11 @@ public class AlgumaRotinaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitAgenda(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitAgenda(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -559,6 +599,11 @@ public class AlgumaRotinaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitSeq_evento(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitSeq_evento(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Seq_eventoContext seq_evento() throws RecognitionException {
@@ -620,6 +665,11 @@ public class AlgumaRotinaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitEvento_parc(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitEvento_parc(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -688,6 +738,11 @@ public class AlgumaRotinaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitSeq_comp(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitSeq_comp(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Seq_compContext seq_comp() throws RecognitionException {
@@ -749,6 +804,11 @@ public class AlgumaRotinaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitComp_parc(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitComp_parc(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -820,6 +880,11 @@ public class AlgumaRotinaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitRegistro(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitRegistro(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -894,6 +959,11 @@ public class AlgumaRotinaParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitDate(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitDate(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DateContext date() throws RecognitionException {
@@ -962,6 +1032,11 @@ public class AlgumaRotinaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitProg_dia(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitProg_dia(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1063,6 +1138,11 @@ public class AlgumaRotinaParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitEvento_agenda(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitEvento_agenda(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
