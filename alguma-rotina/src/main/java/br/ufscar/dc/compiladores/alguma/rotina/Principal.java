@@ -35,13 +35,12 @@ public class Principal {
             AlgumaRotinaLexer lexer = new AlgumaRotinaLexer(cs);
 
             // Remove a classe padrão de listeners para erros  
-
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             AlgumaRotinaParser parser = new AlgumaRotinaParser(tokens);
             parser.removeErrorListeners();
             
             // Adicionando a classe CustomErrorListener com método customizado para erros de sintaxe (syntaxError)
-            parser.addErrorListener(new CustomErrorListener(buffer));
+            // parser.addErrorListener(new CustomErrorListener(buffer));
             // Invocando o parser
             parser.programa();
             

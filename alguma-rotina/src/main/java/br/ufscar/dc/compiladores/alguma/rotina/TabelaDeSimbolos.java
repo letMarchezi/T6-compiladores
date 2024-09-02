@@ -1,12 +1,10 @@
 package br.ufscar.dc.compiladores.alguma.rotina;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
-import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Compromissos;
-import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Eventos;
+import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Compromisso;
+import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Evento;
 import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Rotina;
 
 public class TabelaDeSimbolos {
@@ -46,9 +44,9 @@ public class TabelaDeSimbolos {
     }
 
     // Especificação das tabelas de símbolos para cada caso relacionada a agenda de estudos
-    private Map<String, Rotina> rotinas;
-    private Map<String, Eventos> eventos;
-    private Map<String, Compromissos> compromissos;
+    private Map<String, Rotina> rotinas = new HashMap<>();
+    private Map<String, Evento> eventos = new HashMap<>();
+    private Map<String, Compromisso> compromissos = new HashMap<>();
 
     // Adiciona uma rotina à tabela de símbolos
     public void adicionarRotina(String nome, Rotina rotina) {
@@ -60,24 +58,39 @@ public class TabelaDeSimbolos {
         return rotinas.get(nome);
     }
 
+    // Verifica se a rotina já existe
+    public boolean existeRotina(String nome) {
+        return rotinas.containsKey(nome);
+    }
+
     // Adiciona um compromisso à tabela de símbolos
-    public void adicionarCompromisso(String nome, Compromissos compromisso) {
+    public void adicionarCompromisso(String nome, Compromisso compromisso) {
         compromissos.put(nome, compromisso);
     }
 
     // Obtém um compromisso da tabela de símbolos
-    public Compromissos obterCompromisso(String nome) {
+    public Compromisso obterCompromisso(String nome) {
         return compromissos.get(nome);
     }
 
+    // Verifica se o compromisso já existe
+    public boolean existeCompromisso(String nome) {
+        return compromissos.containsKey(nome);
+    }
+
     // Adiciona um evento à tabela de símbolos
-    public void adicionarEvento(String nome, Eventos evento) {
+    public void adicionarEvento(String nome, Evento evento) {
         eventos.put(nome, evento);
     }
 
     // Obtém um evento da tabela de símbolos
-    public Eventos obterEvento(String nome) {
+    public Evento obterEvento(String nome) {
         return eventos.get(nome);
+    }
+
+    // Verifica se o evento já existe
+    public boolean existeEvento(String nome) {
+        return eventos.containsKey(nome);
     }
 
     @Override

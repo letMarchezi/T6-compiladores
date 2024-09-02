@@ -1,8 +1,8 @@
-br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina$Compromissos.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$CorpoContext.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$Seq_eventoContext.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$Evento_parcContext.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$Seq_compContext.class
+br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina$Registro.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina$Rotina.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$Comp_parcContext.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina.class
@@ -11,10 +11,11 @@ br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$RotinaContext.class
 br/ufscar/dc/compiladores/alguma/rotina/Principal.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$Evento_agendaContext.class
 br/ufscar/dc/compiladores/alguma/rotina/Escopos.class
-br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina$Eventos.class
+br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina$Evento.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$ProgramaContext.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$Categ_eventoContext.class
 br/ufscar/dc/compiladores/alguma/rotina/TabelaDeSimbolos.class
+br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina$Compromisso.class
 br/ufscar/dc/compiladores/alguma/rotina/TabelaDeSimbolos$Modalidade.class
 br/ufscar/dc/compiladores/alguma/rotina/TabelaDeSimbolos$DiaSemana.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaBaseVisitor.class

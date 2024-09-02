@@ -3,12 +3,12 @@ package br.ufscar.dc.compiladores.alguma.rotina;
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.antlr.v4.runtime.Token;
 
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Modalidade;
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Prioridade;
-import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.CatEvento;
 
 public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     // Declaração da tabela de símbolos
@@ -18,32 +18,46 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     static Escopos escoposAninhados = new Escopos();
     TabelaDeSimbolos escopos;
 
-    public static class Rotina {
+    public class Registro {
         private String nome;
         private String descricao;
         private TabelaDeSimbolos.Prioridade prioridade;
         private TabelaDeSimbolos.Modalidade modalidade;
-        private LocalTime tempo_desejado;
-        private List<Compromissos> Compromissos;
-
-        public Rotina(String nome, String descricao, Prioridade prioridade, Modalidade modalidade, LocalTime tempo_desejado, List<Compromissos> compromissos) {
+        private String tempoDesejado;
+        private String compromisso; // Referência ao identificador de compromisso
+    
+        public Registro(String nome, String descricao, Prioridade prioridade,
+                        Modalidade modalidade, String tempoDesejado, String compromisso) {
             this.nome = nome;
             this.descricao = descricao;
             this.prioridade = prioridade;
             this.modalidade = modalidade;
-            this.tempo_desejado = tempo_desejado;
-            this.Compromissos = compromissos;
+            this.tempoDesejado = tempoDesejado;
+            this.compromisso = compromisso;
+        }
+    }    
+
+    public static class Rotina {
+        private String nome;
+        private List<Registro> registros;
+
+        public Rotina(String nome) {
+            this.nome = nome;
+            this.registros = new ArrayList<>();
         }
 
+        public void adicionarRegistro(Registro registro) {
+            this.registros.add(registro);
+        }
     }
 
-    public static class Eventos {
+    public static class Evento {
         private String nome;
         private LocalTime inicio;
         private LocalTime fim;
         private LocalDate data;
 
-        public Eventos(String nome, LocalTime inicio, LocalTime fim, LocalDate data) {
+        public Evento(String nome, LocalTime inicio, LocalTime fim, LocalDate data) {
             this.nome = nome;
             this.inicio = inicio;
             this.fim = fim;
@@ -51,12 +65,12 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         }
     }
 
-    public static class Compromissos {
+    public static class Compromisso {
         private String nome;
         private String descricao;
         private LocalDate data_compromisso;
 
-        public Compromissos(String nome, String descricao, LocalDate data_compromisso) {
+        public Compromisso(String nome, String descricao, LocalDate data_compromisso) {
             this.nome  = nome;
             this.descricao = descricao;
             this.data_compromisso = data_compromisso;
@@ -70,36 +84,52 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         return super.visitPrograma(ctx);
     }
 
-    // Método
-    public void adicionaVariavelTabela(String nomeVariavel, String tipoVariavel, Token tipoToken) {
-        // Definição do escopo atual
+    // Adiciona uma rotina na tabela de símbolos
+    public void adicionaRotinaTabela(String nomeRotina, Rotina rotina, Token nomeToken) {
         escopos = escoposAninhados.obterEscopoAtual();
 
-        // Definição do tipo do item analisado no escopo
-        CatEvento tipoItem;
-
-        switch(tipoVariavel) {
-            case "pessoal":
-                tipoItem = TabelaDeSimbolos.CatEvento.PESSOAL;
-                break;
-            case "aula":
-                tipoItem = TabelaDeSimbolos.CatEvento.AULA;
-                break;
-            case "trabalho":
-                tipoItem = TabelaDeSimbolos.CatEvento.TRABALHO;
-                break;
-            default:
-                tipoItem = TabelaDeSimbolos.CatEvento.INVALIDO;
-                break;
+        if (!escopos.existeRotina(nomeRotina)) {
+            escopos.adicionarRotina(nomeRotina, rotina);
+        } else {
+            AlgumaRotinaUtils.adicionarErroSemantico(nomeToken, "Rotina " + nomeRotina + " já declarada anteriormente");
         }
+    }
 
-        // Verificação se o tipo da categoria do evento é inválido para gerar erro semântico
-        /*if (tipoItem == TabelaDeSimbolos.CatEvento.INVALIDO) {
-            escopos.adicionarEvento(nomeVariavel, tipoItem);
-            AlgumaRotinaUtils.adicionarErroSemantico(tipoToken, "tipo " + tipoVariavel + " nao declarado");
-        }*/
+    @Override
+    public Void visitRotina(AlgumaRotinaParser.RotinaContext ctx) {
+        // Itera sobre cada IDENT dentro da rotina
+        for (int i = 0; i < ctx.IDENT().size(); i++) {
+            String nomeRotina = ctx.IDENT(i).getText();
+            System.out.println("nomeRotina" + nomeRotina + "\n");
+            Rotina novaRotina = new Rotina(nomeRotina);
 
-        // Estou confusa aqui! Como fazer essa verificação?
-        // Estou confundido nossa regra de EVENTOS com o eventos que está em AGENDA
+            // Itera sobre os registros associados à rotina
+            for (AlgumaRotinaParser.RegistroContext regCtx : ctx.registro()) {
+                // Cria um novo registro a partir do contexto
+                Registro registro = processarRegistro(regCtx);
+                novaRotina.adicionarRegistro(registro);
+            }
+
+            // Adiciona a rotina na tabela de símbolos
+            tabela.adicionarRotina(nomeRotina, novaRotina);
+
+            if (!tabela.existeRotina(nomeRotina)) {
+                tabela.adicionarRotina(nomeRotina, novaRotina);
+            } else {
+                AlgumaRotinaUtils.adicionarErroSemantico(ctx.IDENT(i).getSymbol(), "Rotina " + nomeRotina + " já declarada anteriormente");
+            }
+        }
+        return super.visitRotina(ctx);
+    }
+
+    private Registro processarRegistro(AlgumaRotinaParser.RegistroContext regCtx) {
+        String nome = regCtx.CADEIA(0).getText();
+        String descricao = regCtx.CADEIA(1).getText();
+        Prioridade prioridade = Prioridade.valueOf(regCtx.prior_tipo().getText().toUpperCase());
+        Modalidade modalidade = Modalidade.valueOf(regCtx.modals().getText().toUpperCase());
+        String tempoDesejado = regCtx.HORA().getText();
+        String compromisso = regCtx.IDENT().getText();
+    
+        return new Registro(nome, descricao, prioridade, modalidade, tempoDesejado, compromisso);
     }
 }
