@@ -15,17 +15,24 @@ CADEIA_NAO_FECHADA : '"' ( ESC_SEQ | ~('"'|'\\'|'\n'))* '\n' -> skip;
 
 COMENTARIO_NAO_FECHADO : '{' (~('\n'|'}'))* '\n' -> skip;
 
-categ_evento: 'pessoal' | 'aula' | 'trabalho';
+categ_atividades: 'pessoal' | 'aula' | 'trabalho';
 
 dias_sem: 'DOMINGO' | 'SEGUNDA' | 'TERCA' | 'QUARTA' | 'QUINTA' | 'SEXTA' | 'SABADO';
 
-prior_tipo: 'alta' | 'media' | 'baixa';
+prioridade_tipo: 'alta' | 'media' | 'baixa';
 
-modals: 'estudo_para_prova' | 'projeto' | 'estudo_teorico' | 'lista_de_exercicios' | 'revisao';
+modalidade: 'estudo_para_prova' | 'projeto' | 'estudo_teorico' | 'lista_de_exercicios' | 'revisao';
 
-rotina:  (IDENT':' '(' registro ')')+;
+rotinas: (rotina)+;
 
-programa: 'ROTINA' rotina corpo 'FIMROTINA' EOF;
+rotina:  (IDENT':' '(' 'titulo=' CADEIA ',' 
+    'descricao=' CADEIA ',' 
+    'prioridade='  prioridade_tipo ',' 
+    'modalidade=' modalidade ',' 
+    'tempo_desejado=' HORA ',' 
+    'compromisso=' IDENT ')');
+
+programa: 'ROTINA' rotinas corpo 'FIMROTINA' EOF;
 
 corpo: 'AGENDA' agenda 'FIMAGENDA' seq_evento seq_comp;
 
@@ -40,12 +47,6 @@ seq_comp: 'COMPROMISSOS' (comp_parc)+ 'FIMCOMPROMISSOS';
 comp_parc:
 	 IDENT ':' '(' 'nome' CADEIA ',' 'descricao' CADEIA ',' 'data_compromisso' date ')';  
 
-registro: 'nome' CADEIA ',' 
-    'descricao' CADEIA ',' 
-    'prioridade'  prior_tipo ',' 
-    'modalidade' modals ',' 
-    'tempo_desejado' HORA ',' 
-    'compromisso' IDENT;
 
 date: DIGIT DIGIT '/' DIGIT DIGIT '/' DIGIT DIGIT DIGIT DIGIT;
 
@@ -59,7 +60,7 @@ prog_dia: ('quero_estudar' (CADEIA)* ',')?
 	'atividades' atividades_agenda (',' atividades_agenda)*;
 
 atividades_agenda: 
-	'(' 'categoria' categ_evento ','
+	'(' 'categoria' categ_atividades ','
 	'inicio' HORA ','
 	'fim' HORA ')';
 

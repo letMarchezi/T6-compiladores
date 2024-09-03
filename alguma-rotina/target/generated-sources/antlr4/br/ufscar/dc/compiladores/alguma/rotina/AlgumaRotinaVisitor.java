@@ -11,11 +11,11 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface AlgumaRotinaVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link AlgumaRotinaParser#categ_evento}.
+	 * Visit a parse tree produced by {@link AlgumaRotinaParser#categ_atividades}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCateg_evento(AlgumaRotinaParser.Categ_eventoContext ctx);
+	T visitCateg_atividades(AlgumaRotinaParser.Categ_atividadesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AlgumaRotinaParser#dias_sem}.
 	 * @param ctx the parse tree
@@ -23,17 +23,23 @@ public interface AlgumaRotinaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDias_sem(AlgumaRotinaParser.Dias_semContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AlgumaRotinaParser#prior_tipo}.
+	 * Visit a parse tree produced by {@link AlgumaRotinaParser#prioridade_tipo}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrior_tipo(AlgumaRotinaParser.Prior_tipoContext ctx);
+	T visitPrioridade_tipo(AlgumaRotinaParser.Prioridade_tipoContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AlgumaRotinaParser#modals}.
+	 * Visit a parse tree produced by {@link AlgumaRotinaParser#modalidade}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitModals(AlgumaRotinaParser.ModalsContext ctx);
+	T visitModalidade(AlgumaRotinaParser.ModalidadeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AlgumaRotinaParser#rotinas}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRotinas(AlgumaRotinaParser.RotinasContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AlgumaRotinaParser#rotina}.
 	 * @param ctx the parse tree
@@ -82,12 +88,6 @@ public interface AlgumaRotinaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitComp_parc(AlgumaRotinaParser.Comp_parcContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AlgumaRotinaParser#registro}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRegistro(AlgumaRotinaParser.RegistroContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AlgumaRotinaParser#date}.
 	 * @param ctx the parse tree

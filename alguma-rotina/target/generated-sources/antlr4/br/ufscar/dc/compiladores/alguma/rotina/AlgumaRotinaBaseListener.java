@@ -17,13 +17,13 @@ public class AlgumaRotinaBaseListener implements AlgumaRotinaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCateg_evento(AlgumaRotinaParser.Categ_eventoContext ctx) { }
+	@Override public void enterCateg_atividades(AlgumaRotinaParser.Categ_atividadesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCateg_evento(AlgumaRotinaParser.Categ_eventoContext ctx) { }
+	@Override public void exitCateg_atividades(AlgumaRotinaParser.Categ_atividadesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -41,25 +41,37 @@ public class AlgumaRotinaBaseListener implements AlgumaRotinaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrior_tipo(AlgumaRotinaParser.Prior_tipoContext ctx) { }
+	@Override public void enterPrioridade_tipo(AlgumaRotinaParser.Prioridade_tipoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrior_tipo(AlgumaRotinaParser.Prior_tipoContext ctx) { }
+	@Override public void exitPrioridade_tipo(AlgumaRotinaParser.Prioridade_tipoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterModals(AlgumaRotinaParser.ModalsContext ctx) { }
+	@Override public void enterModalidade(AlgumaRotinaParser.ModalidadeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitModals(AlgumaRotinaParser.ModalsContext ctx) { }
+	@Override public void exitModalidade(AlgumaRotinaParser.ModalidadeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRotinas(AlgumaRotinaParser.RotinasContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRotinas(AlgumaRotinaParser.RotinasContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -156,18 +168,6 @@ public class AlgumaRotinaBaseListener implements AlgumaRotinaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitComp_parc(AlgumaRotinaParser.Comp_parcContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterRegistro(AlgumaRotinaParser.RegistroContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitRegistro(AlgumaRotinaParser.RegistroContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

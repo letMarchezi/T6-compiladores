@@ -21,13 +21,13 @@ AGENDA
         quero_estudar "Cálculo",
         inicio 08:00h,
         fim 10:00h,
-        eventos (categoria pessoal, inicio 08:30h, fim 09:30h)
+        atividades (categoria pessoal, inicio 08:30h, fim 09:30h)
     )
 
     QUARTA (
         inicio 14:00h,
         fim 16:00h,
-        eventos (categoria trabalho, inicio 14:30h, fim 15:00h)
+        atividades (categoria trabalho, inicio 14:30h, fim 15:00h)
     )
 FIMAGENDA
 

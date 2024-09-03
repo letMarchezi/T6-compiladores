@@ -5,14 +5,14 @@ import java.util.HashMap;
 
 import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Compromisso;
 import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Evento;
-import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Rotina;
 
 public class TabelaDeSimbolos {
     // Criação das especificações de PRIORIDADE de estudo
     public enum Prioridade {
         ALTA,
         MEDIA,
-        BAIXA
+        BAIXA,
+        INVALIDO
     }
 
     // Criação das especificações de MODALIDADE de estudo
@@ -21,7 +21,8 @@ public class TabelaDeSimbolos {
         PROJETO,
         ESTUDO_TEORICO,
         LISTA_DE_EXERCICIOS,
-        REVISAO
+        REVISAO,
+        INVALIDO
     }
 
     // Criação das especificações de DIAS DA SEMANA
@@ -32,29 +33,51 @@ public class TabelaDeSimbolos {
         QUARTA,
         QUINTA,
         SEXTA,
-        SABADO
+        SABADO,
+        INVALIDO
     }
 
     // Criação das especificação das CATEGORIAS DE EVENTO
-    public enum CatEvento {
+    public enum CategoriaAtividades {
         PESSOAL,
         TRABALHO,
         AULA,
         INVALIDO
     }
 
+    class EntradaTabelaRotina {
+        String titulo;
+        String nome;
+        String descricao;
+        Prioridade prioridade;
+        Modalidade modalidade;
+        String tempo_desejado;
+        Compromisso compromisso;
+
+        private EntradaTabelaRotina(String nome, String titulo, String descricao, Prioridade prioridade, Modalidade modalidade, String tempo_desejado, Compromisso compromisso ) {
+            this.nome = nome;
+            this.titulo = titulo;
+            this.descricao = descricao;
+            this.prioridade = prioridade;
+            this.modalidade = modalidade;
+            this.tempo_desejado = tempo_desejado;
+            this.compromisso = compromisso;
+        }
+    }
+
+
     // Especificação das tabelas de símbolos para cada caso relacionada a agenda de estudos
-    private Map<String, Rotina> rotinas = new HashMap<>();
+    private Map<String, EntradaTabelaRotina> rotinas = new HashMap<>();
     private Map<String, Evento> eventos = new HashMap<>();
     private Map<String, Compromisso> compromissos = new HashMap<>();
 
     // Adiciona uma rotina à tabela de símbolos
-    public void adicionarRotina(String nome, Rotina rotina) {
-        rotinas.put(nome, rotina);
+    public void adicionarRotina(String nome, String titulo, String descricao, Prioridade prior, Modalidade modal, String tempo_desejado, Compromisso comp ) {
+        rotinas.put(nome, new EntradaTabelaRotina(nome, titulo, descricao, prior, modal, tempo_desejado, comp));
     }
 
     // Obtém uma rotina da tabela de símbolos
-    public Rotina obterRotina(String nome) {
+    public EntradaTabelaRotina obterRotina(String nome) {
         return rotinas.get(nome);
     }
 

@@ -8,15 +8,15 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface AlgumaRotinaListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link AlgumaRotinaParser#categ_evento}.
+	 * Enter a parse tree produced by {@link AlgumaRotinaParser#categ_atividades}.
 	 * @param ctx the parse tree
 	 */
-	void enterCateg_evento(AlgumaRotinaParser.Categ_eventoContext ctx);
+	void enterCateg_atividades(AlgumaRotinaParser.Categ_atividadesContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AlgumaRotinaParser#categ_evento}.
+	 * Exit a parse tree produced by {@link AlgumaRotinaParser#categ_atividades}.
 	 * @param ctx the parse tree
 	 */
-	void exitCateg_evento(AlgumaRotinaParser.Categ_eventoContext ctx);
+	void exitCateg_atividades(AlgumaRotinaParser.Categ_atividadesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AlgumaRotinaParser#dias_sem}.
 	 * @param ctx the parse tree
@@ -28,25 +28,35 @@ public interface AlgumaRotinaListener extends ParseTreeListener {
 	 */
 	void exitDias_sem(AlgumaRotinaParser.Dias_semContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AlgumaRotinaParser#prior_tipo}.
+	 * Enter a parse tree produced by {@link AlgumaRotinaParser#prioridade_tipo}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrior_tipo(AlgumaRotinaParser.Prior_tipoContext ctx);
+	void enterPrioridade_tipo(AlgumaRotinaParser.Prioridade_tipoContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AlgumaRotinaParser#prior_tipo}.
+	 * Exit a parse tree produced by {@link AlgumaRotinaParser#prioridade_tipo}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrior_tipo(AlgumaRotinaParser.Prior_tipoContext ctx);
+	void exitPrioridade_tipo(AlgumaRotinaParser.Prioridade_tipoContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AlgumaRotinaParser#modals}.
+	 * Enter a parse tree produced by {@link AlgumaRotinaParser#modalidade}.
 	 * @param ctx the parse tree
 	 */
-	void enterModals(AlgumaRotinaParser.ModalsContext ctx);
+	void enterModalidade(AlgumaRotinaParser.ModalidadeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AlgumaRotinaParser#modals}.
+	 * Exit a parse tree produced by {@link AlgumaRotinaParser#modalidade}.
 	 * @param ctx the parse tree
 	 */
-	void exitModals(AlgumaRotinaParser.ModalsContext ctx);
+	void exitModalidade(AlgumaRotinaParser.ModalidadeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AlgumaRotinaParser#rotinas}.
+	 * @param ctx the parse tree
+	 */
+	void enterRotinas(AlgumaRotinaParser.RotinasContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AlgumaRotinaParser#rotinas}.
+	 * @param ctx the parse tree
+	 */
+	void exitRotinas(AlgumaRotinaParser.RotinasContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AlgumaRotinaParser#rotina}.
 	 * @param ctx the parse tree
@@ -127,16 +137,6 @@ public interface AlgumaRotinaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitComp_parc(AlgumaRotinaParser.Comp_parcContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AlgumaRotinaParser#registro}.
-	 * @param ctx the parse tree
-	 */
-	void enterRegistro(AlgumaRotinaParser.RegistroContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AlgumaRotinaParser#registro}.
-	 * @param ctx the parse tree
-	 */
-	void exitRegistro(AlgumaRotinaParser.RegistroContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AlgumaRotinaParser#date}.
 	 * @param ctx the parse tree

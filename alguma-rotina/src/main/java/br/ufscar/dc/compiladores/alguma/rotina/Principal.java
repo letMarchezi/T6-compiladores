@@ -9,6 +9,9 @@ package br.ufscar.dc.compiladores.alguma.rotina;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+
+import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotinaParser.ProgramaContext;
+
 import java.io.File;
 import java.io.FileWriter;
 
@@ -39,10 +42,11 @@ public class Principal {
             AlgumaRotinaParser parser = new AlgumaRotinaParser(tokens);
             parser.removeErrorListeners();
             
-            // Adicionando a classe CustomErrorListener com método customizado para erros de sintaxe (syntaxError)
-            // parser.addErrorListener(new CustomErrorListener(buffer));
-            // Invocando o parser
-            parser.programa();
+            ProgramaContext arvore = parser.programa();
+            AlgumaRotina as = new AlgumaRotina();
+            as.visitPrograma(arvore);
+            AlgumaRotinaUtils.errosSemanticos.forEach((s) -> System.out.println(s));
+            AlgumaRotinaUtils.errosSemanticos.forEach((s) -> buffer.append(s + "\n"));
             
         } catch (Exception ex) {
             // Detecção de exceções

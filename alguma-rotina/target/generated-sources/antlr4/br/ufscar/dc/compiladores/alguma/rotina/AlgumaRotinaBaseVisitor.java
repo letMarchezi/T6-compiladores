@@ -18,7 +18,7 @@ public class AlgumaRotinaBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitCateg_evento(AlgumaRotinaParser.Categ_eventoContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCateg_atividades(AlgumaRotinaParser.Categ_atividadesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -32,14 +32,21 @@ public class AlgumaRotinaBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPrior_tipo(AlgumaRotinaParser.Prior_tipoContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPrioridade_tipo(AlgumaRotinaParser.Prioridade_tipoContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitModals(AlgumaRotinaParser.ModalsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitModalidade(AlgumaRotinaParser.ModalidadeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitRotinas(AlgumaRotinaParser.RotinasContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -96,13 +103,6 @@ public class AlgumaRotinaBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitComp_parc(AlgumaRotinaParser.Comp_parcContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitRegistro(AlgumaRotinaParser.RegistroContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
