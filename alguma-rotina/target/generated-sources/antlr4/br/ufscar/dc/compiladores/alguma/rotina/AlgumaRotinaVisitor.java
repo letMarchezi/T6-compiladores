@@ -101,9 +101,9 @@ public interface AlgumaRotinaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProg_dia(AlgumaRotinaParser.Prog_diaContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AlgumaRotinaParser#evento_agenda}.
+	 * Visit a parse tree produced by {@link AlgumaRotinaParser#atividades_agenda}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEvento_agenda(AlgumaRotinaParser.Evento_agendaContext ctx);
+	T visitAtividades_agenda(AlgumaRotinaParser.Atividades_agendaContext ctx);
 }

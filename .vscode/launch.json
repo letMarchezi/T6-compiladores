@@ -6,16 +6,14 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "Principal",
+            "name": "Launch Principal",
             "request": "launch",
             "mainClass": "br.ufscar.dc.compiladores.alguma.rotina.Principal",
-            "projectName": "alguma-rotina"
+            "projectName": "alguma-rotina",
+            "args": [
+                "C:\\Users\\letic\\OneDrive\\Documentos\\UFSCAR\\Compiladores_2023_1\\T6-Construcao-Compiladores\\alguma-rotina\\casos-de-testes\\caso2.txt",
+                "C:\\Users\\letic\\OneDrive\\Documentos\\UFSCAR\\Compiladores_2023_1\\T6-Construcao-Compiladores\\alguma-rotina\\tmp\\saida.txt"
+            ]
         }
     ]
 }

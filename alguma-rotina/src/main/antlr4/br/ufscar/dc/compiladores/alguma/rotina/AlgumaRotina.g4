@@ -56,11 +56,12 @@ WS: [ \t\r\n]+ -> skip;
 prog_dia: ('quero_estudar' (CADEIA)* ',')? 
 	'inicio' HORA ','
 	'fim' HORA ','
-	'eventos' evento_agenda (',' evento_agenda)*;
+	'atividades' atividades_agenda (',' atividades_agenda)*;
 
-evento_agenda: 
+atividades_agenda: 
 	'(' 'categoria' categ_evento ','
 	'inicio' HORA ','
 	'fim' HORA ')';
 
 // A regra `ERRO` foi removida para evitar problemas na geração de código.
+

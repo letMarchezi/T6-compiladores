@@ -29,12 +29,12 @@ public class AlgumaRotinaParser extends Parser {
 		RULE_categ_evento = 0, RULE_dias_sem = 1, RULE_prior_tipo = 2, RULE_modals = 3, 
 		RULE_rotina = 4, RULE_programa = 5, RULE_corpo = 6, RULE_agenda = 7, RULE_seq_evento = 8, 
 		RULE_evento_parc = 9, RULE_seq_comp = 10, RULE_comp_parc = 11, RULE_registro = 12, 
-		RULE_date = 13, RULE_prog_dia = 14, RULE_evento_agenda = 15;
+		RULE_date = 13, RULE_prog_dia = 14, RULE_atividades_agenda = 15;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"categ_evento", "dias_sem", "prior_tipo", "modals", "rotina", "programa", 
 			"corpo", "agenda", "seq_evento", "evento_parc", "seq_comp", "comp_parc", 
-			"registro", "date", "prog_dia", "evento_agenda"
+			"registro", "date", "prog_dia", "atividades_agenda"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -48,7 +48,7 @@ public class AlgumaRotinaParser extends Parser {
 			"'FIMAGENDA'", "'EVENTOS'", "'FIMEVENTOS'", "'nome'", "','", "'inicio'", 
 			"'fim'", "'data'", "'COMPROMISSOS'", "'FIMCOMPROMISSOS'", "'descricao'", 
 			"'data_compromisso'", "'prioridade'", "'modalidade'", "'tempo_desejado'", 
-			"'compromisso'", "'/'", "'quero_estudar'", "'eventos'", "'categoria'"
+			"'compromisso'", "'/'", "'quero_estudar'", "'atividades'", "'categoria'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -1011,11 +1011,11 @@ public class AlgumaRotinaParser extends Parser {
 		public TerminalNode HORA(int i) {
 			return getToken(AlgumaRotinaParser.HORA, i);
 		}
-		public List<Evento_agendaContext> evento_agenda() {
-			return getRuleContexts(Evento_agendaContext.class);
+		public List<Atividades_agendaContext> atividades_agenda() {
+			return getRuleContexts(Atividades_agendaContext.class);
 		}
-		public Evento_agendaContext evento_agenda(int i) {
-			return getRuleContext(Evento_agendaContext.class,i);
+		public Atividades_agendaContext atividades_agenda(int i) {
+			return getRuleContext(Atividades_agendaContext.class,i);
 		}
 		public List<TerminalNode> CADEIA() { return getTokens(AlgumaRotinaParser.CADEIA); }
 		public TerminalNode CADEIA(int i) {
@@ -1088,7 +1088,7 @@ public class AlgumaRotinaParser extends Parser {
 			setState(159);
 			match(T__42);
 			setState(160);
-			evento_agenda();
+			atividades_agenda();
 			setState(165);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -1098,7 +1098,7 @@ public class AlgumaRotinaParser extends Parser {
 				setState(161);
 				match(T__28);
 				setState(162);
-				evento_agenda();
+				atividades_agenda();
 				}
 				}
 				setState(167);
@@ -1119,7 +1119,7 @@ public class AlgumaRotinaParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class Evento_agendaContext extends ParserRuleContext {
+	public static class Atividades_agendaContext extends ParserRuleContext {
 		public Categ_eventoContext categ_evento() {
 			return getRuleContext(Categ_eventoContext.class,0);
 		}
@@ -1127,28 +1127,28 @@ public class AlgumaRotinaParser extends Parser {
 		public TerminalNode HORA(int i) {
 			return getToken(AlgumaRotinaParser.HORA, i);
 		}
-		public Evento_agendaContext(ParserRuleContext parent, int invokingState) {
+		public Atividades_agendaContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_evento_agenda; }
+		@Override public int getRuleIndex() { return RULE_atividades_agenda; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).enterEvento_agenda(this);
+			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).enterAtividades_agenda(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitEvento_agenda(this);
+			if ( listener instanceof AlgumaRotinaListener ) ((AlgumaRotinaListener)listener).exitAtividades_agenda(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitEvento_agenda(this);
+			if ( visitor instanceof AlgumaRotinaVisitor ) return ((AlgumaRotinaVisitor<? extends T>)visitor).visitAtividades_agenda(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final Evento_agendaContext evento_agenda() throws RecognitionException {
-		Evento_agendaContext _localctx = new Evento_agendaContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_evento_agenda);
+	public final Atividades_agendaContext atividades_agenda() throws RecognitionException {
+		Atividades_agendaContext _localctx = new Atividades_agendaContext(_ctx, getState());
+		enterRule(_localctx, 30, RULE_atividades_agenda);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{

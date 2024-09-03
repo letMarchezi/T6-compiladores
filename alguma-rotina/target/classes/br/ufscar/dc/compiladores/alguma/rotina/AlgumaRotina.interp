@@ -42,7 +42,7 @@ null
 'compromisso'
 '/'
 'quero_estudar'
-'eventos'
+'atividades'
 'categoria'
 null
 null
@@ -124,7 +124,7 @@ comp_parc
 registro
 date
 prog_dia
-evento_agenda
+atividades_agenda
 
 
 atn:

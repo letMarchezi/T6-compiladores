@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import org.antlr.v4.runtime.Token;
-
+ 
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Modalidade;
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Prioridade;
 
@@ -121,6 +121,9 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         }
         return super.visitRotina(ctx);
     }
+
+
+
 
     private Registro processarRegistro(AlgumaRotinaParser.RegistroContext regCtx) {
         String nome = regCtx.CADEIA(0).getText();

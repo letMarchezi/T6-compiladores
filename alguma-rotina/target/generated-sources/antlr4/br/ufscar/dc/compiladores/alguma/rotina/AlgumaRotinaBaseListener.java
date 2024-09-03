@@ -197,13 +197,13 @@ public class AlgumaRotinaBaseListener implements AlgumaRotinaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEvento_agenda(AlgumaRotinaParser.Evento_agendaContext ctx) { }
+	@Override public void enterAtividades_agenda(AlgumaRotinaParser.Atividades_agendaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEvento_agenda(AlgumaRotinaParser.Evento_agendaContext ctx) { }
+	@Override public void exitAtividades_agenda(AlgumaRotinaParser.Atividades_agendaContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
