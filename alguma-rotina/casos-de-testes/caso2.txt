@@ -45,7 +45,6 @@ EVENTOS
 FIMEVENTOS
 
 COMPROMISSOS
-
 compromisso1: 
     (nome "Prova de Cálculo", 
         descricao "Prova final do semestre", 
@@ -55,7 +54,6 @@ compromisso2:
     (nome "Entrega do Projeto de Programação", 
         descricao "Entrega da primeira fase", 
         data_compromisso 15/09/2024)
-
 FIMCOMPROMISSOS
 
 FIMROTINA

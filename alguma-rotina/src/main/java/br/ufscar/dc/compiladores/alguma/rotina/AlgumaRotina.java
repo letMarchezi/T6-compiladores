@@ -1,6 +1,7 @@
 package br.ufscar.dc.compiladores.alguma.rotina;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
@@ -184,12 +185,17 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
 
     public Void visitRotinas(AlgumaRotinaParser.RotinasContext ctx) {
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
+
         // Itera sobre cada IDENT dentro da rotina
         for (var rotina: ctx.rotina()) {
             
             String nomeRotina = rotina.IDENT(0).getSymbol().getText(); 
             var tipoPrioridade = determinarTipoPrioridade(rotina.prioridade_tipo().getText());
             var tipoModalidade = determinarTipoModalidade(rotina.modalidade().getText());
+
+            // Obtendo o compromisso referenciado com a classe Compromisso
+            String nomeCompromisso = rotina.IDENT(1).getText();
+            Compromisso compromisso = tabelaEscopos.obterCompromisso(nomeCompromisso);
 
             System.out.println(rotina.getText());
             
@@ -206,18 +212,19 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
                 AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), 
                     "Rotina " + nomeRotina + " ja declarado");
             }
-
-            if (tipoPrioridade==Prioridade.INVALIDO){
-                AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), "Prioridade da rotina " + nomeRotina + " invalida");
-                
+            else {
+                if (tipoPrioridade==Prioridade.INVALIDO) {
+                    AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), "Prioridade da " + nomeRotina + " invalida");
+                    
+                }
+    
+                if (tipoModalidade==Modalidade.INVALIDO) {
+                    AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), "Modalidade da " + nomeRotina + " invalida");
+                       
+                }
             }
 
-            if (tipoModalidade==Modalidade.INVALIDO){
-                AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), "Modalidade da rotina " + nomeRotina + " invalida");
-                   
-            }
-
-            adicionaRotinaTabela(nomeRotina, rotina.CADEIA(0).getText(), rotina.CADEIA(1).getText(), rotina.prioridade_tipo(),rotina.modalidade(),rotina.HORA().getText(),rotina.IDENT(1).getText(),rotina.IDENT(0).getSymbol());
+            adicionaRotinaTabela(nomeRotina, rotina.CADEIA(0).getText(), rotina.CADEIA(1).getText(), tipoPrioridade, tipoModalidade, rotina.HORA().getText(), compromisso, rotina.IDENT(0).getSymbol());
             
             // for (var tabela : escoposAninhados.percorrerEscoposAninhados()) {
             //     if (tabela.existeRotina(nomeRotina)) {
@@ -226,9 +233,6 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
             //         break;
             //     }
             // }
-
-
-            
         }
         return super.visitRotinas(ctx);
     }
@@ -251,5 +255,29 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         //     }
         // }
         return super.visitRotina(ctx);
+    }
+
+    @Override
+    public Void visitComp_parc(AlgumaRotinaParser.Comp_parcContext ctx) {
+        tabelaEscopos = escoposAninhados.obterEscopoAtual();
+        
+        String nome = ctx.IDENT().getText(); 
+        String descricao = ctx.CADEIA(0).getText();
+        String data_compromisso = ctx.date().getText();
+        
+        // Validação do compromisso
+        if (tabelaEscopos.existeCompromisso(nome)) {
+            AlgumaRotinaUtils.adicionarErroSemantico(ctx.IDENT().getSymbol(), 
+                "Compromisso " + nome + " já declarado anteriormente");
+        }
+        
+        // Criação do objeto Compromisso
+        LocalDate data = LocalDate.parse(data_compromisso, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        Compromisso compromisso = new Compromisso(nome, descricao, data);
+        
+        // Adiciona o compromisso na tabela de símbolos
+        tabelaEscopos.adicionarCompromisso(nome, compromisso);
+        
+        return super.visitComp_parc(ctx);
     }
 }

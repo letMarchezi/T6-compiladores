@@ -1,20 +1,20 @@
 ROTINA
 
 rotina1: 
-    (nome "Revisão para prova", 
-        descricao "Revisar conteúdo de cálculo", 
-        prioridade alta, 
-        modalidade estudo_para_prova, 
-        tempo_desejado 2h, 
-        compromisso compromisso1)
+    (titulo="Revisão para prova", 
+        descricao="Revisar conteúdo de cálculo", 
+        prioridade=alta, 
+        modalidade=estudo_para_prova, 
+        tempo_desejado=2h, 
+        compromisso=compromisso1)
 
 rotina2: 
-    (nome "Projeto de Programação", 
-        descricao "Desenvolver a primeira fase do projeto", 
-        prioridade media, 
-        modalidade projeto, 
-        tempo_desejado 3h, 
-        compromisso compromisso2)
+    (titulo="Projeto de Programação", 
+        descricao="Desenvolver a primeira fase do projeto", 
+        prioridade=media, 
+        modalidade=projeto, 
+        tempo_desejado=3h, 
+        compromisso=compromisso2)
 
 AGENDA
     SEGUNDA (

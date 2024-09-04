@@ -47,7 +47,6 @@ seq_comp: 'COMPROMISSOS' (comp_parc)+ 'FIMCOMPROMISSOS';
 comp_parc:
 	 IDENT ':' '(' 'nome' CADEIA ',' 'descricao' CADEIA ',' 'data_compromisso' date ')';  
 
-
 date: DIGIT DIGIT '/' DIGIT DIGIT '/' DIGIT DIGIT DIGIT DIGIT;
 
 DIGIT: [0-9];
