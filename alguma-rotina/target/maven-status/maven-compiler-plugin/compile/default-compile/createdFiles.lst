@@ -9,6 +9,7 @@ br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaBaseListener.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$Prioridade_tipoContext.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$RotinaContext.class
+br/ufscar/dc/compiladores/alguma/rotina/TabelaDeSimbolos$EntradaTabelaEvento.class
 br/ufscar/dc/compiladores/alguma/rotina/Principal.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$RotinasContext.class
 br/ufscar/dc/compiladores/alguma/rotina/Escopos.class
@@ -17,6 +18,7 @@ br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$ProgramaContext.class
 br/ufscar/dc/compiladores/alguma/rotina/TabelaDeSimbolos.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina$Compromisso.class
 br/ufscar/dc/compiladores/alguma/rotina/TabelaDeSimbolos$EntradaTabelaRotina.class
+br/ufscar/dc/compiladores/alguma/rotina/TabelaDeSimbolos$EntradaTabelaCompromisso.class
 br/ufscar/dc/compiladores/alguma/rotina/TabelaDeSimbolos$Modalidade.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$ModalidadeContext.class
 br/ufscar/dc/compiladores/alguma/rotina/TabelaDeSimbolos$DiaSemana.class

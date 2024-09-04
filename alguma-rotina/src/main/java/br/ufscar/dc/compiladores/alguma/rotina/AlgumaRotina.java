@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.Token;
 
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.CategoriaAtividades;
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.DiaSemana;
+import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.EntradaTabelaCompromisso;
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Modalidade;
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Prioridade;
 
@@ -156,21 +157,18 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         return super.visitPrograma(ctx);
     }
 
-    // // Adiciona uma rotina na tabela de símbolos
+    // Adiciona uma rotina na tabela de símbolos
     public void adicionaRotinaTabela(String nome, 
         String titulo, String descricao, Prioridade prioridade, Modalidade modalidade, 
-        String tempo_desejado, Compromisso compromisso, Token nomeToken) {
+        String tempo_desejado, EntradaTabelaCompromisso compromisso, Token nomeToken) {
         
             tabelaEscopos = escoposAninhados.obterEscopoAtual();
 
             if (tabela.existeRotina(nome)) {
-                AlgumaRotinaUtils.adicionarErroSemantico(nomeToken, 
-                "Rotina " + nome + " ja declarado");
+                AlgumaRotinaUtils.adicionarErroSemantico(nomeToken, "Rotina " + nome + " ja declarado");
             }
-            else{
-                tabelaEscopos.adicionarRotina(nome, 
-                titulo, descricao, prioridade, modalidade, tempo_desejado, compromisso );
-    
+            else {
+                tabelaEscopos.adicionarRotina(nome, titulo, descricao, prioridade, modalidade, tempo_desejado, compromisso);
             }
             
         // escopos = escoposAninhados.obterEscopoAtual();
@@ -195,7 +193,7 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
 
             // Obtendo o compromisso referenciado com a classe Compromisso
             String nomeCompromisso = rotina.IDENT(1).getText();
-            Compromisso compromisso = tabelaEscopos.obterCompromisso(nomeCompromisso);
+            EntradaTabelaCompromisso compromisso = tabelaEscopos.obterCompromisso(nomeCompromisso);
 
             System.out.println(rotina.getText());
             
@@ -210,7 +208,7 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
             
             if (tabelaEscopos.existeRotina(nomeRotina)) {
                 AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), 
-                    "Rotina " + nomeRotina + " ja declarado");
+                    "Rotina " + nomeRotina + " ja declarada");
             }
             else {
                 if (tipoPrioridade==Prioridade.INVALIDO) {
@@ -236,7 +234,7 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         }
         return super.visitRotinas(ctx);
     }
-
+    
     @Override
     public Void visitRotina(AlgumaRotinaParser.RotinaContext ctx) {
         // Itera sobre cada IDENT dentro da rotina
@@ -257,15 +255,28 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         return super.visitRotina(ctx);
     }
 
+    // Adiciona um compromisso na tabela de símbolos
+    public void adicionaCompromissoTabela(String nome, String descricao, LocalDate data_compromisso, Token nomeToken) {
+        tabelaEscopos = escoposAninhados.obterEscopoAtual();
+
+        if (tabela.existeCompromisso(nome)) {
+            AlgumaRotinaUtils.adicionarErroSemantico(nomeToken, "Compromisso " + nome + " ja declarado");
+        }
+        else {
+            tabelaEscopos.adicionarCompromisso(nome, descricao, data_compromisso);
+        }
+    }
+    
     @Override
     public Void visitComp_parc(AlgumaRotinaParser.Comp_parcContext ctx) {
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
         
+        // Atibuição dos atributos do compromisso
         String nome = ctx.IDENT().getText(); 
         String descricao = ctx.CADEIA(0).getText();
         String data_compromisso = ctx.date().getText();
         
-        // Validação do compromisso
+        // Verifica se o compromisso já existe
         if (tabelaEscopos.existeCompromisso(nome)) {
             AlgumaRotinaUtils.adicionarErroSemantico(ctx.IDENT().getSymbol(), 
                 "Compromisso " + nome + " já declarado anteriormente");
@@ -273,10 +284,10 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         
         // Criação do objeto Compromisso
         LocalDate data = LocalDate.parse(data_compromisso, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        Compromisso compromisso = new Compromisso(nome, descricao, data);
+        // Compromisso compromisso = new Compromisso(nome, descricao, data);
         
         // Adiciona o compromisso na tabela de símbolos
-        tabelaEscopos.adicionarCompromisso(nome, compromisso);
+        tabelaEscopos.adicionarCompromisso(nome, descricao, data);
         
         return super.visitComp_parc(ctx);
     }

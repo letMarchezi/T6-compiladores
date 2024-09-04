@@ -1,10 +1,10 @@
 package br.ufscar.dc.compiladores.alguma.rotina;
 
 import java.util.Map;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Compromisso;
-import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Evento;
 
 public class TabelaDeSimbolos {
     // Criação das especificações de PRIORIDADE de estudo
@@ -54,26 +54,50 @@ public class TabelaDeSimbolos {
         String tempo_desejado;
         Compromisso compromisso;
 
-        private EntradaTabelaRotina(String nome, String titulo, String descricao, Prioridade prioridade, Modalidade modalidade, String tempo_desejado, Compromisso compromisso ) {
+        private EntradaTabelaRotina(String nome, String titulo, String descricao, Prioridade prioridade, Modalidade modalidade, String tempo_desejado, EntradaTabelaCompromisso compromisso) {
             this.nome = nome;
             this.titulo = titulo;
             this.descricao = descricao;
             this.prioridade = prioridade;
             this.modalidade = modalidade;
             this.tempo_desejado = tempo_desejado;
-            this.compromisso = compromisso;
         }
     }
 
+    class EntradaTabelaEvento {
+        String nome;
+        String inicio;
+        String fim;
+        String data;
+
+        private EntradaTabelaEvento(String nome, String inicio, String fim, String data) {
+            this.nome = nome;
+            this.inicio = inicio;
+            this.fim = fim;
+            this.data = data;
+        }
+    }
+
+    class EntradaTabelaCompromisso {
+        String nome;
+        String descricao;
+        LocalDate data_compromisso;
+
+        private EntradaTabelaCompromisso(String nome, String descricao, LocalDate data_compromisso) {
+            this.nome = nome;
+            this.descricao = descricao;
+            this.data_compromisso = data_compromisso;
+        }
+    }
 
     // Especificação das tabelas de símbolos para cada caso relacionada a agenda de estudos
     private Map<String, EntradaTabelaRotina> rotinas = new HashMap<>();
-    private Map<String, Evento> eventos = new HashMap<>();
-    private Map<String, Compromisso> compromissos = new HashMap<>();
+    private Map<String, EntradaTabelaEvento> eventos = new HashMap<>();
+    private Map<String, EntradaTabelaCompromisso> compromissos = new HashMap<>();
 
     // Adiciona uma rotina à tabela de símbolos
-    public void adicionarRotina(String nome, String titulo, String descricao, Prioridade prior, Modalidade modal, String tempo_desejado, Compromisso comp ) {
-        rotinas.put(nome, new EntradaTabelaRotina(nome, titulo, descricao, prior, modal, tempo_desejado, comp));
+    public void adicionarRotina(String nome, String titulo, String descricao, Prioridade prioridade, Modalidade modalidade, String tempo_desejado, EntradaTabelaCompromisso compromisso) {
+        rotinas.put(nome, new EntradaTabelaRotina(nome, titulo, descricao, prioridade, modalidade, tempo_desejado, compromisso));
     }
 
     // Obtém uma rotina da tabela de símbolos
@@ -86,34 +110,34 @@ public class TabelaDeSimbolos {
         return rotinas.containsKey(nome);
     }
 
-    // Adiciona um compromisso à tabela de símbolos
-    public void adicionarCompromisso(String nome, Compromisso compromisso) {
-        compromissos.put(nome, compromisso);
-    }
-
-    // Obtém um compromisso da tabela de símbolos
-    public Compromisso obterCompromisso(String nome) {
-        return compromissos.get(nome);
-    }
-
-    // Verifica se o compromisso já existe
-    public boolean existeCompromisso(String nome) {
-        return compromissos.containsKey(nome);
-    }
-
     // Adiciona um evento à tabela de símbolos
-    public void adicionarEvento(String nome, Evento evento) {
-        eventos.put(nome, evento);
+    public void adicionarEvento(String nome, String inicio, String fim, String data) {
+        eventos.put(nome, new EntradaTabelaEvento(nome, inicio, fim, data));
     }
 
     // Obtém um evento da tabela de símbolos
-    public Evento obterEvento(String nome) {
+    public EntradaTabelaEvento obterEvento(String nome) {
         return eventos.get(nome);
     }
 
     // Verifica se o evento já existe
     public boolean existeEvento(String nome) {
         return eventos.containsKey(nome);
+    }
+
+    // Adiciona um compromisso à tabela de símbolos
+    public void adicionarCompromisso(String nome, String descricao, LocalDate data) {
+        compromissos.put(nome, new EntradaTabelaCompromisso(nome, descricao, data));
+    }
+
+    // Obtém um compromisso da tabela de símbolos
+    public EntradaTabelaCompromisso obterCompromisso(String nome) {
+        return compromissos.get(nome);
+    }
+
+    // Verifica se o compromisso já existe
+    public boolean existeCompromisso(String nome) {
+        return compromissos.containsKey(nome);
     }
 
     @Override
