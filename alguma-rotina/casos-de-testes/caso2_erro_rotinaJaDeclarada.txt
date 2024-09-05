@@ -1,5 +1,4 @@
 ROTINA
-
 rotina1: 
     (titulo="Revisão para prova", 
         descricao="Revisar conteúdo de cálculo", 
@@ -7,15 +6,13 @@ rotina1:
         modalidade=estudo, 
         tempo_desejado=2h, 
         compromisso=compromisso1)
-
 rotina2: 
     (titulo="Projeto de Programação", 
         descricao="Desenvolver a primeira fase do projeto", 
-        prioridade=baixo, 
+        prioridade=avante, 
         modalidade=projeto, 
         tempo_desejado=3h, 
         compromisso=compromisso2)
-
 rotina2: 
     (titulo="Projeto de Programação", 
         descricao="Desenvolver a primeira fase do projeto", 

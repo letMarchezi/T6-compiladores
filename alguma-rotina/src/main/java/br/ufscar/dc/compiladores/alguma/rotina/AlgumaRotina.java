@@ -166,7 +166,9 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     }
 
     public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
-
+        for (var dias: ctx.children) {
+            System.out.println(dias.getText());
+        }
         return super.visitAgenda(ctx);
     }
 
@@ -175,16 +177,12 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         String titulo, String descricao, Prioridade prioridade, Modalidade modalidade, 
         String tempo_desejado, EntradaTabelaCompromisso compromisso, Token nomeToken) {
         
-            tabelaEscopos = escoposAninhados.obterEscopoAtual();
-
-            if (tabela.existeRotina(nome)) {
-                AlgumaRotinaUtils.adicionarErroSemantico(nomeToken, "Rotina " + nome + " ja declarado");
-            }
-            else {
-                tabelaEscopos.adicionarRotina(nome, titulo, descricao, prioridade, modalidade, tempo_desejado, compromisso);
-            }
+        tabelaEscopos = escoposAninhados.obterEscopoAtual();
+        tabelaEscopos.adicionarRotina(nome, titulo, descricao, prioridade, modalidade, tempo_desejado, compromisso);
     }
 
+    // Retorna erros semânticos para tipos de prioridade e modalidade inexistentes,
+    // compromissos não declarados e rotinas com nome duplicado
     public Void visitRotinas(AlgumaRotinaParser.RotinasContext ctx) {
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
 
@@ -196,32 +194,28 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
             var tipoModalidade = determinarTipoModalidade(rotina.modalidade().getText());
 
             // Obtendo o compromisso referenciado com a classe Compromisso
+            EntradaTabelaCompromisso compromisso = null;
             String nomeCompromisso = rotina.IDENT(1).getText();
-            EntradaTabelaCompromisso compromisso = tabelaEscopos.obterCompromisso(nomeCompromisso);
-
-            /*System.out.println(rotina.getText());
-            System.out.println(rotina.IDENT(0).getSymbol().getText());
-            System.out.println(tipoPrioridade);
-            System.out.println(tipoModalidade);
-            System.out.println("\n\n");*/
+            if (nomeCompromisso != "NULL"){
+                compromisso = tabelaEscopos.obterCompromisso(nomeCompromisso);
+            }
             
+            // Verificação de rotina já declarada
             if (tabelaEscopos.existeRotina(nomeRotina)) {
                 AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), 
                     "Rotina " + nomeRotina + " ja declarada");
             }
+            // Verificação de tipos
             else {
                 if (tipoPrioridade==Prioridade.INVALIDO) {
                     AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), "Prioridade da " + nomeRotina + " invalida");
                     
                 }
-    
                 if (tipoModalidade==Modalidade.INVALIDO) {
-                    AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), "Modalidade da " + nomeRotina + " invalida");
-                       
+                    AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), "Modalidade da " + nomeRotina + " invalida");   
                 }
+                adicionaRotinaTabela(nomeRotina, rotina.CADEIA(0).getText(), rotina.CADEIA(1).getText(), tipoPrioridade, tipoModalidade, rotina.HORA().getText(), compromisso, rotina.IDENT(0).getSymbol());
             }
-
-            adicionaRotinaTabela(nomeRotina, rotina.CADEIA(0).getText(), rotina.CADEIA(1).getText(), tipoPrioridade, tipoModalidade, rotina.HORA().getText(), compromisso, rotina.IDENT(0).getSymbol());
         }
         return super.visitRotinas(ctx);
     }
