@@ -1,6 +1,7 @@
 package br.ufscar.dc.compiladores.alguma.rotina;
 
 import java.util.Map;
+import java.util.List;
 import java.time.LocalDate;
 import java.util.HashMap;
 
@@ -45,6 +46,22 @@ public class TabelaDeSimbolos {
         INVALIDO
     }
 
+    class EntradaTabelaAgenda {
+        DiaSemana dia;
+        List<String> quero_estudar;
+        String inicio;
+        String fim;
+        // CHAMAR AS atividades;
+
+        private EntradaTabelaAgenda(DiaSemana dia, List<String> quero_estudar, String inicio, String fim) {
+            this.dia = dia;
+            this.quero_estudar = quero_estudar;
+            this.inicio = inicio;
+            this.fim = fim;
+            // atividades
+        }
+    }
+
     class EntradaTabelaRotina {
         String titulo;
         String nome;
@@ -70,11 +87,10 @@ public class TabelaDeSimbolos {
         String fim;
         String data;
 
-        private EntradaTabelaEvento(String nome, String inicio, String fim, String data) {
+        private EntradaTabelaEvento(String nome, String inicio, String fim, LocalDate data) {
             this.nome = nome;
             this.inicio = inicio;
             this.fim = fim;
-            this.data = data;
         }
     }
 
@@ -91,9 +107,25 @@ public class TabelaDeSimbolos {
     }
 
     // Especificação das tabelas de símbolos para cada caso relacionada a agenda de estudos
+    private Map<DiaSemana, EntradaTabelaAgenda> agenda = new HashMap<>();
     private Map<String, EntradaTabelaRotina> rotinas = new HashMap<>();
     private Map<String, EntradaTabelaEvento> eventos = new HashMap<>();
     private Map<String, EntradaTabelaCompromisso> compromissos = new HashMap<>();
+
+    // Adiciona a agenda à tabela de símbolos
+    public void adicionarAgenda(DiaSemana dia, List<String> quero_estudar, String inicio, String fim) {
+        agenda.put(dia, new EntradaTabelaAgenda(dia, quero_estudar, inicio, fim));
+    }
+
+    // Obtém a agenda da tabela de símbolos
+    public EntradaTabelaAgenda obterAgenda(DiaSemana dia) {
+        return agenda.get(dia);
+    }
+
+    // Verifica se a agenda já existe
+    public boolean existeAgenda(DiaSemana dia) {
+        return agenda.containsKey(dia);
+    }
 
     // Adiciona uma rotina à tabela de símbolos
     public void adicionarRotina(String nome, String titulo, String descricao, Prioridade prioridade, Modalidade modalidade, String tempo_desejado, EntradaTabelaCompromisso compromisso) {
@@ -111,7 +143,7 @@ public class TabelaDeSimbolos {
     }
 
     // Adiciona um evento à tabela de símbolos
-    public void adicionarEvento(String nome, String inicio, String fim, String data) {
+    public void adicionarEvento(String nome, String inicio, String fim, LocalDate data) {
         eventos.put(nome, new EntradaTabelaEvento(nome, inicio, fim, data));
     }
 

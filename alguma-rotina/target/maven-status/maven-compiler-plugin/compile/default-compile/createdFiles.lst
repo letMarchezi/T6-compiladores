@@ -30,6 +30,7 @@ br/ufscar/dc/compiladores/alguma/rotina/CustomErrorListener.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$DateContext.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaLexer.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaVisitor.class
+br/ufscar/dc/compiladores/alguma/rotina/TabelaDeSimbolos$EntradaTabelaAgenda.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaListener.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaUtils.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$Dias_semContext.class
