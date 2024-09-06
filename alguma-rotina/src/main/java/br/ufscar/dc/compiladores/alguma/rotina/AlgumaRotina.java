@@ -252,7 +252,11 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
             String nomeCompromisso = rotina.IDENT(1).getText();
             if (nomeCompromisso != "NULL"){
                 compromisso = tabelaEscopos.obterCompromisso(nomeCompromisso);
+                if (compromisso == null)
+                    AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(1).getSymbol(), 
+                        "Compromisso " + nomeCompromisso + " nao declarado");
             }
+            
             
             // Verificação de rotina já declarada
             if (tabelaEscopos.existeRotina(nomeRotina)) {
@@ -262,8 +266,7 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
             // Verificação de tipos
             else {
                 if (tipoPrioridade==Prioridade.INVALIDO) {
-                    AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), "Prioridade da " + nomeRotina + " invalida");
-                    
+                    AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), "Prioridade da " + nomeRotina + " invalida");   
                 }
                 if (tipoModalidade==Modalidade.INVALIDO) {
                     AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), "Modalidade da " + nomeRotina + " invalida");   

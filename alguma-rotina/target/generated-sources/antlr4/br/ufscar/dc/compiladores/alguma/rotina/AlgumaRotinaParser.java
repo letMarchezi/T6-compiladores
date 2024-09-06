@@ -480,8 +480,8 @@ public class AlgumaRotinaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ProgramaContext extends ParserRuleContext {
-		public RotinasContext rotinas() {
-			return getRuleContext(RotinasContext.class,0);
+		public Seq_compContext seq_comp() {
+			return getRuleContext(Seq_compContext.class,0);
 		}
 		public CorpoContext corpo() {
 			return getRuleContext(CorpoContext.class,0);
@@ -513,14 +513,10 @@ public class AlgumaRotinaParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(69);
-			match(T__28);
+			seq_comp();
 			setState(70);
-			rotinas();
-			setState(71);
 			corpo();
-			setState(72);
-			match(T__29);
-			setState(73);
+			setState(71);
 			match(EOF);
 			}
 		}
@@ -537,14 +533,14 @@ public class AlgumaRotinaParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class CorpoContext extends ParserRuleContext {
+		public RotinasContext rotinas() {
+			return getRuleContext(RotinasContext.class,0);
+		}
 		public AgendaContext agenda() {
 			return getRuleContext(AgendaContext.class,0);
 		}
 		public Seq_eventoContext seq_evento() {
 			return getRuleContext(Seq_eventoContext.class,0);
-		}
-		public Seq_compContext seq_comp() {
-			return getRuleContext(Seq_compContext.class,0);
 		}
 		public CorpoContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -571,16 +567,20 @@ public class AlgumaRotinaParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
+			setState(73);
+			match(T__28);
+			setState(74);
+			rotinas();
 			setState(75);
-			match(T__30);
+			match(T__29);
 			setState(76);
-			agenda();
+			match(T__30);
 			setState(77);
-			match(T__31);
+			agenda();
 			setState(78);
-			seq_evento();
+			match(T__31);
 			setState(79);
-			seq_comp();
+			seq_evento();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1229,8 +1229,8 @@ public class AlgumaRotinaParser extends Parser {
 		"\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001"+
 		"\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001"+
 		"\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001"+
-		"\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001"+
-		"\u0006\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001"+
+		"\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0007\u0001"+
+		"\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001"+
 		"\u0007\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0004\bW\b\b\u000b\b\f"+
 		"\bX\u0001\t\u0001\t\u0004\t]\b\t\u000b\t\f\t^\u0001\t\u0001\t\u0001\n"+
 		"\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001"+
@@ -1250,7 +1250,7 @@ public class AlgumaRotinaParser extends Parser {
 		"\u0000\"\u0001\u0000\u0000\u0000\u0002$\u0001\u0000\u0000\u0000\u0004"+
 		"&\u0001\u0000\u0000\u0000\u0006(\u0001\u0000\u0000\u0000\b+\u0001\u0000"+
 		"\u0000\u0000\n/\u0001\u0000\u0000\u0000\fE\u0001\u0000\u0000\u0000\u000e"+
-		"K\u0001\u0000\u0000\u0000\u0010V\u0001\u0000\u0000\u0000\u0012Z\u0001"+
+		"I\u0001\u0000\u0000\u0000\u0010V\u0001\u0000\u0000\u0000\u0012Z\u0001"+
 		"\u0000\u0000\u0000\u0014b\u0001\u0000\u0000\u0000\u0016p\u0001\u0000\u0000"+
 		"\u0000\u0018x\u0001\u0000\u0000\u0000\u001a\u0085\u0001\u0000\u0000\u0000"+
 		"\u001c\u0090\u0001\u0000\u0000\u0000\u001e\u009e\u0001\u0000\u0000\u0000"+
@@ -1267,11 +1267,11 @@ public class AlgumaRotinaParser extends Parser {
 		"\u0019\u0000\u0000<=\u0003\u0006\u0003\u0000=>\u0005\u0016\u0000\u0000"+
 		">?\u0005\u001a\u0000\u0000?@\u00052\u0000\u0000@A\u0005\u0016\u0000\u0000"+
 		"AB\u0005\u001b\u0000\u0000BC\u00051\u0000\u0000CD\u0005\u001c\u0000\u0000"+
-		"D\u000b\u0001\u0000\u0000\u0000EF\u0005\u001d\u0000\u0000FG\u0003\b\u0004"+
-		"\u0000GH\u0003\u000e\u0007\u0000HI\u0005\u001e\u0000\u0000IJ\u0005\u0000"+
-		"\u0000\u0001J\r\u0001\u0000\u0000\u0000KL\u0005\u001f\u0000\u0000LM\u0003"+
-		"\u0010\b\u0000MN\u0005 \u0000\u0000NO\u0003\u0012\t\u0000OP\u0003\u0016"+
-		"\u000b\u0000P\u000f\u0001\u0000\u0000\u0000QR\u0003\u0002\u0001\u0000"+
+		"D\u000b\u0001\u0000\u0000\u0000EF\u0003\u0016\u000b\u0000FG\u0003\u000e"+
+		"\u0007\u0000GH\u0005\u0000\u0000\u0001H\r\u0001\u0000\u0000\u0000IJ\u0005"+
+		"\u001d\u0000\u0000JK\u0003\b\u0004\u0000KL\u0005\u001e\u0000\u0000LM\u0005"+
+		"\u001f\u0000\u0000MN\u0003\u0010\b\u0000NO\u0005 \u0000\u0000OP\u0003"+
+		"\u0012\t\u0000P\u000f\u0001\u0000\u0000\u0000QR\u0003\u0002\u0001\u0000"+
 		"RS\u0005\u0014\u0000\u0000ST\u0003\u001c\u000e\u0000TU\u0005\u001c\u0000"+
 		"\u0000UW\u0001\u0000\u0000\u0000VQ\u0001\u0000\u0000\u0000WX\u0001\u0000"+
 		"\u0000\u0000XV\u0001\u0000\u0000\u0000XY\u0001\u0000\u0000\u0000Y\u0011"+

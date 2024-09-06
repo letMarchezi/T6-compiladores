@@ -29,9 +29,9 @@ rotina:  (IDENT':' '(' 'titulo=' CADEIA ','
     'tempo_desejado=' HORA ',' 
     'compromisso=' IDENT ')');
 
-programa: 'ROTINA' rotinas corpo 'FIMROTINA' EOF;
+programa: seq_comp corpo EOF;
 
-corpo: 'AGENDA' agenda 'FIMAGENDA' seq_evento seq_comp;
+corpo: 'ROTINA' rotinas 'FIMROTINA' 'AGENDA' agenda 'FIMAGENDA' seq_evento;
 
 agenda: (dias_sem '(' prog_dia ')')+;
 
