@@ -23,7 +23,6 @@ rotina2:
 
 AGENDA
     SEGUNDA (
-        quero_estudar "Cálculo",
         inicio 08:00h,
         fim 10:00h,
         atividades (categoria pessoal, inicio 08:30h, fim 09:30h)

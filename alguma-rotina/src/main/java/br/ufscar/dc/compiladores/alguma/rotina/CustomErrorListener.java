@@ -36,8 +36,8 @@ public class CustomErrorListener extends BaseErrorListener {
             case 51: // 66 refere-se ao erro em um comentário NÃO fechado
                 buffer.append("Linha " + line + ": comentario nao fechado"+"\n");
                 break;
-            case 46: // 68 refere-se a um erro na identificação de símbolos
-                buffer.append("Linha " + line + ": " + t.getText() + " - simbolo nao identificado"+"\n");
+            case Token.INVALID_TYPE: // Handle invalid tokens such as unrecognized dia_sem
+                buffer.append("Linha " + line + ": " + t.getText() + " - simbolo nao identificado" + "\n");
                 break;
             default: // Por padrão, o programa exibe a mensagem de erro sintático genérica
                 buffer.append("Linha " + line + ": erro sintatico proximo a " + t.getText()+"\n");

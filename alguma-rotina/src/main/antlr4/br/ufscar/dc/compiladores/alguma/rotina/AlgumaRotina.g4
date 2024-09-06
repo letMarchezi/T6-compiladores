@@ -12,8 +12,6 @@ fragment ESC_SEQ_SQ : '\\\'';
 
 CADEIA_NAO_FECHADA : '"' ( ESC_SEQ | ~('"'|'\\'|'\n'))* '\n' -> skip;
 
-COMENTARIO_NAO_FECHADO : '{' (~('\n'|'}'))* '\n' -> skip;
-
 categ_atividades: 'pessoal' | 'aula' | 'trabalho';
 
 dias_sem: 'DOMINGO' | 'SEGUNDA' | 'TERCA' | 'QUARTA' | 'QUINTA' | 'SEXTA' | 'SABADO';
@@ -52,7 +50,7 @@ DIGIT: [0-9];
 
 WS: [ \t\r\n]+ -> skip;
 
-prog_dia: ('quero_estudar' CADEIA ',')? 
+prog_dia: 
 	'inicio' HORA ','
 	'fim' HORA 
 	(',' 'atividades' '=' '{' lista_atividades '}')?;

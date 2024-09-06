@@ -1,9 +1,15 @@
 package br.ufscar.dc.compiladores.alguma.rotina;
 
 import java.util.Map;
+
+import com.ibm.icu.util.BasicTimeZone.LocalOption;
+
 import java.util.List;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
+import java.time.Duration;
 
 import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Compromisso;
 
@@ -44,22 +50,6 @@ public class TabelaDeSimbolos {
         TRABALHO,
         AULA,
         INVALIDO
-    }
-
-    class EntradaTabelaAgenda {
-        DiaSemana dia;
-        List<String> quero_estudar;
-        String inicio;
-        String fim;
-        // CHAMAR AS atividades;
-
-        private EntradaTabelaAgenda(DiaSemana dia, List<String> quero_estudar, String inicio, String fim) {
-            this.dia = dia;
-            this.quero_estudar = quero_estudar;
-            this.inicio = inicio;
-            this.fim = fim;
-            // atividades
-        }
     }
 
     class EntradaTabelaRotina {
@@ -106,6 +96,48 @@ public class TabelaDeSimbolos {
         }
     }
 
+
+    class Horario_inicio_fim{
+        LocalTime horaInicio;
+        LocalTime horaFim;
+
+        public Horario_inicio_fim(String horaInicio, String horaFim) {
+            this.horaInicio = timeToLocalTime(horaInicio);
+            this.horaFim = timeToLocalTime(horaFim);
+        }
+
+
+        @Override
+        public String toString() {
+            return "Início: " + horaInicio + ", Fim: " + horaFim;
+        }
+
+        // Função para converter a string no formato HH:MMh para LocalTime
+        public static LocalTime timeToLocalTime(String timeStr) {
+            timeStr = timeStr.replace("h", ""); // Remove o 'h'
+            return LocalTime.parse(timeStr); // Parsea a string para local time
+        }
+
+        // Calcula a diferença entre dois horários
+        public static long calculateTimeDifference(LocalTime start, LocalTime end) {
+            Duration duration = Duration.between(start, end);
+            return duration.toMinutes(); // Retorna a diferença em minutos
+        }
+    
+    }
+
+    class EntradaTabelaAgenda {
+        DiaSemana dia;
+        Horario_inicio_fim inicio_fim;
+        List<Horario_inicio_fim> horarios_ocupados;
+        
+
+        private EntradaTabelaAgenda(DiaSemana dia, Horario_inicio_fim inicio_fim, List<Horario_inicio_fim> horarios_atividades) {
+            this.dia = dia;
+            this.inicio_fim = inicio_fim;
+            this.horarios_ocupados = horarios_atividades;
+        }
+    }
     // Especificação das tabelas de símbolos para cada caso relacionada a agenda de estudos
     private Map<DiaSemana, EntradaTabelaAgenda> agenda = new HashMap<>();
     private Map<String, EntradaTabelaRotina> rotinas = new HashMap<>();
@@ -116,16 +148,19 @@ public class TabelaDeSimbolos {
     public static boolean isDiaSemanaValido(String dia) {
         // Caso exista a string no enum, retorna true
         try {
-            DiaSemana.valueOf(dia.toUpperCase()); 
-            return true; 
+            var result_dia = DiaSemana.valueOf(dia.toUpperCase()); 
+            if (result_dia != DiaSemana.INVALIDO)
+                return true; 
+            else
+                return false;
         } catch (IllegalArgumentException e) {
             return false; 
         }
     }
 
     // Adiciona a agenda à tabela de símbolos
-    public void adicionarAgenda(DiaSemana dia, List<String> quero_estudar, String inicio, String fim) {
-        agenda.put(dia, new EntradaTabelaAgenda(dia, quero_estudar, inicio, fim));
+    public void adicionarAgenda(DiaSemana dia, Horario_inicio_fim inicio_fim, List<Horario_inicio_fim> atividades_horarios) {
+        agenda.put(dia, new EntradaTabelaAgenda(dia, inicio_fim, atividades_horarios));
     }
 
     // Obtém a agenda da tabela de símbolos

@@ -26,13 +26,11 @@ rotina3:
 
 AGENDA
     SEGUNDA (
-        quero_estudar "Cálculo",
         inicio 08:00h,
         fim 10:00h,
         atividades={(categoria pessoal, inicio 08:30h, fim 09:30h)}
     )
     TERCA (
-        quero_estudar "Cálculo",
         inicio 02:00h,
         fim 15:00h
     )
@@ -48,7 +46,7 @@ AGENDA
         fim 23:00h,
         atividades={(categoria trabalho, inicio 08:30h, fim 09:30h),
             (categoria aula, inicio 09:30h, fim 10:30h),
-            (categoria trabalho, inicio 13:30h, fim :30h)}
+            (categoria trabalho, inicio 13:30h, fim 20:30h)}
     )
 
 FIMAGENDA

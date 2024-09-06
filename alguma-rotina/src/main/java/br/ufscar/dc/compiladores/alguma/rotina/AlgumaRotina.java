@@ -1,26 +1,32 @@
 package br.ufscar.dc.compiladores.alguma.rotina;
 
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Duration;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
+import java.util.AbstractMap;
+
 import org.antlr.v4.runtime.Token;
 
+import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotinaParser.Atividades_agendaContext;
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.CategoriaAtividades;
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.DiaSemana;
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.EntradaTabelaCompromisso;
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Modalidade;
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Prioridade;
+import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Horario_inicio_fim;;
 
 public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     // Declaração da tabela de símbolos
     TabelaDeSimbolos tabela;
     TabelaDeSimbolos tabelaEscopos;
     
+
     // Declaração da tabela de Escopos
     static Escopos escoposAninhados = new Escopos();
 
@@ -166,27 +172,58 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     }
 
     public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
-        for (var progDiaCtx: ctx.prog_dia()) { 
+        System.out.println("\n\n"+ctx.getText());
 
-            // Leitura da agenda
-            var horaInicio = progDiaCtx.HORA(0).getText();
-            var horaFim = progDiaCtx.HORA(1).getText();
-
-            // Checa se existe o bloco de atividades
-            if (progDiaCtx.lista_atividades() != null) {
-                System.out.println("Atividades encontradas:");
-                var ativs = progDiaCtx.lista_atividades().atividades_agenda();
-                // Itera sob as atividades
-                for (var atividadeCtx : ativs) {
-                    System.out.println("Atividade: " + atividadeCtx.getText());
+        tabelaEscopos = escoposAninhados.obterEscopoAtual();
+        for (var diaAgendaCtx : ctx.dias_sem()) {
+            // Extrai o dia da semana
+            String diaSemanaStr = diaAgendaCtx.getText(); 
+            DiaSemana diaSemana = null;
+    
+            // Mapeia o dia da semana
+            try {
+                diaSemana = DiaSemana.valueOf(diaSemanaStr); // Converte a String para enum
+                if (diaSemana == DiaSemana.INVALIDO){
+                    AlgumaRotinaUtils.adicionarErroSemantico(diaAgendaCtx.getStart(), "Dia invalido: " + diaSemanaStr); 
                 }
-            } else {
-                System.out.println("Nenhuma atividade encontrada.");
+            } catch (IllegalArgumentException e) {
+                AlgumaRotinaUtils.adicionarErroSemantico(diaAgendaCtx.getStart(), "Dia invalido: " + diaSemanaStr);
             }
+    
+            // Recupera a programação do dia
+            AlgumaRotinaParser.Prog_diaContext progDiaCtx = ctx.prog_dia(ctx.dias_sem().indexOf(diaAgendaCtx));
+    
 
-            System.out.println("Programa do dia: " + progDiaCtx.getText());   // Leitura da agenda
+            // Extrai o horário de início e de fim, convertendo para a classe de horários
+            String inicio = progDiaCtx.HORA(0).getText();
+            String fim = progDiaCtx.HORA(1).getText();
+            Horario_inicio_fim inicio_fim = tabela.new Horario_inicio_fim(inicio,fim);
+
+            // Checa se existem atividades e extrai os horários
+            if (progDiaCtx.lista_atividades() != null) {
+                var atividades = progDiaCtx.lista_atividades().atividades_agenda();
+                List<Horario_inicio_fim> horarios_ocupados = new ArrayList<Horario_inicio_fim>();
+
+                for (var atividadeCtx : atividades) {
+                    getNovo_horario(horarios_ocupados, atividadeCtx);
+                }
+                // Adiciona a agenda com horários das atividades
+                tabelaEscopos.adicionarAgenda(diaSemana, inicio_fim, horarios_ocupados);
+                
+            }else{
+                // Adiciona a agenda sem atividades
+                tabelaEscopos.adicionarAgenda(diaSemana, inicio_fim, null);
+            }
         }
         return super.visitAgenda(ctx);
+    }
+
+    private void getNovo_horario(List<Horario_inicio_fim> horarios_ocupados, Atividades_agendaContext atividadeCtx) {
+        String inicioAtividade = atividadeCtx.HORA(0).getText();
+        String fimAtividade = atividadeCtx.HORA(1).getText();
+        Horario_inicio_fim novo_horario = tabela.new Horario_inicio_fim(inicioAtividade,fimAtividade);
+        System.out.println(novo_horario.toString());
+        horarios_ocupados.add(novo_horario);
     }
 
     // Adiciona uma rotina na tabela de símbolos
@@ -287,7 +324,7 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         // Verifica se o compromisso já existe
         if (tabelaEscopos.existeEvento(nome)) {
             AlgumaRotinaUtils.adicionarErroSemantico(ctx.CADEIA().getSymbol(), 
-                "Evento " + nome + " já declarado anteriormente");
+                "Evento " + nome + " ja declarado anteriormente");
         }
         
         // Criação do objeto Compromisso
@@ -328,7 +365,7 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         // Verifica se o compromisso já existe
         if (tabelaEscopos.existeCompromisso(nome)) {
             AlgumaRotinaUtils.adicionarErroSemantico(ctx.IDENT().getSymbol(), 
-                "Compromisso " + nome + " já declarado anteriormente");
+                "Compromisso " + nome + " ja declarado anteriormente");
         }
         
         // Criação do objeto Compromisso

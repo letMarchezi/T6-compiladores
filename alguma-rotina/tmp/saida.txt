@@ -1,1 +1,2 @@
+Linha 74: Compromisso compromisso2 ja declarado anteriormente
 Fim da compilacao
