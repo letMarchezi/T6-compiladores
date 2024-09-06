@@ -1,4 +1,1 @@
-Linha 2: Modalidade da rotina1 invalida
-Linha 9: Prioridade da rotina2 invalida
-Linha 16: Rotina rotina2 ja declarada
 Fim da compilacao

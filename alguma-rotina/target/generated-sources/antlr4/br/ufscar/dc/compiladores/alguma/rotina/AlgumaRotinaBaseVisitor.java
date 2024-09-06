@@ -123,5 +123,12 @@ public class AlgumaRotinaBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitLista_atividades(AlgumaRotinaParser.Lista_atividadesContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitAtividades_agenda(AlgumaRotinaParser.Atividades_agendaContext ctx) { return visitChildren(ctx); }
 }

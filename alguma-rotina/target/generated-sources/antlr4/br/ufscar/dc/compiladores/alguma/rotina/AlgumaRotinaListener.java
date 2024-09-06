@@ -158,6 +158,16 @@ public interface AlgumaRotinaListener extends ParseTreeListener {
 	 */
 	void exitProg_dia(AlgumaRotinaParser.Prog_diaContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AlgumaRotinaParser#lista_atividades}.
+	 * @param ctx the parse tree
+	 */
+	void enterLista_atividades(AlgumaRotinaParser.Lista_atividadesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AlgumaRotinaParser#lista_atividades}.
+	 * @param ctx the parse tree
+	 */
+	void exitLista_atividades(AlgumaRotinaParser.Lista_atividadesContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AlgumaRotinaParser#atividades_agenda}.
 	 * @param ctx the parse tree
 	 */

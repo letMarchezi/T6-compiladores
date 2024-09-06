@@ -93,7 +93,7 @@ public class TabelaDeSimbolos {
             this.fim = fim;
         }
     }
-
+    
     class EntradaTabelaCompromisso {
         String nome;
         String descricao;
@@ -112,6 +112,17 @@ public class TabelaDeSimbolos {
     private Map<String, EntradaTabelaEvento> eventos = new HashMap<>();
     private Map<String, EntradaTabelaCompromisso> compromissos = new HashMap<>();
 
+    // Verifica se a string é um dia da semana presente no enum DiaSemana 
+    public static boolean isDiaSemanaValido(String dia) {
+        // Caso exista a string no enum, retorna true
+        try {
+            DiaSemana.valueOf(dia.toUpperCase()); 
+            return true; 
+        } catch (IllegalArgumentException e) {
+            return false; 
+        }
+    }
+
     // Adiciona a agenda à tabela de símbolos
     public void adicionarAgenda(DiaSemana dia, List<String> quero_estudar, String inicio, String fim) {
         agenda.put(dia, new EntradaTabelaAgenda(dia, quero_estudar, inicio, fim));
@@ -122,6 +133,7 @@ public class TabelaDeSimbolos {
         return agenda.get(dia);
     }
 
+    
     // Verifica se a agenda já existe
     public boolean existeAgenda(DiaSemana dia) {
         return agenda.containsKey(dia);

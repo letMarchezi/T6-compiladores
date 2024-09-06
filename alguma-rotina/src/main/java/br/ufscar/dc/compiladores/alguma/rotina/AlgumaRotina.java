@@ -166,8 +166,25 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     }
 
     public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
-        for (var dias: ctx.children) {
-            System.out.println(dias.getText());
+        for (var progDiaCtx: ctx.prog_dia()) { 
+
+            // Leitura da agenda
+            var horaInicio = progDiaCtx.HORA(0).getText();
+            var horaFim = progDiaCtx.HORA(1).getText();
+
+            // Checa se existe o bloco de atividades
+            if (progDiaCtx.lista_atividades() != null) {
+                System.out.println("Atividades encontradas:");
+                var ativs = progDiaCtx.lista_atividades().atividades_agenda();
+                // Itera sob as atividades
+                for (var atividadeCtx : ativs) {
+                    System.out.println("Atividade: " + atividadeCtx.getText());
+                }
+            } else {
+                System.out.println("Nenhuma atividade encontrada.");
+            }
+
+            System.out.println("Programa do dia: " + progDiaCtx.getText());   // Leitura da agenda
         }
         return super.visitAgenda(ctx);
     }

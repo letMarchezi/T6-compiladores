@@ -4,7 +4,6 @@ IDENT: ('a'..'z'|'A'..'Z') ('_'|'a'..'z'|'A'..'Z'|'0'..'9')*;
 
 HORA: ('0'..'9')+(':' ('0'..'9')+)?'h';
 
-COMENTARIO : '{' ~('\n'|'}')* '}' -> skip;
 
 CADEIA: ('"' ( ESC_SEQ | ~('"'|'\\'|'\n') )* '"' ) | ('\'' ( ESC_SEQ_SQ | ~('\''|'\\'|'\n') )* '\'');
 
@@ -53,10 +52,12 @@ DIGIT: [0-9];
 
 WS: [ \t\r\n]+ -> skip;
 
-prog_dia: ('quero_estudar' (CADEIA)* ',')? 
+prog_dia: ('quero_estudar' CADEIA ',')? 
 	'inicio' HORA ','
-	'fim' HORA ','
-	'atividades' atividades_agenda (',' atividades_agenda)*;
+	'fim' HORA 
+	(',' 'atividades' '=' '{' lista_atividades '}')?;
+
+lista_atividades: atividades_agenda (',' atividades_agenda)*;
 
 atividades_agenda: 
 	'(' 'categoria' categ_atividades ','
