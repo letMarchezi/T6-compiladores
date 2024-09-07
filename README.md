@@ -68,7 +68,7 @@ A dupla criou 5 casos de teste para exemplificar o compilador. Dentre eles, 1 ca
 
 - Agenda
 
-  ![]()
+  ![](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/casos-de-testes/apenas-imagens/Captura%20de%20tela%20de%202024-09-07%2018-54-06.png)
 
   A seção de agenda é representada pelos dias da semana (lembrando que não é obrigatório inserir todos). O objetivo é que para cada dia da semana que seja declarado, informe o horário inicial e final que deseja-se estudar, assim como, se houver, uma listagem de atividades no dia com sua categoria, início e fim (consulte a gramática para informações mais detalhadas).
 
@@ -78,9 +78,9 @@ A dupla criou 5 casos de teste para exemplificar o compilador. Dentre eles, 1 ca
 
   A seção de eventos é uma listagem dos eventos que irão ocorrer e é seguida pelos elementos: nome, início, fim e data. Eventos podem estar relacionados com os compromissos.
 
-O exemplo completo encontra-se em: [AlgumaRotina.g4](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/casos-de-testes/caso3_erro_compromissoJaDeclarado.txt)
+O exemplo completo encontra-se em: [AlgumaRotina.g4](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/src/main/antlr4/br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina.g4)
 
-A gramática detalhada encontra-se: [caso1_correto.txt](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/src/main/antlr4/br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina.g4)
+A gramática detalhada encontra-se: [caso3_erro_compromissoJaDeclarado.txt]([https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/src/main/antlr4/br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina.g4](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/casos-de-testes/caso3_erro_compromissoJaDeclarado.txt))
 
 ## Uso do Compilador ##
 ### Compilação ###
