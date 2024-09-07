@@ -7,9 +7,8 @@ compromisso1:
 compromisso2: 
     (titulo = "Entrega do Projeto de Programação", 
         descricao = "Entrega da primeira fase", 
-        data_compromisso = 15/09/2024)
+        data_compromisso = 12/09/2024)
 FIMCOMPROMISSOS
-
 
 ROTINA
 rotina1: 
@@ -55,5 +54,5 @@ FIMAGENDA
 
 EVENTOS
 (nome = "Prova de Cálculo", inicio = 08:00h, fim = 10:00h, data = 10/09/2024)
-(nome = "Entrega do Projeto", inicio = 14:00h, fim = 16:00h, data = 15/09/2024)
+(nome = "Entrega do Projeto", inicio = 14:00h, fim = 16:00h, data = 12/09/2024)
 FIMEVENTOS

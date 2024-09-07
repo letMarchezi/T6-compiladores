@@ -1,5 +1,17 @@
 package br.ufscar.dc.compiladores.alguma.rotina;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.DayOfWeek;
+import java.time.temporal.TemporalAdjusters;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+
+import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotinaParser.RotinasContext;
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Modalidade;
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Prioridade;
+
 public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
     private StringBuilder html = new StringBuilder();
 
@@ -10,35 +22,61 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
     @Override
     public Void visitPrograma(AlgumaRotinaParser.ProgramaContext ctx) {
         html.append("<html><body>");
-        html.append("<h1>Programa de Rotinas</h1>");
+        html.append("<h1>Cronograma de Estudos</h1>");
         return super.visitPrograma(ctx);
     }
 
     @Override
     public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
-        html.append("<h2>Agenda</h2>");
+        LocalDate today_day = LocalDate.now();
+        LocalDate first_day = today_day.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+        LocalDate last_day = today_day.with(TemporalAdjusters.previousOrSame(DayOfWeek.SATURDAY));
+
+        html.append("<h2>Agenda Semanal (")
+        .append(first_day.toString())
+        .append(" - ")
+        .append(last_day.toString())
+        .append(")</h2>");
+
         for (var diaAgendaCtx : ctx.DIAS_SEM()) {
             String diaSemanaStr = diaAgendaCtx.getText();
-            html.append("<h3>Dia: ").append(diaSemanaStr).append("</h3>");
-
+            
+            // Extrai o contexto do dia
             AlgumaRotinaParser.Prog_diaContext progDiaCtx = ctx.prog_dia(ctx.DIAS_SEM().indexOf(diaAgendaCtx));
             String inicioStr = progDiaCtx.HORA(0).getText();
             String fimStr = progDiaCtx.HORA(1).getText();
-
-            html.append("<p>Horário: ").append(inicioStr).append(" - ").append(fimStr).append("</p>");
-
+            
+            html.append("<tr><td><strong>").append(diaSemanaStr);
+            html.append("<br>Horário Disponível: </strong></td>");
+            html.append("<td>").append(inicioStr).append(" - ").append(fimStr).append("</td>");
+            
+            // Checando se existem atividades neste dia
             if (progDiaCtx.lista_atividades() != null) {
-                html.append("<ul>");
+                html.append("<td><ul>");
                 for (var atividadeCtx : progDiaCtx.lista_atividades().atividades_agenda()) {
-                    html.append("<li>Atividade: ").append(atividadeCtx.getText()).append("</li>");
+                    // Aqui você pode substituir 'atividadeCtx.getText()' pelos valores correspondentes da atividade
+                    String categoria = atividadeCtx.CATEG_ATIVIDADES().getText();
+                    String inicioAtividade = atividadeCtx.HORA(0).getText();
+                    String fimAtividade = atividadeCtx.HORA(1).getText();
+                    
+                    html.append("<li>")
+                        .append("Atividade: ").append(categoria)
+                        .append(", Início: ").append(inicioAtividade)
+                        .append(", Fim: ").append(fimAtividade)
+                        .append("</li>");
                 }
-                html.append("</ul>");
+                html.append("</ul></td>");
+            } else {
+                // Caso não haja atividades
+                html.append("<td>Sem atividades</td>");
             }
+            html.append("</tr>");
         }
+        html.append("</table>");
         return null;
-    }
+    }   
 
-    @Override
+    /*@Override
     public Void visitRotinas(AlgumaRotinaParser.RotinasContext ctx) {
         html.append("<h2>Rotinas</h2>");
         for (var rotina : ctx.rotina()) {
@@ -59,9 +97,9 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
                 .append("</div>");
         }
         return super.visitRotinas(ctx);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public Void visitComp_parc(AlgumaRotinaParser.Comp_parcContext ctx) {
         html.append("<h2>Compromissos</h2>");
 
@@ -78,9 +116,9 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
             .append("</div>");
 
         return super.visitComp_parc(ctx);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public Void visitEvento_parc(AlgumaRotinaParser.Evento_parcContext ctx) {
         String nome = ctx.CADEIA().getText();
         String inicio = ctx.HORA(0).getText();
@@ -96,11 +134,5 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
             .append("</div>");
 
         return super.visitEvento_parc(ctx);
-    }
-
-    /*@Override
-    public Void visitFim_programa(AlgumaRotinaParser.Fim_programaContext ctx) {
-        html.append("</body></html>");
-        return super.visitFim_programa(ctx);
     }*/
 }
