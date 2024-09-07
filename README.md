@@ -16,7 +16,7 @@ Este trabalho foi desenvolvido pelas alunas:
 1. [Introdução](#introdução)
 2. [Projeto da Linguagem](#projeto-da-linguagem)
 3. [Requisitos e Instruções](#requisitos-e-instruções)
-4. [Casos de Teste]($casos-de-teste)
+4. [Casos de Teste](#casos-de-teste)
 5. [Uso do Compilador](#uso-do-compilador)
 6. [Saídas e Resultados](#saídas-e-resultados)
 
@@ -80,7 +80,7 @@ A dupla criou 5 casos de teste para exemplificar o compilador. Dentre eles, 1 ca
 
 O exemplo completo encontra-se em: [AlgumaRotina.g4](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/src/main/antlr4/br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina.g4)
 
-A gramática detalhada encontra-se: [caso3_erro_compromissoJaDeclarado.txt]([https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/src/main/antlr4/br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina.g4](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/casos-de-testes/caso3_erro_compromissoJaDeclarado.txt))
+A gramática detalhada encontra-se: [caso3_erro_compromissoJaDeclarado.txt](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/casos-de-testes/caso3_erro_compromissoJaDeclarado.txt)
 
 ## Uso do Compilador ##
 ### Compilação ###
