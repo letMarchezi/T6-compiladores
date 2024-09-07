@@ -2,137 +2,112 @@ package br.ufscar.dc.compiladores.alguma.rotina;
 
 import java.util.Map;
 
-import com.ibm.icu.util.BasicTimeZone.LocalOption;
-
 import java.util.List;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
 
-import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Compromisso;
-
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Modalidade;
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Prioridade;
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaAgenda.DiaSemana;
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaEvento.CategoriaAtividades;;
 public class TabelaDeSimbolos {
-    // Criação das especificações de PRIORIDADE de estudo
-    public enum Prioridade {
-        ALTA,
-        MEDIA,
-        BAIXA,
-        INVALIDO
-    }
 
-    // Criação das especificações de MODALIDADE de estudo
-    public enum Modalidade {
-        ESTUDO_PARA_PROVA,
-        PROJETO,
-        ESTUDO_TEORICO,
-        LISTA_DE_EXERCICIOS,
-        REVISAO,
-        INVALIDO
-    }
-
-    // Criação das especificações de DIAS DA SEMANA
-    public enum DiaSemana {
-        DOMINGO,
-        SEGUNDA,
-        TERCA,
-        QUARTA,
-        QUINTA,
-        SEXTA,
-        SABADO,
-        INVALIDO
-    }
-
-    // Criação das especificação das CATEGORIAS DE EVENTO
-    public enum CategoriaAtividades {
-        PESSOAL,
-        TRABALHO,
-        AULA,
-        INVALIDO
-    }
-
-    class EntradaTabelaRotina {
-        String titulo;
-        String nome;
-        String descricao;
-        Prioridade prioridade;
-        Modalidade modalidade;
-        String tempo_desejado;
-        EntradaTabelaCompromisso compromisso;
-
-        private EntradaTabelaRotina(String nome, String titulo, String descricao, Prioridade prioridade, Modalidade modalidade, String tempo_desejado, EntradaTabelaCompromisso compromisso) {
-            this.nome = nome;
-            this.titulo = titulo;
-            this.descricao = descricao;
-            this.prioridade = prioridade;
-            this.modalidade = modalidade;
-            this.tempo_desejado = tempo_desejado;
-            this.compromisso = compromisso;
+    
+    public static Modalidade determinarTipoModalidade(String tipoVariavel){
+        Modalidade tipoItem = Modalidade.INVALIDO; 
+        
+        switch (tipoVariavel) {
+            case "estudo_para_prova":
+                tipoItem = Modalidade.ESTUDO_PARA_PROVA;
+                break;
+            case "projeto":
+                tipoItem = Modalidade.PROJETO;
+                break;
+            case "estudo_teorico":
+                tipoItem = Modalidade.ESTUDO_TEORICO;
+                break;
+            case "lista_de_exercicios":
+                tipoItem = Modalidade.LISTA_DE_EXERCICIOS;
+                break;
+            case "revisao":
+                tipoItem = Modalidade.REVISAO;
+                break;
         }
-        @Override
-        public String toString() {
-            return "Rotinas {" +
-                    "titulo='" + titulo + '\'' +
-                    ", nome='" + nome + '\'' +
-                    ", descricao='" + descricao + '\'' +
-                    ", prioridade=" + prioridade +
-                    ", modalidade=" + modalidade +
-                    ", tempo_desejado='" + tempo_desejado + '\'' +
-                    ", compromisso=" + compromisso +
-                    '}';
-        }
-    }
-
-    class EntradaTabelaEvento {
-        String nome;
-        String inicio;
-        String fim;
-        LocalDate data_comp;
-
-        private EntradaTabelaEvento(String nome, String inicio, String fim, LocalDate data_comp) {
-            this.nome = nome;
-            this.inicio = inicio;
-            this.fim = fim;
-            this.data_comp = data_comp;
-        }
-
-        @Override
-        public String toString() {
-            return "Eventos {" +
-                    "nome='" + nome + '\'' +
-                    ", inicio='" + inicio + '\'' +
-                    ", fim='" + fim + '\'' +
-                    ", data='" + data_comp + '\'' +
-                    '}';
-        }
+        return tipoItem;
     }
     
-    class EntradaTabelaCompromisso {
-        String nome;
-        String titulo;
-        String descricao;
-        LocalDate data_compromisso;
-
-        private EntradaTabelaCompromisso(String nome, String titulo, String descricao, LocalDate data_compromisso) {
-            this.nome = nome;
-            this.titulo = titulo;
-            this.descricao = descricao;
-            this.data_compromisso = data_compromisso;
+    public static Prioridade determinarTipoPrioridade(String tipoVariavel){
+        Prioridade tipoItem = Prioridade.INVALIDO; 
+        
+        switch (tipoVariavel) {
+            case "alta":
+                tipoItem = Prioridade.ALTA;
+                break;
+            case "media":
+                tipoItem = Prioridade.MEDIA;
+                break;
+            case "baixa":
+                tipoItem = Prioridade.BAIXA;
+                break;
         }
 
-        @Override
-        public String toString() {
-            return "Compromissos {" +
-                    "nome='" + nome + '\'' +
-                    ", titulo='" + titulo + '\'' +
-                    ", descricao='" + descricao + '\'' +
-                    ", data_compromisso=" + data_compromisso +
-                    '}';
-        }
+        return tipoItem;
     }
+
+    
+    public static CategoriaAtividades determinarCategoriaAtividades(String tipoVariavel){
+        CategoriaAtividades tipoItem = CategoriaAtividades.INVALIDO; 
+        
+        switch (tipoVariavel) {
+            case "pessoal":
+                tipoItem = CategoriaAtividades.PESSOAL;
+                break;
+            case "trabalho":
+                tipoItem = CategoriaAtividades.TRABALHO;
+                break;
+            case "aula":
+                tipoItem = CategoriaAtividades.AULA;
+                break;
+
+        }
+        return tipoItem;
+    }  
+
+    
+
+    public static DiaSemana determinarDiaSemana(String tipoVariavel){
+        DiaSemana tipoItem = DiaSemana.INVALIDO; 
+        
+        switch (tipoVariavel) {
+            case "domingo":
+                tipoItem = DiaSemana.DOMINGO;
+                break;
+            case "segunda":
+                tipoItem = DiaSemana.SEGUNDA;
+                break;
+            case "terca":
+                tipoItem = DiaSemana.TERCA;
+                break;
+            case "quarta":
+                tipoItem = DiaSemana.QUARTA;
+                break;
+            case "quinta":
+                tipoItem = DiaSemana.QUINTA;
+                break;
+            case "sexta":
+                tipoItem = DiaSemana.SEXTA;
+                break;
+            case "sabado":
+                tipoItem = DiaSemana.SABADO;
+                break;
+        }
+        return tipoItem;
+    }  
+
 
 
     class Horario_inicio_fim{
@@ -162,27 +137,6 @@ public class TabelaDeSimbolos {
             return duration.toMinutes(); // Retorna a diferença em minutos
         }
     
-    }
-
-    class EntradaTabelaAgenda {
-        DiaSemana dia;
-        Horario_inicio_fim inicio_fim;
-        List<Horario_inicio_fim> horarios_ocupados;
-        
-
-        private EntradaTabelaAgenda(DiaSemana dia, Horario_inicio_fim inicio_fim, List<Horario_inicio_fim> horarios_atividades) {
-            this.dia = dia;
-            this.inicio_fim = inicio_fim;
-            this.horarios_ocupados = horarios_atividades;
-        }
-        @Override
-        public String toString() {
-            return "Agenda {" +
-                    "dia=" + dia +
-                    ", inicio_fim=" + inicio_fim +
-                    ", horarios_ocupados=" + horarios_ocupados +
-                    '}';
-        }
     }
     // Especificação das tabelas de símbolos para cada caso relacionada a agenda de estudos
     public Map<DiaSemana, EntradaTabelaAgenda> agenda = new HashMap<>();

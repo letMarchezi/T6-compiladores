@@ -3,163 +3,29 @@ package br.ufscar.dc.compiladores.alguma.rotina;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Duration;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.AbstractMap;
+
 import org.antlr.v4.runtime.Token;
 
 import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotinaParser.Atividades_agendaContext;
-import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.CategoriaAtividades;
-import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.DiaSemana;
-import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.EntradaTabelaCompromisso;
-import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Modalidade;
-import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Prioridade;
-import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Horario_inicio_fim;;
+import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Horario_inicio_fim;
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Modalidade;
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Prioridade;
+
+
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaAgenda.DiaSemana;;
 
 public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     // Declaração da tabela de símbolos
     TabelaDeSimbolos tabela;
     TabelaDeSimbolos tabelaEscopos;
-    
 
     // Declaração da tabela de Escopos
     static Escopos escoposAninhados = new Escopos();
-
-    public Prioridade determinarTipoPrioridade(String tipoVariavel){
-        Prioridade tipoItem = Prioridade.INVALIDO; 
-        
-        switch (tipoVariavel) {
-            case "alta":
-                tipoItem = Prioridade.ALTA;
-                break;
-            case "media":
-                tipoItem = Prioridade.MEDIA;
-                break;
-            case "baixa":
-                tipoItem = Prioridade.BAIXA;
-                break;
-        }
-
-        return tipoItem;
-    }
     // Exporta a tabela de símbolos para um arquivo
     public void exportarTabelaArquivo(String filePath) {
         tabela.exportAll(filePath); 
-    }
-
-    public CategoriaAtividades determinarCategoriaAtividades(String tipoVariavel){
-        CategoriaAtividades tipoItem = CategoriaAtividades.INVALIDO; 
-        
-        switch (tipoVariavel) {
-            case "pessoal":
-                tipoItem = CategoriaAtividades.PESSOAL;
-                break;
-            case "trabalho":
-                tipoItem = CategoriaAtividades.TRABALHO;
-                break;
-            case "aula":
-                tipoItem = CategoriaAtividades.AULA;
-                break;
-
-        }
-        return tipoItem;
-    }  
-
-    
-
-    public DiaSemana determinarDiaSemana(String tipoVariavel){
-        DiaSemana tipoItem = DiaSemana.INVALIDO; 
-        
-        switch (tipoVariavel) {
-            case "domingo":
-                tipoItem = DiaSemana.DOMINGO;
-                break;
-            case "segunda":
-                tipoItem = DiaSemana.SEGUNDA;
-                break;
-            case "terca":
-                tipoItem = DiaSemana.TERCA;
-                break;
-            case "quarta":
-                tipoItem = DiaSemana.QUARTA;
-                break;
-            case "quinta":
-                tipoItem = DiaSemana.QUINTA;
-                break;
-            case "sexta":
-                tipoItem = DiaSemana.SEXTA;
-                break;
-            case "sabado":
-                tipoItem = DiaSemana.SABADO;
-                break;
-        }
-        return tipoItem;
-    }  
-
-    public Modalidade determinarTipoModalidade(String tipoVariavel){
-        Modalidade tipoItem = Modalidade.INVALIDO; 
-        
-        switch (tipoVariavel) {
-            case "estudo_para_prova":
-                tipoItem = Modalidade.ESTUDO_PARA_PROVA;
-                break;
-            case "projeto":
-                tipoItem = Modalidade.PROJETO;
-                break;
-            case "estudo_teorico":
-                tipoItem = Modalidade.ESTUDO_TEORICO;
-                break;
-            case "lista_de_exercicios":
-                tipoItem = Modalidade.LISTA_DE_EXERCICIOS;
-                break;
-            case "revisao":
-                tipoItem = Modalidade.REVISAO;
-                break;
-        }
-        return tipoItem;
-    }
-
-    // public static class Rotina {
-    //     private String nome;
-    //     private List<Registro> registros;
-
-    //     public Rotina(String nome) {
-    //         this.nome = nome;
-    //         this.registros = new ArrayList<>();
-    //     }
-
-    //     public void adicionarRegistro(Registro registro) {
-    //         this.registros.add(registro);
-    //     }
-    // }
-
-    public static class Evento {
-        private String nome;
-        private LocalTime inicio;
-        private LocalTime fim;
-        private LocalDate data;
-
-        public Evento(String nome, LocalTime inicio, LocalTime fim, LocalDate data) {
-            this.nome = nome;
-            this.inicio = inicio;
-            this.fim = fim;
-            this.data = data;
-        }
-    }
-
-    public static class Compromisso {
-        private String nome;
-        private String descricao;
-        private LocalDate data_compromisso;
-
-        public Compromisso(String nome, String descricao, LocalDate data_compromisso) {
-            this.nome  = nome;
-            this.descricao = descricao;
-            this.data_compromisso = data_compromisso;
-        }
     }
 
     public void verificaHorarioInicioFim(String inicioStr, String fimStr, Token Token_type){
@@ -265,8 +131,8 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         for (var rotina: ctx.rotina()) {
             
             String nomeRotina = rotina.IDENT(0).getSymbol().getText(); 
-            var tipoPrioridade = determinarTipoPrioridade(rotina.PRIORIDADE_TIPO().getText());
-            var tipoModalidade = determinarTipoModalidade(rotina.MODALIDADE().getText());
+            var tipoPrioridade = TabelaDeSimbolos.determinarTipoPrioridade(rotina.PRIORIDADE_TIPO().getText());
+            var tipoModalidade = TabelaDeSimbolos.determinarTipoModalidade(rotina.MODALIDADE().getText());
 
             // Obtendo o compromisso referenciado com a classe Compromisso
             EntradaTabelaCompromisso compromisso = null;
