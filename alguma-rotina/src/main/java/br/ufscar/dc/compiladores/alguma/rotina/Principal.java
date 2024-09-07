@@ -28,7 +28,6 @@ public class Principal {
             System.exit(0);
         }
 
-
         // Criação do diretório de saída
         createOutputDirectory(args[1]);
 
@@ -43,11 +42,15 @@ public class Principal {
             parser.removeErrorListeners();
             
             ProgramaContext arvore = parser.programa();
-            AlgumaRotina as = new AlgumaRotina();
-            as.visitPrograma(arvore);
+            AlgumaRotina ar = new AlgumaRotina();
+            ar.visitPrograma(arvore);
             AlgumaRotinaUtils.errosSemanticos.forEach((s) -> System.out.println(s));
             AlgumaRotinaUtils.errosSemanticos.forEach((s) -> buffer.append(s + "\n"));
             
+            //String exportFilePath = args[2];
+            //ar.exportarTabelaArquivo(exportFilePath); 
+
+
         } catch (Exception ex) {
             // Detecção de exceções
             System.err.println("Erro: " + ex.getMessage());

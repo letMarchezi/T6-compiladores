@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 
 import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotina.Compromisso;
@@ -263,27 +265,35 @@ public class TabelaDeSimbolos {
         return compromissos.containsKey(nome);
     }
 
+    public void exportAll(String filePath){
+        try (FileWriter writer = new FileWriter(filePath)) {
+        }
+        catch (IOException e) {
+            System.err.println("Erro ao escrever no arquivo " + filePath + ": " + e.getMessage());
+        }
+    }
+
     public void printAll() {
         // Print compromissos
-        System.out.println("\nCompromissos:");
+        System.out.println("\n## Compromissos:");
         for (Map.Entry<String, EntradaTabelaCompromisso> entry : compromissos.entrySet()) {
             System.out.println("Compromisso: " + entry.getKey() + " -> " + entry.getValue().toString());
         }
         
         // Print rotinas
-        System.out.println("\nRotinas:");
+        System.out.println("\n## Rotinas:");
         for (Map.Entry<String, EntradaTabelaRotina> entry : rotinas.entrySet()) {
-            System.out.println("Rotina: " + entry.getKey() + " -> " + entry.getValue().toString());
+            System.out.println("Rotina: " + entry.getKey() + " -> " + entry.getValue().toString()+"\n");
         }
 
         // Print agendas
-        System.out.println("Agenda:");
+        System.out.println("\n## Agenda:");
         for (Map.Entry<DiaSemana, EntradaTabelaAgenda> entry : agenda.entrySet()) {
             System.out.println("Dia: " + entry.getKey() + " -> " + entry.getValue().toString());
         }
         
         // Print eventos
-        System.out.println("\nEventos:");
+        System.out.println("\n## Eventos:");
         for (Map.Entry<String, EntradaTabelaEvento> entry : eventos.entrySet()) {
             System.out.println("Evento: " + entry.getKey() + " -> " + entry.getValue().toString());
         }

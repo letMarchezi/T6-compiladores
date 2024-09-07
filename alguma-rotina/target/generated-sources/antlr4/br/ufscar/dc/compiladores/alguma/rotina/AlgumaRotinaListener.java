@@ -8,46 +8,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface AlgumaRotinaListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link AlgumaRotinaParser#categ_atividades}.
-	 * @param ctx the parse tree
-	 */
-	void enterCateg_atividades(AlgumaRotinaParser.Categ_atividadesContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AlgumaRotinaParser#categ_atividades}.
-	 * @param ctx the parse tree
-	 */
-	void exitCateg_atividades(AlgumaRotinaParser.Categ_atividadesContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AlgumaRotinaParser#dias_sem}.
-	 * @param ctx the parse tree
-	 */
-	void enterDias_sem(AlgumaRotinaParser.Dias_semContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AlgumaRotinaParser#dias_sem}.
-	 * @param ctx the parse tree
-	 */
-	void exitDias_sem(AlgumaRotinaParser.Dias_semContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AlgumaRotinaParser#prioridade_tipo}.
-	 * @param ctx the parse tree
-	 */
-	void enterPrioridade_tipo(AlgumaRotinaParser.Prioridade_tipoContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AlgumaRotinaParser#prioridade_tipo}.
-	 * @param ctx the parse tree
-	 */
-	void exitPrioridade_tipo(AlgumaRotinaParser.Prioridade_tipoContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AlgumaRotinaParser#modalidade}.
-	 * @param ctx the parse tree
-	 */
-	void enterModalidade(AlgumaRotinaParser.ModalidadeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AlgumaRotinaParser#modalidade}.
-	 * @param ctx the parse tree
-	 */
-	void exitModalidade(AlgumaRotinaParser.ModalidadeContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link AlgumaRotinaParser#rotinas}.
 	 * @param ctx the parse tree
 	 */

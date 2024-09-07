@@ -11,30 +11,6 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface AlgumaRotinaVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link AlgumaRotinaParser#categ_atividades}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCateg_atividades(AlgumaRotinaParser.Categ_atividadesContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AlgumaRotinaParser#dias_sem}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDias_sem(AlgumaRotinaParser.Dias_semContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AlgumaRotinaParser#prioridade_tipo}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPrioridade_tipo(AlgumaRotinaParser.Prioridade_tipoContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AlgumaRotinaParser#modalidade}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitModalidade(AlgumaRotinaParser.ModalidadeContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link AlgumaRotinaParser#rotinas}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

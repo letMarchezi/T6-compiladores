@@ -17,54 +17,6 @@ public class AlgumaRotinaBaseListener implements AlgumaRotinaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCateg_atividades(AlgumaRotinaParser.Categ_atividadesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCateg_atividades(AlgumaRotinaParser.Categ_atividadesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDias_sem(AlgumaRotinaParser.Dias_semContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDias_sem(AlgumaRotinaParser.Dias_semContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPrioridade_tipo(AlgumaRotinaParser.Prioridade_tipoContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPrioridade_tipo(AlgumaRotinaParser.Prioridade_tipoContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterModalidade(AlgumaRotinaParser.ModalidadeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitModalidade(AlgumaRotinaParser.ModalidadeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterRotinas(AlgumaRotinaParser.RotinasContext ctx) { }
 	/**
 	 * {@inheritDoc}

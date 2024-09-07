@@ -1,55 +1,60 @@
+COMPROMISSOS
+compromisso1: 
+    (titulo = "Prova de Matemática", 
+        descricao = "Prova final da disciplina de matemática", 
+        data_compromisso = 12/09/2024)
+
+compromisso2: 
+    (titulo = "Entrega do Projeto de Software", 
+        descricao = "Entrega do projeto de desenvolvimento de software", 
+        data_compromisso = 20/09/2024)
+FIMCOMPROMISSOS
+
 ROTINA
 rotina1: 
-    (titulo="Revisão para prova", 
-        descricao="Revisar conteúdo de cálculo", 
-        prioridade=alta, 
-        modalidade=estudo, 
-        tempo_desejado=2h, 
-        compromisso=compromisso1)
+    (titulo = "Estudo para Matematica", 
+        descricao = "Revisao dos conteudos para a prova de matematica", 
+        prioridade = alta, 
+        modalidade = estudo_para_prova, 
+        tempo_desejado = 3h, 
+        compromisso = compromisso1)
+
 rotina2: 
-    (titulo="Projeto de Programação", 
-        descricao="Desenvolver a primeira fase do projeto", 
-        prioridade=avante, 
-        modalidade=projeto, 
-        tempo_desejado=3h, 
-        compromisso=compromisso2)
+    (titulo = "Desenvolvimento do Projeto", 
+        descricao = "Implementar novas funcionalidades no projeto de software", 
+        prioridade = alta, 
+        modalidade = projeto, 
+        tempo_desejado = 4h, 
+        compromisso = compromisso2)
+
 rotina2: 
-    (titulo="Projeto de Programação", 
-        descricao="Desenvolver a primeira fase do projeto", 
-        prioridade=baixo, 
-        modalidade=projeto, 
-        tempo_desejado=3h, 
-        compromisso=compromisso2)
+    (titulo = "Pesquisa Acadêmica", 
+        descricao = "Revisar artigos para o TCC", 
+        prioridade = baixa, 
+        modalidade = projeto, 
+        tempo_desejado = 2h, 
+        compromisso = compromisso2)
+FIMROTINA
 
 AGENDA
     SEGUNDA (
-        inicio 08:00h,
-        fim 10:00h,
-        atividades (categoria pessoal, inicio 08:30h, fim 09:30h)
+        inicio = 09:00h,
+        fim = 11:00h,
+        atividades = {
+            (categoria = pessoal, inicio = 09:30h, fim = 10:30h)
+        }
     )
 
     QUARTA (
-        inicio 14:00h,
-        fim 16:00h,
-        atividades (categoria trabalho, inicio 14:30h, fim 15:00h)
+        inicio = 13:00h,
+        fim = 15:00h,
+        atividades = {
+            (categoria = trabalho, inicio = 13:30h, fim = 14:30h)
+        }
     )
 FIMAGENDA
 
 EVENTOS
-(nome "Prova de Cálculo", inicio 08:00h, fim 10:00h, data 10/09/2024)
-(nome "Entrega do Projeto", inicio 14:00h, fim 16:00h, data 15/09/2024)
+(nome = "Prova de Matemática", inicio = 09:00h, fim = 11:00h, data = 12/09/2024)
+(nome = "Entrega do Projeto de Software", inicio = 14:00h, fim = 16:00h, data = 20/09/2024)
 FIMEVENTOS
-
-COMPROMISSOS
-compromisso1: 
-    (nome "Prova de Cálculo", 
-        descricao "Prova final do semestre", 
-        data_compromisso 10/09/2024)
-
-compromisso2: 
-    (nome "Entrega do Projeto de Programação", 
-        descricao "Entrega da primeira fase", 
-        data_compromisso 15/09/2024)
-FIMCOMPROMISSOS
-
-FIMROTINA

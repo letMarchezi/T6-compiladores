@@ -1,0 +1,51 @@
+COMPROMISSOS
+compromisso1: 
+    (titulo = "Prova de Fisica", 
+        descricao = "Prova final da disciplina de fisica", 
+        data_compromisso = 11/09/2024)
+
+compromisso2: 
+    (titulo = "Entrega do Relatorio de Pesquisa", 
+        descricao = "Entrega da primeira versão do relatório", 
+        data_compromisso = 16/09/2024)
+FIMCOMPROMISSOS
+
+ROTINA
+rotina1: 
+    (titulo = "Revisão para prova de Fisica", 
+        descricao = "Revisar todos os tópicos da disciplina", 
+        prioridade = alta, 
+        modalidade = estudo_para_prova, 
+        tempo_desejado = 3h, 
+        compromisso = compromisso1)
+
+rotina2: 
+    (titulo = "Desenvolvimento do Relatório", 
+        descricao = "Escrever a introdução do relatório de pesquisa", 
+        prioridade = media, 
+        modalidade = projeto, 
+        tempo_desejado = 4h, 
+        compromisso = compromisso2)
+FIMROTINA
+
+AGENDA
+    SEGUNDA (
+        inicio = 12:00h,
+        fim = 09:00h,
+        atividades = {
+            (categoria = pessoal, inicio = 09:30h, fim = 10:30h)
+        }
+    )
+    QUARTA (
+        inicio = 09:00h,
+        fim = 11:00h,
+        atividades = {
+            (categoria = trabalho, inicio = 10:30h, fim = 13:30h)
+        }
+    )
+FIMAGENDA
+
+EVENTOS
+(nome = "Prova de Física", inicio = 09:00h, fim = 11:00h, data = 11/09/2024)
+(nome = "Entrega do Relatório", inicio = 14:00h, fim = 16:00h, data = 16/09/2024)
+FIMEVENTOS

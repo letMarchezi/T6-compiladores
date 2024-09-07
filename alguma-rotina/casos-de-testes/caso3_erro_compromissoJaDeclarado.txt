@@ -1,73 +1,74 @@
-ROTINA
-
-rotina1: 
-    (titulo="Revisão para prova", 
-        descricao="Revisar conteúdo de cálculo", 
-        prioridade=alta, 
-        modalidade=estudo_para_prova, 
-        tempo_desejado=2h, 
-        compromisso=compromisso1)
-
-rotina2: 
-    (titulo="Projeto de Programação", 
-        descricao="Desenvolver a primeira fase do projeto", 
-        prioridade=media, 
-        modalidade=projeto, 
-        tempo_desejado=3h, 
-        compromisso=compromisso2)
-
-rotina3: 
-    (titulo="Apresentação de Seminário", 
-        descricao="Revisão final com o grupo para apresentação", 
-        prioridade=baixa, 
-        modalidade=projeto, 
-        tempo_desejado=1h, 
-        compromisso=compromisso2)
-
-AGENDA
-    SEGUNDA (
-        inicio 08:00h,
-        fim 10:00h,
-        atividades (categoria pessoal, inicio 08:30h, fim 09:30h)
-    )
-
-    QUARTA (
-        inicio 14:00h,
-        fim 16:00h,
-        atividades (categoria trabalho, inicio 14:30h, fim 15:00h)
-    )
-
-    QUINTA (
-        quero estudar "PDI", "DevOps",
-        inicio 14:30h,
-        fim 18:30h,
-        atividades (categoria pessoal, inicio 17:15h, fim 17:45h)
-    )
-FIMAGENDA
-
-EVENTOS
-(nome "Prova de Cálculo", inicio 08:00h, fim 10:00h, data 10/09/2024)
-(nome "Entrega do Projeto", inicio 14:00h, fim 16:00h, data 15/09/2024)
-(nome "Apresentação de Seminário", inicio 15:00h, fim 17:00h, data 20/09/2024)
-FIMEVENTOS
-
 COMPROMISSOS
-
 compromisso1: 
-    (nome "Prova de Cálculo", 
-        descricao "Prova final do semestre", 
-        data_compromisso 10/09/2024)
+    (titulo = "Prova de Química", 
+        descricao = "Prova final da disciplina de química", 
+        data_compromisso = 14/09/2024)
 
 compromisso2: 
-    (nome "Entrega do Projeto de Programação", 
-        descricao "Entrega da primeira fase", 
-        data_compromisso 15/09/2024)
+    (titulo = "Entrega do Website", 
+        descricao = "Entrega final do projeto do website", 
+        data_compromisso = 22/09/2024)
 
 compromisso2: 
-    (nome "Entrega do Projeto de Programação", 
-        descricao "Entrega da primeira fase", 
-        data_compromisso 15/09/2024)
+    (titulo = "Seminário de Inteligência Artificial", 
+        descricao = "Apresentação do seminário de IA", 
+        data_compromisso = 23/09/2024)
 
 FIMCOMPROMISSOS
 
+
+ROTINA
+rotina1: 
+    (titulo = "Revisão para Química", 
+        descricao = "Revisão para a prova de química", 
+        prioridade = alta, 
+        modalidade = estudo_para_prova, 
+        tempo_desejado = 4h, 
+        compromisso = compromisso1)
+
+rotina2: 
+    (titulo = "Desenvolvimento do Website", 
+        descricao = "Trabalhar no frontend do website", 
+        prioridade = media, 
+        modalidade = projeto, 
+        tempo_desejado = 6h, 
+        compromisso = compromisso2)
+
+rotina3: 
+    (titulo = "Planejamento do Seminário", 
+        descricao = "Revisão final com o grupo para apresentação do seminário", 
+        prioridade = baixa, 
+        modalidade = projeto, 
+        tempo_desejado = 3h, 
+        compromisso = compromisso2)
 FIMROTINA
+
+AGENDA
+    SEGUNDA (
+        inicio = 08:30h,
+        fim = 10:30h,
+        atividades = {
+            (categoria = pessoal, inicio = 09:00h, fim = 10:00h)
+        }
+    )
+
+    QUARTA (
+        inicio = 15:00h,
+        fim = 17:00h
+    )
+
+    QUINTA (
+        quero_estudar = "Lógica", "Inteligência Artificial",
+        inicio = 13:00h,
+        fim = 17:00h,
+        atividades = {
+            (categoria = pessoal, inicio = 16:00h, fim = 16:30h)
+        }
+    )
+FIMAGENDA
+
+
+EVENTOS
+(nome = "Defesa de TCC", inicio = 07:30h, fim = 09:30h, data = 13/09/2024)
+(nome = "Monitoria", inicio = 10:00h, fim = 12:00h, data = 21/09/2024)
+FIMEVENTOS

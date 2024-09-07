@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
-
 import java.util.AbstractMap;
-
 import org.antlr.v4.runtime.Token;
 
 import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotinaParser.Atividades_agendaContext;
@@ -47,7 +45,11 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
 
         return tipoItem;
     }
-    
+    // Exporta a tabela de símbolos para um arquivo
+    public void exportarTabelaArquivo(String filePath) {
+        tabela.exportAll(filePath); 
+    }
+
     public CategoriaAtividades determinarCategoriaAtividades(String tipoVariavel){
         CategoriaAtividades tipoItem = CategoriaAtividades.INVALIDO; 
         
@@ -65,6 +67,8 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         }
         return tipoItem;
     }  
+
+    
 
     public DiaSemana determinarDiaSemana(String tipoVariavel){
         DiaSemana tipoItem = DiaSemana.INVALIDO; 
@@ -158,6 +162,18 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         }
     }
 
+    public void verificaHorarioInicioFim(String inicioStr, String fimStr, Token Token_type){
+                    
+        LocalTime inicio = LocalTime.parse(inicioStr.replace("h", ""));
+        LocalTime fim = LocalTime.parse(fimStr.replace("h", ""));
+
+        // Verifica se o horário de início é anterior ao de fim
+        if (!inicio.isBefore(fim)) {
+            AlgumaRotinaUtils.adicionarErroSemantico(Token_type, 
+                "Horario de inicio (" + inicioStr + ") nao pode ser igual ou posterior ao horario de fim (" + fimStr + ")");
+        }
+    }
+
     // Método base para a inicialização do programa
     @Override
     public Void visitPrograma(AlgumaRotinaParser.ProgramaContext ctx) {
@@ -175,7 +191,7 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         System.out.println("\n\n"+ctx.getText());
 
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
-        for (var diaAgendaCtx : ctx.dias_sem()) {
+        for (var diaAgendaCtx : ctx.DIAS_SEM()) {
             // Extrai o dia da semana
             String diaSemanaStr = diaAgendaCtx.getText(); 
             DiaSemana diaSemana = null;
@@ -184,20 +200,22 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
             try {
                 diaSemana = DiaSemana.valueOf(diaSemanaStr); // Converte a String para enum
                 if (diaSemana == DiaSemana.INVALIDO){
-                    AlgumaRotinaUtils.adicionarErroSemantico(diaAgendaCtx.getStart(), "Dia invalido: " + diaSemanaStr); 
+                    AlgumaRotinaUtils.adicionarErroSemantico(diaAgendaCtx.getSymbol(), "Dia invalido: " + diaSemanaStr); 
                 }
             } catch (IllegalArgumentException e) {
-                AlgumaRotinaUtils.adicionarErroSemantico(diaAgendaCtx.getStart(), "Dia invalido: " + diaSemanaStr);
+                AlgumaRotinaUtils.adicionarErroSemantico(diaAgendaCtx.getSymbol(), "Dia invalido: " + diaSemanaStr);
             }
     
             // Recupera a programação do dia
-            AlgumaRotinaParser.Prog_diaContext progDiaCtx = ctx.prog_dia(ctx.dias_sem().indexOf(diaAgendaCtx));
-    
+            AlgumaRotinaParser.Prog_diaContext progDiaCtx = ctx.prog_dia(ctx.DIAS_SEM().indexOf(diaAgendaCtx));
 
             // Extrai o horário de início e de fim, convertendo para a classe de horários
-            String inicio = progDiaCtx.HORA(0).getText();
-            String fim = progDiaCtx.HORA(1).getText();
-            Horario_inicio_fim inicio_fim = tabela.new Horario_inicio_fim(inicio,fim);
+            String inicioStr = progDiaCtx.HORA(0).getText();
+            String fimStr = progDiaCtx.HORA(1).getText();
+
+            verificaHorarioInicioFim(inicioStr, fimStr, progDiaCtx.HORA(0).getSymbol());
+
+            Horario_inicio_fim inicio_fim = tabela.new Horario_inicio_fim(inicioStr,fimStr);
 
             // Checa se existem atividades e extrai os horários
             if (progDiaCtx.lista_atividades() != null) {
@@ -221,6 +239,9 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     private void getNovo_horario(List<Horario_inicio_fim> horarios_ocupados, Atividades_agendaContext atividadeCtx) {
         String inicioAtividade = atividadeCtx.HORA(0).getText();
         String fimAtividade = atividadeCtx.HORA(1).getText();
+
+        verificaHorarioInicioFim(inicioAtividade, fimAtividade, atividadeCtx.HORA(0).getSymbol());
+
         Horario_inicio_fim novo_horario = tabela.new Horario_inicio_fim(inicioAtividade,fimAtividade);
         System.out.println(novo_horario.toString());
         horarios_ocupados.add(novo_horario);
@@ -232,7 +253,6 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         String tempo_desejado, EntradaTabelaCompromisso compr, Token nomeToken) {
         
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
-        //System.out.println(compr.toString());
         tabelaEscopos.adicionarRotina(nome, titulo, descricao, prioridade, modalidade, tempo_desejado, compr);
     }
 
@@ -245,8 +265,8 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         for (var rotina: ctx.rotina()) {
             
             String nomeRotina = rotina.IDENT(0).getSymbol().getText(); 
-            var tipoPrioridade = determinarTipoPrioridade(rotina.prioridade_tipo().getText());
-            var tipoModalidade = determinarTipoModalidade(rotina.modalidade().getText());
+            var tipoPrioridade = determinarTipoPrioridade(rotina.PRIORIDADE_TIPO().getText());
+            var tipoModalidade = determinarTipoModalidade(rotina.MODALIDADE().getText());
 
             // Obtendo o compromisso referenciado com a classe Compromisso
             EntradaTabelaCompromisso compromisso = null;
@@ -280,21 +300,7 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     
     @Override
     public Void visitRotina(AlgumaRotinaParser.RotinaContext ctx) {
-        // Itera sobre cada IDENT dentro da rotina
-        // for (var rotina: ctx) {
-        // for (int i = 0; i < ctx.IDENT().size(); i++) {
-        //     String nomeRotina = ctx.IDENT(i).getText();
-        //     System.out.println("nomeRotina" + nomeRotina + "\n");
-        //     dados_rotina = ctx.
-        //     // Adiciona a rotina na tabela de símbolos
-        //     tabela.adicionarRotina(nomeRotina, novaRotina);
 
-        //     if (!tabela.existeRotina(nomeRotina)) {
-        //         tabela.adicionarRotina(nomeRotina, novaRotina);
-        //     } else {
-        //         AlgumaRotinaUtils.adicionarErroSemantico(ctx.IDENT(i).getSymbol(), "Rotina " + nomeRotina + " já declarada anteriormente");
-        //     }
-        // }
         return super.visitRotina(ctx);
     }
 
@@ -310,26 +316,19 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         String fim = ctx.HORA(1).getText();
         String data_evento = ctx.date().getText();
 
-        /*System.out.println("Nome Evento: " + nome);
-        System.out.println("Início Evento: " + inicio);
-        System.out.println("Fim Evento: " + fim);
-        System.out.println("Data Evento: " + data_evento);
-        System.out.println("\n\n");*/
         
-        // Verifica se o compromisso já existe
-        if (tabelaEscopos.existeEvento(nome)) {
-            AlgumaRotinaUtils.adicionarErroSemantico(ctx.CADEIA().getSymbol(), 
-                "Evento " + nome + " ja declarado anteriormente");
-        }
+        verificaHorarioInicioFim(inicio, fim, ctx.HORA(0).getSymbol());
+
         
         // Criação do objeto Compromisso
         LocalDate data_comp = LocalDate.parse(data_evento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
         // Adiciona o compromisso na tabela de símbolos
         tabelaEscopos.adicionarEvento(nome, inicio, fim, data_comp);
+        System.out.println("------------------------------------------------------");
         tabelaEscopos.printAll();
         return super.visitEvento_parc(ctx);
-    }
+    }   
 
     // Adiciona um compromisso na tabela de símbolos
     public void adicionaCompromissoTabela(String nome, String titulo, String descricao, LocalDate data_compromisso, Token nomeToken) {
