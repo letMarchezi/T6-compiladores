@@ -1,0 +1,5 @@
+Linha 17: Compromisso compromisso2 ja declarado anteriormente
+Linha 30: Compromisso da Rotina rotina1 nao declarado
+Linha 48: Rotina rotina3 ja declarada anteriormente
+Linha 73: Horario de inicio (18:00h) nao pode ser igual ou posterior ao horario de fim (14:00h)
+Fim da compilacao

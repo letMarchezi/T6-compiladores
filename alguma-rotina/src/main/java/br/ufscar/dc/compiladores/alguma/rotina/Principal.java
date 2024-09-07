@@ -50,7 +50,17 @@ public class Principal {
             //String exportFilePath = args[2];
             //ar.exportarTabelaArquivo(exportFilePath); 
 
+            // Instancia o gerador de HTML
+            GeradorAlgumaRotinaHTML gerador = new GeradorAlgumaRotinaHTML();
+            gerador.visit(arvore);
 
+            // Obtenha o HTML gerado
+            String codigoHtml = gerador.getHtml();
+
+            // Salve o HTML em um arquivo
+            try (FileWriter writer = new FileWriter("saida.html")) {
+                writer.write(codigoHtml);
+            }
         } catch (Exception ex) {
             // Detecção de exceções
             System.err.println("Erro: " + ex.getMessage());

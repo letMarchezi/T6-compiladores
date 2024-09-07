@@ -1,6 +1,5 @@
 grammar AlgumaRotina;
 
-
 CATEG_ATIVIDADES: 'pessoal' | 'aula' | 'trabalho';
 
 DIAS_SEM: 'DOMINGO' | 'SEGUNDA' | 'TERCA' | 'QUARTA' | 'QUINTA' | 'SEXTA' | 'SABADO';

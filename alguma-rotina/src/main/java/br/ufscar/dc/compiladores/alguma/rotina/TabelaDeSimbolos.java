@@ -136,6 +136,11 @@ public class TabelaDeSimbolos {
             Duration duration = Duration.between(start, end);
             return duration.toMinutes(); // Retorna a diferença em minutos
         }
+
+        // Método para verificar sobreposição
+        public boolean overlaps(Horario_inicio_fim outro) {
+            return this.horaInicio.isBefore(outro.horaFim) && outro.horaInicio.isBefore(this.horaFim);
+    }
     
     }
     // Especificação das tabelas de símbolos para cada caso relacionada a agenda de estudos

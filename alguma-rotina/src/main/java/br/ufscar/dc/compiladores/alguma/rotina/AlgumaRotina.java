@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.ArrayList;
-
 import org.antlr.v4.runtime.Token;
 
 import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotinaParser.Atividades_agendaContext;
@@ -13,8 +12,7 @@ import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Horario_inicio_f
 import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Modalidade;
 import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Prioridade;
 
-
-import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaAgenda.DiaSemana;;
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaAgenda.DiaSemana;
 
 public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     // Declaração da tabela de símbolos
@@ -47,28 +45,24 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         return super.visitPrograma(ctx);
     }
 
-    // IMPLEMENTAR ESSE AQUI PARA PODER IMPLEMENTAR O visitAgenda
-    public Void visitAtividades_agenda(AlgumaRotinaParser.Atividades_agendaContext ctx) {
-
-        return super.visitAtividades_agenda(ctx);
-    }
-
     public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
         System.out.println("\n\n"+ctx.getText());
 
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
         for (var diaAgendaCtx : ctx.DIAS_SEM()) {
             // Extrai o dia da semana
-            String diaSemanaStr = diaAgendaCtx.getText(); 
+            String diaSemanaStr = diaAgendaCtx.getText();
             DiaSemana diaSemana = null;
-    
+
             // Mapeia o dia da semana
             try {
                 diaSemana = DiaSemana.valueOf(diaSemanaStr); // Converte a String para enum
+                System.out.println(diaSemana);
                 if (diaSemana == DiaSemana.INVALIDO){
                     AlgumaRotinaUtils.adicionarErroSemantico(diaAgendaCtx.getSymbol(), "Dia invalido: " + diaSemanaStr); 
                 }
             } catch (IllegalArgumentException e) {
+                System.out.println(diaSemana);
                 AlgumaRotinaUtils.adicionarErroSemantico(diaAgendaCtx.getSymbol(), "Dia invalido: " + diaSemanaStr);
             }
     
@@ -94,7 +88,7 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
                 // Adiciona a agenda com horários das atividades
                 tabelaEscopos.adicionarAgenda(diaSemana, inicio_fim, horarios_ocupados);
                 
-            }else{
+            } else{
                 // Adiciona a agenda sem atividades
                 tabelaEscopos.adicionarAgenda(diaSemana, inicio_fim, null);
             }
@@ -141,14 +135,14 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
                 compromisso = tabelaEscopos.obterCompromisso(nomeCompromisso);
                 if (compromisso == null)
                     AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(1).getSymbol(), 
-                        "Compromisso " + nomeCompromisso + " nao declarado");
+                        "Compromisso da Rotina " + nomeRotina + " nao declarado");
             }
             
             
             // Verificação de rotina já declarada
             if (tabelaEscopos.existeRotina(nomeRotina)) {
                 AlgumaRotinaUtils.adicionarErroSemantico(rotina.IDENT(0).getSymbol(), 
-                    "Rotina " + nomeRotina + " ja declarada");
+                    "Rotina " + nomeRotina + " ja declarada anteriormente");
             }
             // Verificação de tipos
             else {
@@ -170,10 +164,8 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         return super.visitRotina(ctx);
     }
 
-
     @Override
     public Void visitEvento_parc(AlgumaRotinaParser.Evento_parcContext ctx) {
-        
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
         
         // Atibuição dos atributos do compromisso
@@ -182,15 +174,12 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         String fim = ctx.HORA(1).getText();
         String data_evento = ctx.date().getText();
 
-        
         verificaHorarioInicioFim(inicio, fim, ctx.HORA(0).getSymbol());
 
+        // Criação do objeto Evento
+        LocalDate data = LocalDate.parse(data_evento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
-        // Criação do objeto Compromisso
-        LocalDate data_comp = LocalDate.parse(data_evento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        
-        // Adiciona o compromisso na tabela de símbolos
-        tabelaEscopos.adicionarEvento(nome, inicio, fim, data_comp);
+        tabelaEscopos.adicionarEvento(nome, inicio, fim, data);
         System.out.println("------------------------------------------------------");
         tabelaEscopos.printAll();
         return super.visitEvento_parc(ctx);
