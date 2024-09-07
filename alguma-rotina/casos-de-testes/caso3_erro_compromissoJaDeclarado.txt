@@ -13,7 +13,6 @@ compromisso2:
     (titulo = "Seminário de Inteligência Artificial", 
         descricao = "Apresentação do seminário de IA", 
         data_compromisso = 23/09/2024)
-
 FIMCOMPROMISSOS
 
 

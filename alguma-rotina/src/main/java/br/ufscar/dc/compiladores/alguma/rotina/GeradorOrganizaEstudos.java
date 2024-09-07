@@ -1,1 +1,0 @@
-// Aqui deve ser implementada a lógica da organização de estudos

@@ -67,8 +67,10 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
                 }
                 html.append("</ul></td>");
             } else {
+                html.append("<td><ul>");
                 // Caso não haja atividades
-                html.append("<td>Sem atividades</td>");
+                html.append("<li><td>Sem atividades</td></li>");
+                html.append("</td></ul>");
             }
             html.append("</tr>");
         }
@@ -76,7 +78,7 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
         return null;
     }   
 
-    /*@Override
+    @Override
     public Void visitRotinas(AlgumaRotinaParser.RotinasContext ctx) {
         html.append("<h2>Rotinas</h2>");
         for (var rotina : ctx.rotina()) {
@@ -97,7 +99,7 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
                 .append("</div>");
         }
         return super.visitRotinas(ctx);
-    }*/
+    }
 
     /*@Override
     public Void visitComp_parc(AlgumaRotinaParser.Comp_parcContext ctx) {

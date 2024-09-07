@@ -30,7 +30,7 @@ rotina:  (IDENT ':' '(' 'titulo' '=' CADEIA ','
 
 programa: seq_comp corpo EOF;
 
-corpo: seq_evento 'ROTINA' rotinas 'FIMROTINA' 'AGENDA' agenda 'FIMAGENDA';
+corpo: 'ROTINA' rotinas 'FIMROTINA' 'AGENDA' agenda 'FIMAGENDA' seq_evento;
 
 date: DIGIT DIGIT '/' DIGIT DIGIT '/' DIGIT DIGIT DIGIT DIGIT;
 
