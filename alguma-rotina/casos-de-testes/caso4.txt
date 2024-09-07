@@ -2,17 +2,17 @@
 COMPROMISSOS
 
 compromisso1: 
-    (nome "Prova de Cálculo", 
+    (titulo "Prova de Cálculo", 
         descricao "Prova final do semestre", 
         data_compromisso 10/09/2024)
 
 compromisso2: 
-    (nome "Entrega do Projeto de Programação", 
+    (titulo "Entrega do Projeto de Programação", 
         descricao "Entrega da primeira fase", 
         data_compromisso 15/09/2024)
 
-compromisso2: 
-    (nome "Entrega do Projeto de Programação", 
+compromisso3: 
+    (titulo "Entrega do Projeto de Programação", 
         descricao "Entrega da primeira fase", 
         data_compromisso 15/09/2024)
 
@@ -25,7 +25,7 @@ rotina1:
         prioridade=alta, 
         modalidade=estudo_para_prova, 
         tempo_desejado=2h, 
-        compromisso=comp)
+        compromisso=compromisso1)
 
 rotina2: 
     (titulo="Projeto de Programação", 
@@ -33,7 +33,7 @@ rotina2:
         prioridade=media, 
         modalidade=projeto, 
         tempo_desejado=3h, 
-        compromisso=compromisso2)
+        compromisso=compromisso)
 
 rotina3: 
     (titulo="Apresentação de Seminário", 

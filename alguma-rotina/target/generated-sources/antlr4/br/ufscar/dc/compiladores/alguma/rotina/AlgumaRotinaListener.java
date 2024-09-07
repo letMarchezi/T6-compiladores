@@ -88,6 +88,16 @@ public interface AlgumaRotinaListener extends ParseTreeListener {
 	 */
 	void exitCorpo(AlgumaRotinaParser.CorpoContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AlgumaRotinaParser#date}.
+	 * @param ctx the parse tree
+	 */
+	void enterDate(AlgumaRotinaParser.DateContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AlgumaRotinaParser#date}.
+	 * @param ctx the parse tree
+	 */
+	void exitDate(AlgumaRotinaParser.DateContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AlgumaRotinaParser#agenda}.
 	 * @param ctx the parse tree
 	 */
@@ -137,16 +147,6 @@ public interface AlgumaRotinaListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitComp_parc(AlgumaRotinaParser.Comp_parcContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AlgumaRotinaParser#date}.
-	 * @param ctx the parse tree
-	 */
-	void enterDate(AlgumaRotinaParser.DateContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AlgumaRotinaParser#date}.
-	 * @param ctx the parse tree
-	 */
-	void exitDate(AlgumaRotinaParser.DateContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AlgumaRotinaParser#prog_dia}.
 	 * @param ctx the parse tree

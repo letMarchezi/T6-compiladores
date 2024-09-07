@@ -33,6 +33,8 @@ programa: seq_comp corpo EOF;
 
 corpo: 'ROTINA' rotinas 'FIMROTINA' 'AGENDA' agenda 'FIMAGENDA' seq_evento;
 
+date: DIGIT DIGIT '/' DIGIT DIGIT '/' DIGIT DIGIT DIGIT DIGIT;
+
 agenda: (dias_sem '(' prog_dia ')')+;
 
 seq_evento: 'EVENTOS' (evento_parc)+ 'FIMEVENTOS';
@@ -42,9 +44,8 @@ evento_parc: '(' 'nome' CADEIA ',' 'inicio' HORA ',' 'fim' HORA ',' 'data' date 
 seq_comp: 'COMPROMISSOS' (comp_parc)+ 'FIMCOMPROMISSOS';
 
 comp_parc:
-	 IDENT ':' '(' 'nome' CADEIA ',' 'descricao' CADEIA ',' 'data_compromisso' date ')';  
+	 IDENT ':' '(' 'titulo' CADEIA ',' 'descricao' CADEIA ',' 'data_compromisso' date ')';  
 
-date: DIGIT DIGIT '/' DIGIT DIGIT '/' DIGIT DIGIT DIGIT DIGIT;
 
 DIGIT: [0-9];
 

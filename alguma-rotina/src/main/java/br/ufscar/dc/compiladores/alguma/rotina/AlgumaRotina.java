@@ -229,10 +229,11 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     // Adiciona uma rotina na tabela de símbolos
     public void adicionaRotinaTabela(String nome, 
         String titulo, String descricao, Prioridade prioridade, Modalidade modalidade, 
-        String tempo_desejado, EntradaTabelaCompromisso compromisso, Token nomeToken) {
+        String tempo_desejado, EntradaTabelaCompromisso compr, Token nomeToken) {
         
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
-        tabelaEscopos.adicionarRotina(nome, titulo, descricao, prioridade, modalidade, tempo_desejado, compromisso);
+        //System.out.println(compr.toString());
+        tabelaEscopos.adicionarRotina(nome, titulo, descricao, prioridade, modalidade, tempo_desejado, compr);
     }
 
     // Retorna erros semânticos para tipos de prioridade e modalidade inexistentes,
@@ -297,19 +298,10 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         return super.visitRotina(ctx);
     }
 
-    public void adicionaEventoTabela(String nome, String inicio, String fim, LocalDate data, Token nomeToken) {
-        tabelaEscopos = escoposAninhados.obterEscopoAtual();
-
-        if (tabela.existeEvento(nome)) {
-            AlgumaRotinaUtils.adicionarErroSemantico(nomeToken, "Evento " + nome + " ja declarado");
-        }
-        else {
-            tabelaEscopos.adicionarEvento(nome, inicio, fim, data);
-        }
-    }
 
     @Override
     public Void visitEvento_parc(AlgumaRotinaParser.Evento_parcContext ctx) {
+        
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
         
         // Atibuição dos atributos do compromisso
@@ -331,23 +323,23 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         }
         
         // Criação do objeto Compromisso
-        LocalDate data = LocalDate.parse(data_evento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        LocalDate data_comp = LocalDate.parse(data_evento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
         // Adiciona o compromisso na tabela de símbolos
-        tabelaEscopos.adicionarEvento(nome, inicio, fim, data);
-        
+        tabelaEscopos.adicionarEvento(nome, inicio, fim, data_comp);
+        tabelaEscopos.printAll();
         return super.visitEvento_parc(ctx);
     }
 
     // Adiciona um compromisso na tabela de símbolos
-    public void adicionaCompromissoTabela(String nome, String descricao, LocalDate data_compromisso, Token nomeToken) {
+    public void adicionaCompromissoTabela(String nome, String titulo, String descricao, LocalDate data_compromisso, Token nomeToken) {
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
 
         if (tabela.existeCompromisso(nome)) {
             AlgumaRotinaUtils.adicionarErroSemantico(nomeToken, "Compromisso " + nome + " ja declarado");
         }
         else {
-            tabelaEscopos.adicionarCompromisso(nome, descricao, data_compromisso);
+            tabelaEscopos.adicionarCompromisso(nome, titulo, descricao, data_compromisso);
         }
     }
     
@@ -357,7 +349,8 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         
         // Atibuição dos atributos do compromisso
         String nome = ctx.IDENT().getText(); 
-        String descricao = ctx.CADEIA(0).getText();
+        String titulo = ctx.CADEIA(0).getText();
+        String descricao = ctx.CADEIA(1).getText();
         String data_compromisso = ctx.date().getText();
 
         /*System.out.println("Nome Compromisso: " + nome);
@@ -375,7 +368,7 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         LocalDate data = LocalDate.parse(data_compromisso, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
         // Adiciona o compromisso na tabela de símbolos
-        tabelaEscopos.adicionarCompromisso(nome, descricao, data);
+        tabelaEscopos.adicionarCompromisso(nome, titulo, descricao, data);
         
         return super.visitComp_parc(ctx);
     }

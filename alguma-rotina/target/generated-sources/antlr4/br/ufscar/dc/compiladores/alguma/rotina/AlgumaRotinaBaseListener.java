@@ -113,6 +113,18 @@ public class AlgumaRotinaBaseListener implements AlgumaRotinaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDate(AlgumaRotinaParser.DateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDate(AlgumaRotinaParser.DateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAgenda(AlgumaRotinaParser.AgendaContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -168,18 +180,6 @@ public class AlgumaRotinaBaseListener implements AlgumaRotinaListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitComp_parc(AlgumaRotinaParser.Comp_parcContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDate(AlgumaRotinaParser.DateContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDate(AlgumaRotinaParser.DateContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

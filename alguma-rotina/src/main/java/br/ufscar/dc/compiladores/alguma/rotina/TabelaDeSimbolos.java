@@ -59,7 +59,7 @@ public class TabelaDeSimbolos {
         Prioridade prioridade;
         Modalidade modalidade;
         String tempo_desejado;
-        Compromisso compromisso;
+        EntradaTabelaCompromisso compromisso;
 
         private EntradaTabelaRotina(String nome, String titulo, String descricao, Prioridade prioridade, Modalidade modalidade, String tempo_desejado, EntradaTabelaCompromisso compromisso) {
             this.nome = nome;
@@ -68,6 +68,19 @@ public class TabelaDeSimbolos {
             this.prioridade = prioridade;
             this.modalidade = modalidade;
             this.tempo_desejado = tempo_desejado;
+            this.compromisso = compromisso;
+        }
+        @Override
+        public String toString() {
+            return "Rotinas {" +
+                    "titulo='" + titulo + '\'' +
+                    ", nome='" + nome + '\'' +
+                    ", descricao='" + descricao + '\'' +
+                    ", prioridade=" + prioridade +
+                    ", modalidade=" + modalidade +
+                    ", tempo_desejado='" + tempo_desejado + '\'' +
+                    ", compromisso=" + compromisso +
+                    '}';
         }
     }
 
@@ -75,24 +88,47 @@ public class TabelaDeSimbolos {
         String nome;
         String inicio;
         String fim;
-        String data;
+        LocalDate data_comp;
 
-        private EntradaTabelaEvento(String nome, String inicio, String fim, LocalDate data) {
+        private EntradaTabelaEvento(String nome, String inicio, String fim, LocalDate data_comp) {
             this.nome = nome;
             this.inicio = inicio;
             this.fim = fim;
+            this.data_comp = data_comp;
+        }
+
+        @Override
+        public String toString() {
+            return "Eventos {" +
+                    "nome='" + nome + '\'' +
+                    ", inicio='" + inicio + '\'' +
+                    ", fim='" + fim + '\'' +
+                    ", data='" + data_comp + '\'' +
+                    '}';
         }
     }
     
     class EntradaTabelaCompromisso {
         String nome;
+        String titulo;
         String descricao;
         LocalDate data_compromisso;
 
-        private EntradaTabelaCompromisso(String nome, String descricao, LocalDate data_compromisso) {
+        private EntradaTabelaCompromisso(String nome, String titulo, String descricao, LocalDate data_compromisso) {
             this.nome = nome;
+            this.titulo = titulo;
             this.descricao = descricao;
             this.data_compromisso = data_compromisso;
+        }
+
+        @Override
+        public String toString() {
+            return "Compromissos {" +
+                    "nome='" + nome + '\'' +
+                    ", titulo='" + titulo + '\'' +
+                    ", descricao='" + descricao + '\'' +
+                    ", data_compromisso=" + data_compromisso +
+                    '}';
         }
     }
 
@@ -137,12 +173,20 @@ public class TabelaDeSimbolos {
             this.inicio_fim = inicio_fim;
             this.horarios_ocupados = horarios_atividades;
         }
+        @Override
+        public String toString() {
+            return "Agenda {" +
+                    "dia=" + dia +
+                    ", inicio_fim=" + inicio_fim +
+                    ", horarios_ocupados=" + horarios_ocupados +
+                    '}';
+        }
     }
     // Especificação das tabelas de símbolos para cada caso relacionada a agenda de estudos
-    private Map<DiaSemana, EntradaTabelaAgenda> agenda = new HashMap<>();
-    private Map<String, EntradaTabelaRotina> rotinas = new HashMap<>();
-    private Map<String, EntradaTabelaEvento> eventos = new HashMap<>();
-    private Map<String, EntradaTabelaCompromisso> compromissos = new HashMap<>();
+    public Map<DiaSemana, EntradaTabelaAgenda> agenda = new HashMap<>();
+    public Map<String, EntradaTabelaRotina> rotinas = new HashMap<>();
+    public Map<String, EntradaTabelaEvento> eventos = new HashMap<>();
+    public Map<String, EntradaTabelaCompromisso> compromissos = new HashMap<>();
 
     // Verifica se a string é um dia da semana presente no enum DiaSemana 
     public static boolean isDiaSemanaValido(String dia) {
@@ -190,8 +234,8 @@ public class TabelaDeSimbolos {
     }
 
     // Adiciona um evento à tabela de símbolos
-    public void adicionarEvento(String nome, String inicio, String fim, LocalDate data) {
-        eventos.put(nome, new EntradaTabelaEvento(nome, inicio, fim, data));
+    public void adicionarEvento(String nome, String inicio, String fim, LocalDate data_comp) {
+        eventos.put(nome, new EntradaTabelaEvento(nome, inicio, fim, data_comp));
     }
 
     // Obtém um evento da tabela de símbolos
@@ -205,8 +249,8 @@ public class TabelaDeSimbolos {
     }
 
     // Adiciona um compromisso à tabela de símbolos
-    public void adicionarCompromisso(String nome, String descricao, LocalDate data) {
-        compromissos.put(nome, new EntradaTabelaCompromisso(nome, descricao, data));
+    public void adicionarCompromisso(String nome, String titulo, String descricao, LocalDate data) {
+        compromissos.put(nome, new EntradaTabelaCompromisso(nome, titulo, descricao, data));
     }
 
     // Obtém um compromisso da tabela de símbolos
@@ -219,12 +263,31 @@ public class TabelaDeSimbolos {
         return compromissos.containsKey(nome);
     }
 
-    @Override
-    public String toString() {
-        return "TabelaDeSimbolos{" +
-                "rotinas=" + rotinas +
-                ", compromissos=" + compromissos +
-                ", eventos=" + eventos +
-                '}';
+    public void printAll() {
+        // Print compromissos
+        System.out.println("\nCompromissos:");
+        for (Map.Entry<String, EntradaTabelaCompromisso> entry : compromissos.entrySet()) {
+            System.out.println("Compromisso: " + entry.getKey() + " -> " + entry.getValue().toString());
+        }
+        
+        // Print rotinas
+        System.out.println("\nRotinas:");
+        for (Map.Entry<String, EntradaTabelaRotina> entry : rotinas.entrySet()) {
+            System.out.println("Rotina: " + entry.getKey() + " -> " + entry.getValue().toString());
+        }
+
+        // Print agendas
+        System.out.println("Agenda:");
+        for (Map.Entry<DiaSemana, EntradaTabelaAgenda> entry : agenda.entrySet()) {
+            System.out.println("Dia: " + entry.getKey() + " -> " + entry.getValue().toString());
+        }
+        
+        // Print eventos
+        System.out.println("\nEventos:");
+        for (Map.Entry<String, EntradaTabelaEvento> entry : eventos.entrySet()) {
+            System.out.println("Evento: " + entry.getKey() + " -> " + entry.getValue().toString());
+        }
+
+        
     }
 }

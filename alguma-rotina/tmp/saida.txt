@@ -1,3 +1,2 @@
-Linha 14: Compromisso compromisso2 ja declarado anteriormente
-Linha 28: Compromisso rotina1 nao declarado
+Linha 36: Compromisso compromisso nao declarado
 Fim da compilacao

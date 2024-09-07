@@ -59,6 +59,12 @@ public interface AlgumaRotinaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCorpo(AlgumaRotinaParser.CorpoContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AlgumaRotinaParser#date}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDate(AlgumaRotinaParser.DateContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AlgumaRotinaParser#agenda}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -88,12 +94,6 @@ public interface AlgumaRotinaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitComp_parc(AlgumaRotinaParser.Comp_parcContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AlgumaRotinaParser#date}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDate(AlgumaRotinaParser.DateContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AlgumaRotinaParser#prog_dia}.
 	 * @param ctx the parse tree
