@@ -1,17 +1,12 @@
 package br.ufscar.dc.compiladores.alguma.rotina;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.DayOfWeek;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotinaParser.RotinasContext;
-import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Modalidade;
-import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Prioridade;
 
 public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
     // Armazenamento dos horários disponíveis por dia
@@ -35,6 +30,91 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
     }
 
     @Override
+    public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
+        html.append("<h2>Agenda</h2>");
+        for (var diaAgendaCtx : ctx.DIAS_SEM()) {
+            String diaSemanaStr = diaAgendaCtx.getText();
+            html.append("<h3>Dia: ").append(diaSemanaStr).append("</h3>");
+
+            AlgumaRotinaParser.Prog_diaContext progDiaCtx = ctx.prog_dia(ctx.DIAS_SEM().indexOf(diaAgendaCtx));
+            String inicioStr = progDiaCtx.HORA(0).getText();
+            String fimStr = progDiaCtx.HORA(1).getText();
+
+            html.append("<p>Horário livre: ").append(inicioStr).append(" - ").append(fimStr).append("</p>");
+
+            if (progDiaCtx.lista_atividades() != null) {
+                html.append("<ul>");
+                for (var atividadeCtx : progDiaCtx.lista_atividades().atividades_agenda()) {
+                    html.append("<li>Atividade: ").append(atividadeCtx.getText()).append("</li>");
+                }
+                html.append("</ul>");
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Void visitRotinas(AlgumaRotinaParser.RotinasContext ctx) {
+        html.append("<h2>Rotinas</h2>");
+        for (var rotina : ctx.rotina()) {
+            String nomeRotina = rotina.IDENT(0).getText();
+            String titulo = rotina.CADEIA(0).getText();
+            String descricao = rotina.CADEIA(1).getText();
+            String prioridade = rotina.PRIORIDADE_TIPO().getText();
+            String modalidade = rotina.MODALIDADE().getText();
+            String tempoDesejado = rotina.HORA().getText();
+
+            html.append("<div class='rotina'>")
+                .append("<h3>Rotina: ").append(nomeRotina).append("</h3>")
+                .append("<p><strong>Título:</strong> ").append(titulo).append("</p>")
+                .append("<p><strong>Descrição:</strong> ").append(descricao).append("</p>")
+                .append("<p><strong>Prioridade:</strong> ").append(prioridade).append("</p>")
+                .append("<p><strong>Modalidade:</strong> ").append(modalidade).append("</p>")
+                .append("<p><strong>Tempo Desejado:</strong> ").append(tempoDesejado).append("</p>")
+                .append("</div>");
+        }
+        return super.visitRotinas(ctx);
+    }
+
+    @Override
+    public Void visitComp_parc(AlgumaRotinaParser.Comp_parcContext ctx) {
+        html.append("<h2>Compromissos</h2>");
+
+        String nome = ctx.IDENT().getText();
+        String titulo = ctx.CADEIA(0).getText();
+        String descricao = ctx.CADEIA(1).getText();
+        String dataCompromisso = ctx.date().getText();
+
+        html.append("<div class='compromisso'>")
+            .append("<h3>Compromisso: ").append(nome).append("</h3>")
+            .append("<p><strong>Título:</strong> ").append(titulo).append("</p>")
+            .append("<p><strong>Descrição:</strong> ").append(descricao).append("</p>")
+            .append("<p><strong>Data:</strong> ").append(dataCompromisso).append("</p>")
+            .append("</div>");
+
+        return super.visitComp_parc(ctx);
+    }
+
+    @Override
+    public Void visitEvento_parc(AlgumaRotinaParser.Evento_parcContext ctx) {
+        html.append("<h2>Eventos</h2>");
+
+        String nome = ctx.CADEIA().getText();
+        String inicio = ctx.HORA(0).getText();
+        String fim = ctx.HORA(1).getText();
+        String dataEvento = ctx.date().getText();
+
+        html.append("<div class='evento'>")
+            .append("<h3>Evento: ").append(nome).append("</h3>")
+            .append("<p><strong>Início:</strong> ").append(inicio).append("</p>")
+            .append("<p><strong>Fim:</strong> ").append(fim).append("</p>")
+            .append("<p><strong>Data:</strong> ").append(dataEvento).append("</p>")
+            .append("</div>");
+
+        return super.visitEvento_parc(ctx);
+    }
+
+    /*@Override
     public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
         LocalDate today_day = LocalDate.now();
         LocalDate first_day = today_day.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
@@ -87,9 +167,9 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
         html.append("</table>");
         
         return super.visitAgenda(ctx);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public Void visitRotinas(AlgumaRotinaParser.RotinasContext ctx) {
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
 
@@ -117,7 +197,7 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
             // Tenta encaixar a rotina nos horários disponíveis
             encaixarRotina(nomeRotina, titulo, descricao, tempo_desejado, compromisso);
 
-            /*html.append("<div class='rotina'>")
+            html.append("<div class='rotina'>")
                 .append("<h3>Rotina: ").append(nomeRotina).append("</h3>")
                 .append("<p><strong>Título:</strong> ").append(titulo).append("</p>")
                 .append("<p><strong>Descrição:</strong> ").append(descricao).append("</p>")
@@ -125,7 +205,7 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
                 .append("<p><strong>Modalidade:</strong> ").append(modalidade).append("</p>")
                 .append("<p><strong>Tempo Desejado:</strong> ").append(tempo_desejado).append("</p>")
                 .append("<p><strong>Compromisso:</strong> ").append(nomeCompromisso).append("</p>")
-                .append("</div>");*/
+                .append("</div>");
         }
 
         return super.visitRotinas(ctx);
@@ -214,5 +294,5 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
     private LocalDate converterDiaSemanaParaData(String diaSemana, LocalDate dataInicial) {
         DayOfWeek dia = DayOfWeek.valueOf(diaSemana.toUpperCase()); // Converte o nome do dia para DayOfWeek
         return dataInicial.with(TemporalAdjusters.nextOrSame(dia)); // Retorna a próxima data que corresponde ao dia da semana
-    }
+    }*/
 }

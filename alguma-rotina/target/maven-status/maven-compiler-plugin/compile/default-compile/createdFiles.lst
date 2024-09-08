@@ -24,6 +24,7 @@ br/ufscar/dc/compiladores/alguma/rotina/EntradaTabelaAgenda$DiaSemana.class
 br/ufscar/dc/compiladores/alguma/rotina/EntradaTabelaRotina$Prioridade.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$Prog_diaContext.class
+br/ufscar/dc/compiladores/alguma/rotina/CustomErrorListener.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaParser$DateContext.class
 br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotinaLexer.class
 br/ufscar/dc/compiladores/alguma/rotina/EntradaTabelaCompromisso.class

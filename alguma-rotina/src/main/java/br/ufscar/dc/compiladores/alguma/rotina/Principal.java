@@ -32,17 +32,19 @@ public class Principal {
         createOutputDirectory(args[1]);
 
         try {
-            // Leitura dos caracteres
             CharStream cs = CharStreams.fromFileName(args[0]);
             AlgumaRotinaLexer lexer = new AlgumaRotinaLexer(cs);
-
-            // Remove a classe padrão de listeners para erros  
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             AlgumaRotinaParser parser = new AlgumaRotinaParser(tokens);
-            parser.removeErrorListeners();
+            // parser.removeErrorListeners();
             
             ProgramaContext arvore = parser.programa();
             AlgumaRotina ar = new AlgumaRotina();
+
+            // Adicionando a classe CustomErrorListener com método customizado para erros de sintaxe (syntaxError)
+            // parser.addErrorListener(new CustomErrorListener(buffer));
+
+            // Inicialização do programa
             ar.visitPrograma(arvore);
             AlgumaRotinaUtils.errosSemanticos.forEach((s) -> System.out.println(s));
             AlgumaRotinaUtils.errosSemanticos.forEach((s) -> buffer.append(s + "\n"));
