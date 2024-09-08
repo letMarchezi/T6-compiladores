@@ -80,7 +80,9 @@ A dupla criou 5 casos de teste para exemplificar o compilador. Dentre eles, 1 ca
 
 O exemplo completo encontra-se em: [AlgumaRotina.g4](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/src/main/antlr4/br/ufscar/dc/compiladores/alguma/rotina/AlgumaRotina.g4)
 
-A gramática detalhada encontra-se: [caso3_erro_compromissoJaDeclarado.txt](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/casos-de-testes/caso3_erro_compromissoJaDeclarado.txt)
+A gramática detalhada encontra-se em: [caso3_erro_compromissoJaDeclarado.txt](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/casos-de-testes/caso3_erro_compromissoJaDeclarado.txt)
+
+A pasta com todos os casos de teste encontra-se em: [casos-de-testes](https://github.com/letMarchezi/T6-compiladores/tree/main/alguma-rotina/casos-de-testes)
 
 ## Uso do Compilador ##
 ### Compilação ###
@@ -118,4 +120,15 @@ Um exemplo de execução é a seguinte:
 
 
 ## Saídas e Resultados ##
+Após a utilização do compilador para análise de um determinado programa de entrada, são gerados alguns arquivos:
+- Arquivos de saída referente a cada caso de entrada. Estes arquivos se encontram na pasta [saida](https://github.com/letMarchezi/T6-compiladores/tree/main/alguma-rotina/saida). Veja um exemplo, referente ao caso de teste 3 (caso3_erro_compromissoJaDeclarado.txt) já mencionado na seção **Casos de Teste**.
 
+  Saída gerada no arquivo saida3.txt
+  
+  ![](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/casos-de-testes/apenas-imagens/Captura%20de%20tela%20de%202024-09-08%2018-23-59.png)
+
+- Arquivo .html. Este arquivo se encontra em [saida.html](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/saida.html). Idealmente, optamos por focar em apenas um caso de teste para a saída em html.
+
+  Saída gerada no arquivo saida.html
+  
+  ![inserir imagem aqui se tiver]()
