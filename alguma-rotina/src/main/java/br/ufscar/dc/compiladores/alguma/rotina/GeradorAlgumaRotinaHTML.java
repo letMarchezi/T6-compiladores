@@ -27,24 +27,11 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
     public Planejador planner = new Planejador();
 
     private StringBuilder html = new StringBuilder();
-    private boolean finished = false;
+    
 
     public String getHtml() {
         return html.toString();
     }
-
-
-    public void onFinish(){
-        System.out.println("ACABOU");
-    }
-
-    // @Override
-    // public Void visitPrograma(AlgumaRotinaParser.ProgramaContext ctx) {
-    //     html.append("<html><body>");
-    //     html.append("<h1>Cronograma de Estudos</h1>");
-    //     return super.visitPrograma(ctx);
-    // }
-
 
     @Override
     public Void visitPrograma(AlgumaRotinaParser.ProgramaContext ctx) {
@@ -53,11 +40,12 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
 
         Void result = super.visitPrograma(ctx);
         
-        // After visiting all nodes in the program, print the final message
+        // Após visitar todos os bloco, chama o agendador
         planner.agendarAtividades();
-        onFinish();
         return result;
     }
+
+
 
     // @Override
     // public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
