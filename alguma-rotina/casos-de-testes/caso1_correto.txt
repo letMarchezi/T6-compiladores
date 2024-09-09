@@ -31,17 +31,17 @@ FIMROTINA
 AGENDA
     SEGUNDA (
         inicio = 08:00h,
-        fim = 10:00h,
+        fim = 11:00h,
         atividades = {
-            (categoria = pessoal, inicio = 08:30h, fim = 09:30h)
+            (categoria = pessoal, inicio = 08:30h, fim = 09:30h),
+            (categoria = pessoal, inicio = 10:30h, fim = 12:00h)
         }
     )
     TERCA (
         inicio = 10:00h,
         fim = 18:00h,
         atividades = {
-            (categoria = trabalho, inicio = 12:30h, fim = 19:30h),
-            (categoria = , inicio = 11:00h, fim = 12:00h)
+            (categoria = trabalho, inicio = 12:30h, fim = 19:30h)
         }
     )
     QUARTA (

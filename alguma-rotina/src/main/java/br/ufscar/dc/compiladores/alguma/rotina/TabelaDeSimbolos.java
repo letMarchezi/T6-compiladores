@@ -83,32 +83,30 @@ public class TabelaDeSimbolos {
         DiaSemana tipoItem = DiaSemana.INVALIDO; 
         
         switch (tipoVariavel) {
-            case "domingo":
+            case "DOMINGO":
                 tipoItem = DiaSemana.DOMINGO;
                 break;
-            case "segunda":
+            case "SEGUNDA":
                 tipoItem = DiaSemana.SEGUNDA;
                 break;
-            case "terca":
+            case "TERCA":
                 tipoItem = DiaSemana.TERCA;
                 break;
-            case "quarta":
+            case "QUARTA":
                 tipoItem = DiaSemana.QUARTA;
                 break;
-            case "quinta":
+            case "QUINTA":
                 tipoItem = DiaSemana.QUINTA;
                 break;
-            case "sexta":
+            case "SEXTA":
                 tipoItem = DiaSemana.SEXTA;
                 break;
-            case "sabado":
+            case "SABADO":
                 tipoItem = DiaSemana.SABADO;
                 break;
         }
         return tipoItem;
     }  
-
-
 
     class Horario_inicio_fim{
         LocalTime horaInicio;
@@ -119,6 +117,9 @@ public class TabelaDeSimbolos {
             this.horaFim = timeToLocalTime(horaFim);
         }
 
+        public LocalTime retornaInicio() {
+            return horaInicio;
+        }
 
         @Override
         public String toString() {
@@ -137,7 +138,7 @@ public class TabelaDeSimbolos {
         //     return duracao.toMinutes(); // Retorna a diferença em minutos
         // }
 
-        public long calculateTimeDifference() {
+        public long retornaDuracaoMinutos() {
             Duration duracao = Duration.between(this.horaInicio, this.horaFim);
             return duracao.toMinutes(); // Retorna a diferença em minutos
         }
