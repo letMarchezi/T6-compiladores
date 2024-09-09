@@ -7,13 +7,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Horario_inicio_fim;
-
 
 public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
     // Armazenamento dos horários disponíveis por dia
-    private Map<String, List<Disponibilidade>> horarios = new HashMap<>();
-
+    private Map<String, List<String[]>> horariosDisponiveis = new HashMap<>();
 
     // Declaração da tabela de de escopos
     TabelaDeSimbolos tabelaEscopos;
@@ -32,142 +29,30 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
         return super.visitPrograma(ctx);
     }
 
-    // @Override
-    // public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
-    //     html.append("<h2>Agenda</h2>");
-    //     for (var diaAgendaCtx : ctx.DIAS_SEM()) {
-    //         String diaSemanaStr = diaAgendaCtx.getText();
-    //         html.append("<h3>Dia: ").append(diaSemanaStr).append("</h3>");
-
-    //         AlgumaRotinaParser.Prog_diaContext progDiaCtx = ctx.prog_dia(ctx.DIAS_SEM().indexOf(diaAgendaCtx));
-    //         String inicioStr = progDiaCtx.HORA(0).getText();
-    //         String fimStr = progDiaCtx.HORA(1).getText();
-
-    //         html.append("<p>Horário livre: ").append(inicioStr).append(" - ").append(fimStr).append("</p>");
-
-    //         if (progDiaCtx.lista_atividades() != null) {
-    //             html.append("<ul>");
-    //             for (var atividadeCtx : progDiaCtx.lista_atividades().atividades_agenda()) {
-    //                 html.append("<li>Atividade: ").append(atividadeCtx.getText()).append("</li>");
-    //             }
-    //             html.append("</ul>");
-    //         }
-    //     }
-    //     return null;
-    // }
-
     @Override
     public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
-        LocalDate today_day = LocalDate.now();
-        LocalDate first_day = today_day.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
-        LocalDate last_day = today_day.with(TemporalAdjusters.previousOrSame(DayOfWeek.SATURDAY));
-
-        html.append("<h2>Agenda Semanal (")
-            .append(first_day.toString())
-            .append(" - ")
-            .append(last_day.toString())
-            .append(")</h2>");
-
-        html.append("<table border='1'><tr><th>Dia da Semana</th><th>Horário Disponível</th><th>Atividades</th></tr>");
-
-        // Processa os dias da agenda e armazena horários disponíveis
+        html.append("<h2>Agenda</h2>");
         for (var diaAgendaCtx : ctx.DIAS_SEM()) {
             String diaSemanaStr = diaAgendaCtx.getText();
-            AlgumaRotinaParser.Prog_diaContext progDiaCtx = ctx.prog_dia(ctx.DIAS_SEM().indexOf(diaAgendaCtx));
+            html.append("<h3>Dia: ").append(diaSemanaStr).append("</h3>");
 
+            AlgumaRotinaParser.Prog_diaContext progDiaCtx = ctx.prog_dia(ctx.DIAS_SEM().indexOf(diaAgendaCtx));
             String inicioStr = progDiaCtx.HORA(0).getText();
             String fimStr = progDiaCtx.HORA(1).getText();
 
-            // Armazena os horários disponíveis
-            horarios.putIfAbsent(diaSemanaStr, new ArrayList<>());
-            horarios.get(diaSemanaStr).add(new Disponibilidade(tabelaEscopos.new Horario_inicio_fim(inicioStr, fimStr), Tipo.LIVRE));
+            html.append("<p>Horário livre: ").append(inicioStr).append(" - ").append(fimStr).append("</p>");
 
-            html.append("<tr><td><strong>").append(diaSemanaStr).append("</strong></td>");
-            html.append("<td>").append(inicioStr).append(" - ").append(fimStr).append("</td>");
-            
-            // Verifica se existem atividades no dia
             if (progDiaCtx.lista_atividades() != null) {
-                html.append("<td><ul>");
+                html.append("<ul>");
                 for (var atividadeCtx : progDiaCtx.lista_atividades().atividades_agenda()) {
-                    String categoria = atividadeCtx.CATEG_ATIVIDADES().getText();
-                    String inicioAtividade = atividadeCtx.HORA(0).getText();
-                    String fimAtividade = atividadeCtx.HORA(1).getText();
-                    
-                    html.append("<li>")
-                        .append("Atividade: ").append(categoria)
-                        .append(", Início: ").append(inicioAtividade)
-                        .append(", Fim: ").append(fimAtividade)
-                        .append("</li>");
+                    html.append("<li>Atividade: ").append(atividadeCtx.getText()).append("</li>");
                 }
-                html.append("</ul></td>");
-            } else {
-                html.append("<td>Sem atividades</td>");
+                html.append("</ul>");
             }
-            html.append("</tr>");
         }
-        
-        html.append("</table>");
-        
-        return super.visitAgenda(ctx);
+        return null;
     }
 
-
-    // @Override
-    // public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
-    //     LocalDate today_day = LocalDate.now();
-    //     LocalDate first_day = today_day.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
-    //     LocalDate last_day = today_day.with(TemporalAdjusters.previousOrSame(DayOfWeek.SATURDAY));
-
-    //     html.append("<h2>Agenda Semanal (")
-    //         .append(first_day.toString())
-    //         .append(" - ")
-    //         .append(last_day.toString())
-    //         .append(")</h2>");
-
-    //     html.append("<table border='1'><tr><th>Dia da Semana</th><th>Horário Disponível</th><th>Atividades</th></tr>");
-
-    //     // Processa os dias da agenda e armazena horários disponíveis
-    //     for (var diaAgendaCtx : ctx.DIAS_SEM()) {
-    //         String diaSemanaStr = diaAgendaCtx.getText();
-    //         AlgumaRotinaParser.Prog_diaContext progDiaCtx = ctx.prog_dia(ctx.DIAS_SEM().indexOf(diaAgendaCtx));
-
-    //         String inicioStr = progDiaCtx.HORA(0).getText();
-    //         String fimStr = progDiaCtx.HORA(1).getText();
-
-    //         // Armazena os horários disponíveis
-    //         horariosDisponiveis.putIfAbsent(diaSemanaStr, new ArrayList<>());
-    //         horariosDisponiveis.get(diaSemanaStr).add(new String[]{inicioStr, fimStr});
-
-    //         html.append("<tr><td><strong>").append(diaSemanaStr).append("</strong></td>");
-    //         html.append("<td>").append(inicioStr).append(" - ").append(fimStr).append("</td>");
-            
-    //         // Verifica se existem atividades no dia
-    //         if (progDiaCtx.lista_atividades() != null) {
-    //             html.append("<td><ul>");
-    //             for (var atividadeCtx : progDiaCtx.lista_atividades().atividades_agenda()) {
-    //                 String categoria = atividadeCtx.CATEG_ATIVIDADES().getText();
-    //                 String inicioAtividade = atividadeCtx.HORA(0).getText();
-    //                 String fimAtividade = atividadeCtx.HORA(1).getText();
-                    
-    //                 html.append("<li>")
-    //                     .append("Atividade: ").append(categoria)
-    //                     .append(", Início: ").append(inicioAtividade)
-    //                     .append(", Fim: ").append(fimAtividade)
-    //                     .append("</li>");
-    //             }
-    //             html.append("</ul></td>");
-    //         } else {
-    //             html.append("<td>Sem atividades</td>");
-    //         }
-    //         html.append("</tr>");
-    //     }
-        
-    //     html.append("</table>");
-        
-    //     return super.visitAgenda(ctx);
-    // }
-
-    
     @Override
     public Void visitRotinas(AlgumaRotinaParser.RotinasContext ctx) {
         html.append("<h2>Rotinas</h2>");
@@ -229,8 +114,62 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
         return super.visitEvento_parc(ctx);
     }
 
-   
-    @Override
+    /*@Override
+    public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
+        LocalDate today_day = LocalDate.now();
+        LocalDate first_day = today_day.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+        LocalDate last_day = today_day.with(TemporalAdjusters.previousOrSame(DayOfWeek.SATURDAY));
+
+        html.append("<h2>Agenda Semanal (")
+            .append(first_day.toString())
+            .append(" - ")
+            .append(last_day.toString())
+            .append(")</h2>");
+
+        html.append("<table border='1'><tr><th>Dia da Semana</th><th>Horário Disponível</th><th>Atividades</th></tr>");
+
+        // Processa os dias da agenda e armazena horários disponíveis
+        for (var diaAgendaCtx : ctx.DIAS_SEM()) {
+            String diaSemanaStr = diaAgendaCtx.getText();
+            AlgumaRotinaParser.Prog_diaContext progDiaCtx = ctx.prog_dia(ctx.DIAS_SEM().indexOf(diaAgendaCtx));
+
+            String inicioStr = progDiaCtx.HORA(0).getText();
+            String fimStr = progDiaCtx.HORA(1).getText();
+
+            // Armazena os horários disponíveis
+            horariosDisponiveis.putIfAbsent(diaSemanaStr, new ArrayList<>());
+            horariosDisponiveis.get(diaSemanaStr).add(new String[]{inicioStr, fimStr});
+
+            html.append("<tr><td><strong>").append(diaSemanaStr).append("</strong></td>");
+            html.append("<td>").append(inicioStr).append(" - ").append(fimStr).append("</td>");
+            
+            // Verifica se existem atividades no dia
+            if (progDiaCtx.lista_atividades() != null) {
+                html.append("<td><ul>");
+                for (var atividadeCtx : progDiaCtx.lista_atividades().atividades_agenda()) {
+                    String categoria = atividadeCtx.CATEG_ATIVIDADES().getText();
+                    String inicioAtividade = atividadeCtx.HORA(0).getText();
+                    String fimAtividade = atividadeCtx.HORA(1).getText();
+                    
+                    html.append("<li>")
+                        .append("Atividade: ").append(categoria)
+                        .append(", Início: ").append(inicioAtividade)
+                        .append(", Fim: ").append(fimAtividade)
+                        .append("</li>");
+                }
+                html.append("</ul></td>");
+            } else {
+                html.append("<td>Sem atividades</td>");
+            }
+            html.append("</tr>");
+        }
+        
+        html.append("</table>");
+        
+        return super.visitAgenda(ctx);
+    }*/
+
+    /*@Override
     public Void visitRotinas(AlgumaRotinaParser.RotinasContext ctx) {
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
 
@@ -355,5 +294,5 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
     private LocalDate converterDiaSemanaParaData(String diaSemana, LocalDate dataInicial) {
         DayOfWeek dia = DayOfWeek.valueOf(diaSemana.toUpperCase()); // Converte o nome do dia para DayOfWeek
         return dataInicial.with(TemporalAdjusters.nextOrSame(dia)); // Retorna a próxima data que corresponde ao dia da semana
-    }
+    }*/
 }

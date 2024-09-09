@@ -36,6 +36,16 @@ class EntradaTabelaRotina {
         this.tempo_desejado = tempo_desejado;
         this.compromisso = compromisso;
     }
+
+        
+    public Prioridade getPrioridade() {
+        return prioridade;
+    }
+
+    public int retornaTempoDesejadoMinutos() {
+        return (int) (Integer.parseInt(tempo_desejado.replace("h", "")) * 60);
+    }
+
     @Override
     public String toString() {
         return "Rotinas {" +

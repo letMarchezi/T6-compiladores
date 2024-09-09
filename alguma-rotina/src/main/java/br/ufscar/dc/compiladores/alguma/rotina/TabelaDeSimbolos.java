@@ -132,9 +132,19 @@ public class TabelaDeSimbolos {
         }
 
         // Calcula a diferença entre dois horários
-        public static long calculateTimeDifference(LocalTime start, LocalTime end) {
-            Duration duration = Duration.between(start, end);
-            return duration.toMinutes(); // Retorna a diferença em minutos
+        // public static long calculateTimeDifference(LocalTime start, LocalTime end) {
+        //     Duration duracao = Duration.between(start, end);
+        //     return duracao.toMinutes(); // Retorna a diferença em minutos
+        // }
+
+        public long calculateTimeDifference() {
+            Duration duracao = Duration.between(this.horaInicio, this.horaFim);
+            return duracao.toMinutes(); // Retorna a diferença em minutos
+        }
+
+        // Retorna se um horário está contido em outro 
+        public boolean fits(Horario_inicio_fim outro) {
+            return horaInicio.isBefore(outro.horaFim) && horaFim.isAfter(outro.horaInicio);
         }
 
         // Método para verificar sobreposição

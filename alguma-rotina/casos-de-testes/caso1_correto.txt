@@ -40,7 +40,8 @@ AGENDA
         inicio = 10:00h,
         fim = 18:00h,
         atividades = {
-            (categoria = trabalho, inicio = 12:30h, fim = 19:30h)
+            (categoria = trabalho, inicio = 12:30h, fim = 19:30h),
+            (categoria = , inicio = 11:00h, fim = 12:00h)
         }
     )
     QUARTA (
