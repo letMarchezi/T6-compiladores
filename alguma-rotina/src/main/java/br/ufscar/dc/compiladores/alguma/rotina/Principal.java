@@ -14,6 +14,7 @@ import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotinaParser.ProgramaContex
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.*;
 
 public class Principal {
     
@@ -36,16 +37,13 @@ public class Principal {
             AlgumaRotinaLexer lexer = new AlgumaRotinaLexer(cs);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             AlgumaRotinaParser parser = new AlgumaRotinaParser(tokens);
-            // parser.removeErrorListeners();
-            
             ProgramaContext arvore = parser.programa();
             AlgumaRotina ar = new AlgumaRotina();
 
-            // Adicionando a classe CustomErrorListener com método customizado para erros de sintaxe (syntaxError)
-            // parser.addErrorListener(new CustomErrorListener(buffer));
-
             // Inicialização do programa
+
             ar.visitPrograma(arvore);
+            
             AlgumaRotinaUtils.errosSemanticos.forEach((s) -> System.out.println(s));
             AlgumaRotinaUtils.errosSemanticos.forEach((s) -> buffer.append(s + "\n"));
             
@@ -53,19 +51,28 @@ public class Principal {
             //ar.exportarTabelaArquivo(exportFilePath); 
 
             // Instancia o gerador de HTML
-            GeradorAlgumaRotinaHTML gerador = new GeradorAlgumaRotinaHTML();
-            gerador.visit(arvore);
 
-            // Obtenha o HTML gerado
-            String codigoHtml = gerador.getHtml();
-
-            // Salve o HTML em um arquivo
-            try (FileWriter writer = new FileWriter("saida.html")) {
-                writer.write(codigoHtml);
+            if(AlgumaRotinaUtils.errosSemanticos.size() == 0 ){
+                GeradorAlgumaRotinaHTML gerador = new GeradorAlgumaRotinaHTML();
+                gerador.visit(arvore);
+    
+                // Obtenha o HTML gerado
+                String codigoHtml = gerador.getHtml();
+    
+                // Salve o HTML em um arquivo
+                try (FileWriter writer = new FileWriter("teste.html")) {
+                    writer.write(codigoHtml);
+                }
             }
+            else{
+                try (FileWriter writer = new FileWriter("teste.html")) {
+                    writer.write("Erros: \n" + buffer);
+                }
+            }
+           
         } catch (Exception ex) {
             // Detecção de exceções
-            System.err.println("Erro: " + ex.getMessage());
+           // System.err.println("Erro: " + ex.getMessage());
         }
         buffer.append("Fim da compilacao\n");
         // Escreve o resultado do buffer no arquivo de saída

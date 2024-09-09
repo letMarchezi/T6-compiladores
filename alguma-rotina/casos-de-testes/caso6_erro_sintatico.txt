@@ -1,0 +1,93 @@
+COMPROMISSOS
+compromisso1: 
+    (titulo = "Prova de PDI", 
+        descricao = "Prova 2 da disciplina de Processamento Digital de Imagens", 
+        data_compromisso = 06/09/2024)
+
+compromisso2: 
+    (titulo = "Entrega do tabalho de Compiladores", 
+        descricao = "Entrega do trabalho 6 da disciplina de Construção de Compiladores", 
+        data_compromisso = 10/09/2024)
+
+compromisso3: 
+    (titulo = "Entrega do trabalho de DevOps", 
+        descricao = "Entrega do trabalho 2 da disciplina DevOps", 
+        data_compromisso = 12/09/2024)
+
+compromisso2: 
+    (titulo = "Entrega do relatório de MD", 
+        descricao = "Entrega do relatório final da disciplina de Metodologia Científica", 
+        data_compromisso = 13/09/2024)        
+FIMCOMPROMISSOS
+
+ROTINA
+rotina1: 
+    (titulo = "Revisão para prova de PDI", 
+        descricao = "Revisar todos os tópicos da disciplina a partir da Transformada de Fourier", 
+        prioridade = alto, 
+        modalidade = revisao, 
+        tempo_desejado = 2h, 
+        compromisso = null)
+
+rotina2: 
+    (titulo = "Desenvolvimento do T6", 
+        descricao = "Finalização do trabalho final de Compiladores", 
+        prioridade = alta, 
+        modalidade = projeto, 
+        tempo_desejado = 8h, 
+        compromisso = compromisso2)
+
+rotina3:
+    (titulo = "Desenvolvimento do T2", 
+        descricao = "Corrigir o acerto de acesso do backend com o banco de dados e finalizar o projeto", 
+        prioridade = media, 
+        modalidade = projeto, 
+        tempo_desejado = 2h, 
+        compromisso = compromisso3)
+
+rotina3:
+    (titulo = "Desenvolvimento do T2", 
+        descricao = "Corrigir o acerto de acesso do backend com o banco de dados e finalizar o projeto", 
+        prioridade = media, 
+        modalidade = projeto, 
+        tempo_desejado = 2h, 
+        compromisso = compromisso3)
+FIMROTINA
+
+AGENDA
+    SEGUNDA (
+        inicio = 08:00h,
+        fim = 11:00h,
+        atividades = {
+            (categoria = pessoal, inicio = 07:00h, fim = 08:00h)
+        }
+    )
+    TERCA (
+        inicio = 06:00h,
+        fim = 12:00h,
+        atividades = {
+            (categoria = aula, inicio = 08:00h, fim = 10:00h)
+        }
+    )
+    QUARTA (
+        inicio = 18:00h,
+        fim = 14:00h,
+        atividades = {
+            (categoria = aula, inicio = 10:00h, fim = 12:00h),
+            (categoria = trabalho, inicio = 14:00h, fim = 18:00h)
+        }
+    )
+    SEXTA (
+        inicio = 07:00h,
+        fim = 10:00h,
+        atividades = {
+            (categoria =  pessoal, inicio = 09:15h, fim = 10:00h)
+        }
+    )
+FIMAGENDA
+
+EVENTOS
+(nome = "Prova de PDI", inicio = 14:00h, fim = 16:00h, data = 06/09/2024)
+(nome = "Entrega do Projeto", inicio = 08:00h, fim = 23:59h, data = 10/09/2024)
+(nome = "Entrega do Projeto", inicio = 18:00h, fim = 23:59h, data = 12/09/2024)
+FIMEVENTOS
