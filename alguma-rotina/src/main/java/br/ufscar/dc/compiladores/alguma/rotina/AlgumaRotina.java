@@ -8,11 +8,10 @@ import java.util.ArrayList;
 import org.antlr.v4.runtime.Token;
 
 import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotinaParser.Atividades_agendaContext;
-import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Horario_inicio_fim;
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaAgenda.DiaSemana;
 import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Modalidade;
 import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Prioridade;
-
-import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaAgenda.DiaSemana;
+import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Horario_inicio_fim;
 
 public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     // Declaração da tabela de símbolos

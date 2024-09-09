@@ -1,12 +1,16 @@
 package br.ufscar.dc.compiladores.alguma.rotina;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaAgenda.DiaSemana;
 import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Modalidade;
 import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Prioridade;
 import br.ufscar.dc.compiladores.alguma.rotina.TabelaDeSimbolos.Horario_inicio_fim;
-
-import java.time.LocalTime;
-import java.util.*;
 
 public class Planejador {
 
@@ -18,6 +22,7 @@ public class Planejador {
     public Map<DiaSemana, Horario_inicio_fim> periodoEstudo;
     // Rotina de estudos
     public Map<DiaSemana, List<Pair<Horario_inicio_fim,EntradaTabelaRotina>>> rotinaPlanejada;
+
 
     public TabelaDeSimbolos tabela;
 
@@ -92,7 +97,7 @@ public class Planejador {
         return slotsDisponiveis;
     }
     // Agenda as atividades nos horários livres
-    public void agendarAtividades() {
+    public void planejarEstudos() {
         // Ordena as rotinas por ordem de prioridade
         rotinas.sort(Comparator.comparing(EntradaTabelaRotina::getPrioridade));
 
@@ -141,4 +146,155 @@ public class Planejador {
             }
         }
     }
+
+    public String mostrarAgenda(){
+        StringBuilder html = new StringBuilder();
+        html.append("<table>\n");
+        // Criação do header com os dias da semana
+        html.append("\t<tr>\n");
+        for (DiaSemana dia : DiaSemana.values()) {
+            if(dia == DiaSemana.INVALIDO)
+                continue;
+            html.append("\t\t<th>").append(dia.toString()).append("</th>\n");
+        }
+        html.append("\t</tr>\n");
+
+        // Criação das linhas para cada rotina
+        html.append("\t<tr>\n");
+        for (DiaSemana dia : DiaSemana.values()) {
+            if(dia == DiaSemana.INVALIDO)
+                continue;
+            
+            html.append("\t\t<td>\n");
+
+            // Selecionando as rotinas pelo dia da semana
+            List<Pair<Horario_inicio_fim, EntradaTabelaRotina>> rotinas = rotinaPlanejada.getOrDefault(dia, new ArrayList<>());
+            
+            if (rotinas.isEmpty()) {
+                html.append("Não há rotinas para este dia.\n");
+            } else {
+                // Mostra as rotinas e os atributos
+                for (Pair<Horario_inicio_fim, EntradaTabelaRotina> pair : rotinas) {
+                    Horario_inicio_fim horario = pair.first;
+                    EntradaTabelaRotina rotina = pair.second;
+                    
+                    String compromissoString;
+                    if (rotina.compromisso == null)
+                        compromissoString = "Compromisso relacionado: Nenhum";
+                    else{
+                        compromissoString = "Compromisso relacionado: <b>"+rotina.compromisso.titulo+"</b>";
+                    }
+                    // Formação do horário e atributos
+                    html.append("\t\t\t<p>")
+                        .append("\t\t\t </font><font size='3'><strong>").append(rotina.titulo).append("</strong></font><font size='2'><br>")
+                        .append("\t\t\tHorário de início: ").append(horario.horaInicio.toString()).append("<br>")
+                        .append("\t\t\tHorário de fim: ").append(horario.horaFim.toString()).append("<br>")
+                        .append("\t\t\tPrioridade: ").append(rotina.prioridade.toString()).append("<br>")
+                        .append("\t\t\tModalidade: ").append(rotina.modalidade.toString()).append("<br>")
+                        .append("\t\t\t"+compromissoString+"<br>\n")
+                        .append("\t\t\t</p>\n");
+                }
+            }
+
+            html.append("\t\t</td>\n");
+        }
+        html.append("\t</tr>\n");
+        html.append("</table>\n</font>");
+        
+        return html.toString();
+    }
+
+    public String retornaEstilo(){
+        return """
+            <style>
+            body {
+                font-family: verdana;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 20px;
+            }
+
+            h1 {
+                text-align: center;
+                color: #333;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+                font-size: 16px;
+                background-color: #fff;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            th, td {
+                border: 1px solid #ddd;
+                padding: 12px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            td {
+                background-color: #f9f9f9;
+            }
+
+            tr:nth-child(even) td {
+                background-color: #f2f2f2;
+            }
+
+            td p {
+                margin: 10px 0;
+            }
+
+            strong {
+                color: #333;
+            }
+
+            .compromisso, .evento, .rotina {
+                background-color: #fff;
+                padding: 20px;
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .compromisso h3, .evento h3, .rotina h3 {
+                margin-top: 0;
+                color: #4CAF50;
+            }
+
+            .evento {
+                background-color: #fffae6;
+            }
+
+            .rotina {
+                background-color: #e6f7ff;
+            }
+
+            /* Efeito para linhas */
+            tr:hover td {
+                background-color: #d1e7dd;
+            }
+
+            /* Responsividade para telas pequenas */
+            @media screen and (max-width: 768px) {
+                table {
+                    display: block;
+                    overflow-x: auto;
+                    white-space: nowrap;
+                }
+
+                th, td {
+                    padding: 10px;
+                    font-size: 14px;
+                }
+            }
+        </style>""";
+    }
+
 }

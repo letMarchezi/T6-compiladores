@@ -1,0 +1,92 @@
+COMPROMISSOS
+compromisso1: 
+    (titulo = "Prova de Redes Neurais", 
+        descricao = "Prova 2 da disciplina de Aprendizado de Máquina 2", 
+        data_compromisso = 17/09/2024)
+
+compromisso2: 
+    (titulo = "Processo seletivo de Dados", 
+        descricao = "Entrega de projeto técnico para o PS de engenharia de dados", 
+        data_compromisso = 12/09/2024)
+
+compromisso3: 
+    (titulo = "Lista de atividades de Visão Computacional", 
+        descricao = "Listas 1 e 2", 
+        data_compromisso = 13/09/2024)
+
+      
+FIMCOMPROMISSOS
+
+ROTINA
+rotina1: 
+    (titulo = "Revisão para prova de AM2", 
+        descricao = "Revisar todos os tópicos da disciplina a partir de Redes Neurais", 
+        prioridade = alta, 
+        modalidade = revisao, 
+        tempo_desejado = 2h, 
+        compromisso = compromisso1)
+
+rotina2: 
+    (titulo = "Revisão de pipeline de dados", 
+        descricao = "Preparação para a entrevista de engenheiro de dados", 
+        prioridade = alta, 
+        modalidade = revisao, 
+        tempo_desejado = 2h, 
+        compromisso = compromisso2)
+
+rotina3:
+    (titulo = "Leitura semanal de artigos", 
+        descricao = "Buscar novas publicações no site ACL", 
+        prioridade = baixa, 
+        modalidade = estudo_teorico, 
+        tempo_desejado = 2h, 
+        compromisso = compromisso3)
+
+rotina4:
+    (titulo = "Desenvolvimento do Projeto técnico", 
+        descricao = "Integração de pipeline para modelo de ML", 
+        prioridade = alta, 
+        modalidade = projeto, 
+        tempo_desejado = 6h, 
+        compromisso = compromisso2)
+FIMROTINA
+
+AGENDA
+    SEGUNDA (
+        inicio = 08:00h,
+        fim = 14:00h,
+        atividades = {
+            (categoria = pessoal, inicio = 07:00h, fim = 08:00h),
+             (categoria = pessoal, inicio = 11:00h, fim = 12:00h)
+        }
+    )
+    TERCA (
+        inicio = 06:00h,
+        fim = 12:00h,
+        atividades = {
+            (categoria = aula, inicio = 08:00h, fim = 10:00h),
+            (categoria = aula, inicio = 11:00h, fim = 12:00h)
+        }
+    )
+    QUARTA (
+        inicio = 08:00h,
+        fim = 18:00h,
+        atividades = {
+            (categoria = aula, inicio = 10:00h, fim = 12:00h),
+            (categoria = trabalho, inicio = 14:00h, fim = 18:00h)
+        }
+    )
+    SEXTA (
+        inicio = 10:00h,
+        fim = 16:00h,
+        atividades = {
+            (categoria =  pessoal, inicio = 11:15h, fim = 12:00h)
+        }
+    )
+FIMAGENDA
+
+EVENTOS
+(nome = "Prova de AM", inicio = 14:00h, fim = 16:00h, data = 09/09/2024)
+(nome = "Entrega do Projeto", inicio = 08:00h, fim = 23:59h, data = 10/09/2024)
+(nome = "Entrega do Projeto", inicio = 18:00h, fim = 23:59h, data = 12/09/2024)
+FIMEVENTOS

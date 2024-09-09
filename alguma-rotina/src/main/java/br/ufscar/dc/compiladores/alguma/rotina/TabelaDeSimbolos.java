@@ -2,18 +2,18 @@ package br.ufscar.dc.compiladores.alguma.rotina;
 
 import java.util.Map;
 
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaAgenda.DiaSemana;
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaEvento.CategoriaAtividades;
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Modalidade;
+import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Prioridade;
+
 import java.util.List;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.time.LocalTime;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.Duration;
-
-import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Modalidade;
-import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaRotina.Prioridade;
-import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaAgenda.DiaSemana;
-import br.ufscar.dc.compiladores.alguma.rotina.EntradaTabelaEvento.CategoriaAtividades;;
+import java.time.Duration;;
 public class TabelaDeSimbolos {
 
     

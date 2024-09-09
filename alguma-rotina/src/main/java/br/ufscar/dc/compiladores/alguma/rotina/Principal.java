@@ -14,7 +14,6 @@ import br.ufscar.dc.compiladores.alguma.rotina.AlgumaRotinaParser.ProgramaContex
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.*;
 
 public class Principal {
     
@@ -47,9 +46,6 @@ public class Principal {
             AlgumaRotinaUtils.errosSemanticos.forEach((s) -> System.out.println(s));
             AlgumaRotinaUtils.errosSemanticos.forEach((s) -> buffer.append(s + "\n"));
             
-            //String exportFilePath = args[2];
-            //ar.exportarTabelaArquivo(exportFilePath); 
-
             // Instancia o gerador de HTML
 
             if(AlgumaRotinaUtils.errosSemanticos.size() == 0 ){
