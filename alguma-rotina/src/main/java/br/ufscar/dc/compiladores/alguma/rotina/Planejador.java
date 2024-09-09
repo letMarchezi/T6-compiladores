@@ -149,29 +149,29 @@ public class Planejador {
 
     public String mostrarAgenda(){
         StringBuilder html = new StringBuilder();
-        html.append("<table>\n");
+        html.append("\n\t\t\t<table>\n");
         // Criação do header com os dias da semana
-        html.append("\t<tr>\n");
+        html.append("\t\t\t\t<tr>\n");
         for (DiaSemana dia : DiaSemana.values()) {
             if(dia == DiaSemana.INVALIDO)
                 continue;
-            html.append("\t\t<th>").append(dia.toString()).append("</th>\n");
+            html.append("\t\t\t\t\t<th>").append(dia.toString()).append("</th>\n");
         }
-        html.append("\t</tr>\n");
+        html.append("\t\t\t</tr>\n");
 
         // Criação das linhas para cada rotina
-        html.append("\t<tr>\n");
+        html.append("\t\t\t<tr>\n");
         for (DiaSemana dia : DiaSemana.values()) {
             if(dia == DiaSemana.INVALIDO)
                 continue;
             
-            html.append("\t\t<td>\n");
+            html.append("\t\t\t\t<td>\n");
 
             // Selecionando as rotinas pelo dia da semana
             List<Pair<Horario_inicio_fim, EntradaTabelaRotina>> rotinas = rotinaPlanejada.getOrDefault(dia, new ArrayList<>());
             
             if (rotinas.isEmpty()) {
-                html.append("Não há rotinas para este dia.\n");
+                html.append("\t\t\t\t\tNão há rotinas para este dia.\n");
             } else {
                 // Mostra as rotinas e os atributos
                 for (Pair<Horario_inicio_fim, EntradaTabelaRotina> pair : rotinas) {
@@ -185,28 +185,27 @@ public class Planejador {
                         compromissoString = "Compromisso relacionado: <b>"+rotina.compromisso.titulo+"</b>";
                     }
                     // Formação do horário e atributos
-                    html.append("\t\t\t<p>")
-                        .append("\t\t\t </font><font size='3'><strong>").append(rotina.titulo).append("</strong></font><font size='2'><br>")
-                        .append("\t\t\tHorário de início: ").append(horario.horaInicio.toString()).append("<br>")
-                        .append("\t\t\tHorário de fim: ").append(horario.horaFim.toString()).append("<br>")
-                        .append("\t\t\tPrioridade: ").append(rotina.prioridade.toString()).append("<br>")
-                        .append("\t\t\tModalidade: ").append(rotina.modalidade.toString()).append("<br>")
-                        .append("\t\t\t"+compromissoString+"<br>\n")
-                        .append("\t\t\t</p>\n");
+                    html.append("\t\t\t\t\t<p>")
+                        .append("\t\t\t\t\t<strong>").append(rotina.titulo).append("</strong><br>")
+                        .append("\t\t\t\t\tHorário de início: ").append(horario.horaInicio.toString()).append("<br>")
+                        .append("\t\t\t\t\tHorário de fim: ").append(horario.horaFim.toString()).append("<br>")
+                        .append("\t\t\t\t\tPrioridade: ").append(rotina.prioridade.toString()).append("<br>")
+                        .append("\t\t\t\t\tModalidade: ").append(rotina.modalidade.toString()).append("<br>")
+                        .append("\t\t\t\t\t"+compromissoString+"<br>\n")
+                        .append("\t\t\t\t\t</p>\n");
                 }
             }
-
-            html.append("\t\t</td>\n");
+            html.append("\t\t\t\t</td>\n");
         }
-        html.append("\t</tr>\n");
-        html.append("</table>\n</font>");
+        html.append("\t\t\t</tr>\n");
+        html.append("\t\t</table>\n");
         
         return html.toString();
     }
 
     public String retornaEstilo(){
         return """
-            <style>
+            \t<style>
             body {
                 font-family: verdana;
                 background-color: #f4f4f4;
@@ -294,7 +293,7 @@ public class Planejador {
                     font-size: 14px;
                 }
             }
-        </style>""";
+        \t</style>""";
     }
 
 }

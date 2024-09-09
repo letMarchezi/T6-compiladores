@@ -29,11 +29,11 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
     @Override
     public Void visitPrograma(AlgumaRotinaParser.ProgramaContext ctx) {
         StringBuilder inicio_html = new StringBuilder();
-        inicio_html.append("<html>\n<head>");
+        inicio_html.append("\n<html>\n<head>\n");
         // Adiciona estilização do HTML
         inicio_html.append(planner.retornaEstilo());
-        inicio_html.append("<body><font size='2'>");
-        inicio_html.append("<h1>Cronograma de Estudos</h1>");
+        inicio_html.append("\n\t<body>\n\t\n");
+        inicio_html.append("\n\t\t<h1>Cronograma de Estudos</h1>");
 
         Void result = super.visitPrograma(ctx);
         
@@ -42,8 +42,8 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
 
         // Concatena o html da tabela do cronograma de estudos com as informações gerais
         inicio_html.append(planner.mostrarAgenda());
-        inicio_html.append("</body></html>");
         html = inicio_html.append(html);
+        html = html.append("\n\t</body>\n</html>");
         return result;
     }
 
@@ -55,13 +55,13 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
         LocalDate first_day = today_day.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
         LocalDate last_day = today_day.with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY));
 
-        html.append("<h2>Agenda Semanal (")
+        html.append("\t\t<h2>Agenda Semanal (")
             .append(first_day.toString())
             .append(" - ")
             .append(last_day.toString())
-            .append(")</h2>");
+            .append(")</h2>\n");
 
-        html.append("<table border='1'><tr><th>Dia da Semana</th><th>Horário Disponível</th><th>Atividades</th></tr>");
+        html.append("\t\t\t<table border='1'>\n\t\t\t\t<tr>\n\t\t\t\t\t<th>Dia da Semana</th>\n\t\t\t\t\t<th>Horário Disponível</th>\n\t\t\t\t\t<th>Atividades</th>\n\t\t\t\t</tr>");
 
         // Processa os dias da agenda e armazena horários disponíveis
         for (var diaAgendaCtx : ctx.DIAS_SEM()) {
@@ -75,7 +75,7 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
             // Armazena os horários disponíveis
             planner.adicionarPeriodoEstudo(dia, inicioStr, fimStr);
 
-            html.append("<tr><td><strong>").append(diaSemanaStr).append("</strong></td>");
+            html.append("\n\t\t\t\t<tr><td><strong>").append(diaSemanaStr).append("</strong></td>");
             html.append("<td>").append(inicioStr).append(" - ").append(fimStr).append("</td>");
             
             // Verifica se existem atividades no dia
@@ -100,7 +100,7 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
             html.append("</tr>");
         }
         
-        html.append("</table>\n");
+        html.append("\t</table>\n");
         
         return super.visitAgenda(ctx);
     }
@@ -109,7 +109,7 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
     // Registra as rotinas a serem planejadas
     @Override
     public Void visitRotinas(AlgumaRotinaParser.RotinasContext ctx) {
-        html.append("<h2>Rotinas</h2>");
+        html.append("\t\t<h2>Rotinas</h2>\n");
         for (var rotina : ctx.rotina()) {
             String nomeRotina = rotina.IDENT(0).getText();
             String titulo = rotina.CADEIA(0).getText();
@@ -129,13 +129,13 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
             planner.adicionarRotina(nomeRotina,titulo,descricao, TabelaDeSimbolos.determinarTipoPrioridade(prioridade),TabelaDeSimbolos.determinarTipoModalidade(modalidade),tempoDesejado,compromisso);
             
             html.append("\t\t\t<div class='rotina'>\n")
-                .append("\t\t\t<h3>Rotina: ").append(nomeRotina).append("</h3>\n")
-                .append("\t\t\t<p><strong>Título:</strong> ").append(titulo).append("</p>\n")
-                .append("\t\t\t<p><strong>Descrição:</strong> ").append(descricao).append("</p>\n")
-                .append("\t\t\t<p><strong>Prioridade:</strong> ").append(prioridade).append("</p>\n")
-                .append("\t\t\t<p><strong>Modalidade:</strong> ").append(modalidade).append("</p>\n")
-                .append("\t\t\t<p><strong>Tempo Desejado:</strong> ").append(tempoDesejado).append("</p>\n")
-                .append("\t\t\t</div>\n");
+                .append("\t\t\t\t<h3>Rotina: ").append(nomeRotina).append("</h3>\n")
+                .append("\t\t\t\t\t<p><strong>Título:</strong> ").append(titulo).append("</p>\n")
+                .append("\t\t\t\t\t<p><strong>Descrição:</strong> ").append(descricao).append("</p>\n")
+                .append("\t\t\t\t\t<p><strong>Prioridade:</strong> ").append(prioridade).append("</p>\n")
+                .append("\t\t\t\t\t<p><strong>Modalidade:</strong> ").append(modalidade).append("</p>\n")
+                .append("\t\t\t\t\t<p><strong>Tempo Desejado:</strong> ").append(tempoDesejado).append("</p>\n")
+                .append("\t\t\t\t\t</div>\n");
         }
         return super.visitRotinas(ctx);
     }
@@ -144,7 +144,7 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
 
     @Override
     public Void visitSeq_comp(AlgumaRotinaParser.Seq_compContext ctx) {
-        html.append("<h2>Compromissos</h2>");
+        html.append("\t\t<h2>Compromissos</h2>\n");
 
         return super.visitSeq_comp(ctx);
     }
@@ -164,12 +164,12 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
         // Adiciona o compromisso ao Hashmap
         compromissos.put(nome, new EntradaTabelaCompromisso(nome, titulo, descricao, data));
 
-        html.append("<div class='compromisso'>\n")
-            .append("\t<h3>Compromisso: ").append(nome).append("</h3>\n")
-            .append("\t\t<p><strong>Título:</strong> ").append(titulo).append("</p>\n")
-            .append("\t\t<p><strong>Descrição:</strong> ").append(descricao).append("</p>\n")
-            .append("\t\t<p><strong>Data:</strong> ").append(dataCompromisso).append("</p>\n")
-            .append("\t\t</div>\n");
+        html.append("\t\t\t<div class='compromisso'>\n")
+            .append("\t\t\t\t<h3>Compromisso: ").append(nome).append("</h3>\n")
+            .append("\t\t\t\t\t<p><strong>Título:</strong> ").append(titulo).append("</p>\n")
+            .append("\t\t\t\t\t<p><strong>Descrição:</strong> ").append(descricao).append("</p>\n")
+            .append("\t\t\t\t\t<p><strong>Data:</strong> ").append(dataCompromisso).append("</p>\n")
+            .append("\t\t\t\t\t</div>\n");
 
         return super.visitComp_parc(ctx);
     }
@@ -177,7 +177,7 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
 
     @Override
     public Void visitSeq_evento(AlgumaRotinaParser.Seq_eventoContext ctx) {
-        html.append("<h2>Eventos</h2>");
+        html.append("\t\t<h2>Eventos</h2>\n");
         return super.visitSeq_evento(ctx);
     }
 
@@ -189,12 +189,12 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
         String inicio = ctx.HORA(0).getText();
         String fim = ctx.HORA(1).getText();
         String dataEvento = ctx.date().getText();
-        html.append("<div class='evento'>\n")
-            .append("\t<h3>Evento: ").append(nome).append("</h3>\n")
-            .append("\t\t<p><strong>Início:</strong> ").append(inicio).append("</p>\n")
-            .append("\t\t<p><strong>Fim:</strong> ").append(fim).append("</p>\n")
-            .append("\t\t<p><strong>Data:</strong> ").append(dataEvento).append("</p>\n")
-            .append("</div>\n");
+        html.append("\t\t\t<div class='evento'>\n")
+            .append("\t\t\t\t<h3>Evento: ").append(nome).append("</h3>\n")
+            .append("\t\t\t\t\t<p><strong>Início:</strong> ").append(inicio).append("</p>\n")
+            .append("\t\t\t\t\t<p><strong>Fim:</strong> ").append(fim).append("</p>\n")
+            .append("\t\t\t\t\t<p><strong>Data:</strong> ").append(dataEvento).append("</p>\n")
+            .append("\t\t\t\t</div>\n");
         
         DiaSemana dia_evento = converterDataDiaSemana(dataEvento, false);
         // Apenas adiciona o evento na agenda se estiver 
