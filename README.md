@@ -37,7 +37,7 @@ A gramática da linguagem foi desenvolvida para suportar programas divididos em 
 ### Requisitos ###
 Para a execução do analisador, é necessário ter instalado Java (aceitável qualquer versão a partir da *8*), Maven (*versão 3.6.3*) e ANTLR (*versão 4.13.1*).
 
-- A dupla usou, especificadamente, a versão mais atual do Java, que no atual momento do trabalho é a *19.0.2*.
+- A dupla usou, especificamente, a versão *19.0.2* do Java.
 
 Verifique se o Java e Maven estão definidos nas variáveis de ambiente de seu sistema, dessa forma, será possível invocar os comandos em qualquer diretório.
 
