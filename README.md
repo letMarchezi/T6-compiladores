@@ -125,10 +125,10 @@ Após a utilização do compilador para análise de um determinado programa de e
 
   Saída gerada no arquivo saida7.txt
   
-  ![]()
+  ![](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/casos-de-testes/apenas-imagens/Captura%20de%20tela%20de%202024-09-09%2022-57-28.png)
 
 - Arquivo .html. Este arquivo se encontra em [teste.html](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/teste.html). Idealmente, optamos por focar em apenas um caso de teste para a saída em html.
 
   Saída gerada no arquivo teste.html
   
-  ![]()
+  ![](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/casos-de-testes/apenas-imagens/Captura%20de%20tela%20de%202024-09-09%2022-56-27.png)
