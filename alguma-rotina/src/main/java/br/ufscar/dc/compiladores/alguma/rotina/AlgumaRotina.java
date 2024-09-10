@@ -45,7 +45,6 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
     }
 
     public Void visitAgenda(AlgumaRotinaParser.AgendaContext ctx) {
-        System.out.println("\n\n"+ctx.getText());
 
         tabelaEscopos = escoposAninhados.obterEscopoAtual();
         for (var diaAgendaCtx : ctx.DIAS_SEM()) {
@@ -56,12 +55,10 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
             // Mapeia o dia da semana
             try {
                 diaSemana = DiaSemana.valueOf(diaSemanaStr); // Converte a String para enum
-                System.out.println(diaSemana);
                 if (diaSemana == DiaSemana.INVALIDO){
                     AlgumaRotinaUtils.adicionarErroSemantico(diaAgendaCtx.getSymbol(), "Dia invalido: " + diaSemanaStr); 
                 }
             } catch (IllegalArgumentException e) {
-                System.out.println(diaSemana);
                 AlgumaRotinaUtils.adicionarErroSemantico(diaAgendaCtx.getSymbol(), "Dia invalido: " + diaSemanaStr);
             }
     
@@ -102,7 +99,6 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         verificaHorarioInicioFim(inicioAtividade, fimAtividade, atividadeCtx.HORA(0).getSymbol());
 
         Horario_inicio_fim novo_horario = tabela.new Horario_inicio_fim(inicioAtividade,fimAtividade);
-        System.out.println(novo_horario.toString());
         horarios_ocupados.add(novo_horario);
     }
 
@@ -179,8 +175,10 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         LocalDate data = LocalDate.parse(data_evento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
         tabelaEscopos.adicionarEvento(nome, inicio, fim, data);
-        System.out.println("------------------------------------------------------");
-        tabelaEscopos.printAll();
+        
+        // Método para mostrar todo o conteúdo da tabela de símbolos
+        // Recomendado para depuração
+        // tabelaEscopos.printAll();
         return super.visitEvento_parc(ctx);
     }   
 
@@ -206,11 +204,6 @@ public class AlgumaRotina extends AlgumaRotinaBaseVisitor<Void> {
         String descricao = ctx.CADEIA(1).getText();
         String data_compromisso = ctx.date().getText();
 
-        /*System.out.println("Nome Compromisso: " + nome);
-        System.out.println("Descrição Compromisso: " + descricao);
-        System.out.println("Data Compromisso: " + data_compromisso);
-        System.out.println("\n\n");*/
-        
         // Verifica se o compromisso já existe
         if (tabelaEscopos.existeCompromisso(nome)) {
             AlgumaRotinaUtils.adicionarErroSemantico(ctx.IDENT().getSymbol(), 

@@ -59,7 +59,7 @@ public class Planejador {
     }
 
     // Gera horários disponíveis subtraindo os horários ocupados
-    private List<Horario_inicio_fim> processaHorariosLivres(DiaSemana dia) {
+    private List<Horario_inicio_fim> processaHorariosLivres(DiaSemana dia, boolean verbose) {
         // Lista para armazenar os slots disponíveis após eliminação dos horarios ocupados 
         List<Horario_inicio_fim> slotsDisponiveis = new ArrayList<>();
         // Período de início e fim de estudos no dia
@@ -84,20 +84,22 @@ public class Planejador {
                 // Adiciona o slot: (inicio_periodo, inicio_atividade)
                 if (inicio.isBefore(ocupado.horaInicio)) {
                     slotsDisponiveis.add(tabela.new Horario_inicio_fim(inicio.toString(), ocupado.horaInicio.toString()));
-                    System.out.println("\tSlot disponível no dia "+dia +": "+inicio.toString()+" à "+ocupado.horaInicio.toString());
+                    if (verbose)
+                        System.out.println("\tSlot disponível no dia "+dia +": "+inicio.toString()+" à "+ocupado.horaInicio.toString());
                 }
                 inicio = ocupado.horaFim;
             }
             if (inicio.isBefore(periodo_estudo.horaFim)) {
                 slotsDisponiveis.add(tabela.new Horario_inicio_fim(inicio.toString(), periodo_estudo.horaFim.toString()));
-                System.out.println("\tSlot disponível dia "+dia +": "+inicio.toString()+" à "+periodo_estudo.horaFim.toString());
+                if (verbose)
+                    System.out.println("\tSlot disponível dia "+dia +": "+inicio.toString()+" à "+periodo_estudo.horaFim.toString());
             }
         }
 
         return slotsDisponiveis;
     }
     // Agenda as atividades nos horários livres
-    public void planejarEstudos() {
+    public void planejarEstudos(boolean verbose) {
         // Ordena as rotinas por ordem de prioridade
         rotinas.sort(Comparator.comparing(EntradaTabelaRotina::getPrioridade));
 
@@ -105,7 +107,7 @@ public class Planejador {
             long tempoDesejado = entrada.retornaTempoDesejadoMinutos();
             
             for (DiaSemana dia : periodoEstudo.keySet()) {
-                List<Horario_inicio_fim> slotDisponivel = processaHorariosLivres(dia);
+                List<Horario_inicio_fim> slotDisponivel = processaHorariosLivres(dia, false);
                 // Adiciona os horários de estudos nos slots disponíveis
                 for (Horario_inicio_fim slot : slotDisponivel) {
                     if (tempoDesejado <= 0) break;
@@ -120,10 +122,11 @@ public class Planejador {
                         // Adiciona o tempo ocupado
                         agendaOcupada.computeIfAbsent(dia, k -> new ArrayList<>()).add(horarioAgendado);
 
-
+                        tempoDesejado = 0;
+                        if (verbose)
                         System.out.println("Agendou " + entrada.titulo + " na " + dia +
                                 " das " + slot.horaInicio + " às " + slot.horaInicio.plusMinutes(tempoDesejado));
-                                tempoDesejado = 0;
+                        
                     } else {
                         // Adição parcial da rotina
 
@@ -133,14 +136,15 @@ public class Planejador {
                         // Marca o horário como ocupado
                         agendaOcupada.computeIfAbsent(dia, k -> new ArrayList<>()).add(horarioAgendado);
 
+                        if (verbose)
                         System.out.println("Agendou parte de " + entrada.titulo + " na " + dia +
                                 " das " + slot.horaInicio + " às " + slot.horaFim);
-                                tempoDesejado -= slotDuracao;
+                        tempoDesejado -= slotDuracao;
                     }
                 }
             }
 
-            if (tempoDesejado > 0) {
+            if (tempoDesejado > 0 && verbose) {
                 System.out.println("Não foi possível agendar todo o tempo de " + entrada.titulo +
                         ", tempo restante: " + tempoDesejado + " minutos.");
             }

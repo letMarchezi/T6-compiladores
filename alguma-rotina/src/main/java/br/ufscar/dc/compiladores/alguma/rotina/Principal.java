@@ -1,5 +1,5 @@
 /*
-2º trabalho prático da disciplina Construção de Compiladores - 2024/1
+6º trabalho prático da disciplina Construção de Compiladores - 2024/1
 Desenvolvido por:
 - Lara Santiago Rodrigues, 769701
 - Letícia Bossatto Marchezi, 791003
@@ -38,40 +38,36 @@ public class Principal {
             AlgumaRotinaParser parser = new AlgumaRotinaParser(tokens);
             ProgramaContext arvore = parser.programa();
             AlgumaRotina ar = new AlgumaRotina();
+            
+            // Erros léxicos e sintáticos são mostrados no stdout
 
             // Inicialização do programa
-
             ar.visitPrograma(arvore);
             
             AlgumaRotinaUtils.errosSemanticos.forEach((s) -> System.out.println(s));
             AlgumaRotinaUtils.errosSemanticos.forEach((s) -> buffer.append(s + "\n"));
-            
-            // Instancia o gerador de HTML
 
+            // Chama o gerador de HTML caso não hajam erros semânticos
             if(AlgumaRotinaUtils.errosSemanticos.size() == 0 ){
+                
                 GeradorAlgumaRotinaHTML gerador = new GeradorAlgumaRotinaHTML();
                 gerador.visit(arvore);
     
-                // Obtenha o HTML gerado
+                // Obtem o HTML gerado
                 String codigoHtml = gerador.getHtml();
     
-                // Salve o HTML em um arquivo
-                try (FileWriter writer = new FileWriter("teste.html")) {
+                // Salva o HTML em um arquivo
+                try (FileWriter writer = new FileWriter("resultado.html")) {
                     writer.write(codigoHtml);
-                }
-            }
-            else{
-                try (FileWriter writer = new FileWriter("teste.html")) {
-                    writer.write("Erros: \n" + buffer);
                 }
             }
            
         } catch (Exception ex) {
             // Detecção de exceções
-           // System.err.println("Erro: " + ex.getMessage());
+            // System.err.println("Erro: " + ex.getMessage());
         }
         buffer.append("Fim da compilacao\n");
-        // Escreve o resultado do buffer no arquivo de saída
+        // Escreve os resultados dos erros semânticos no arquivo de saída
         writeOutputToFile(args[1]);
     }
 

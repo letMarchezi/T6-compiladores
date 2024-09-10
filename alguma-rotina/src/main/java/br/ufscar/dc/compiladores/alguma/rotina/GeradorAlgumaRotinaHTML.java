@@ -38,7 +38,7 @@ public class GeradorAlgumaRotinaHTML extends AlgumaRotinaBaseVisitor<Void> {
         Void result = super.visitPrograma(ctx);
         
         // Após visitar todos os bloco, chama o agendador
-        planner.planejarEstudos();
+        planner.planejarEstudos(false);
 
         // Concatena o html da tabela do cronograma de estudos com as informações gerais
         inicio_html.append(planner.mostrarAgenda());
