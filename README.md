@@ -132,3 +132,6 @@ Após a utilização do compilador para análise de um determinado programa de e
   Saída gerada no arquivo teste.html
   
   ![](https://github.com/letMarchezi/T6-compiladores/blob/main/alguma-rotina/casos-de-testes/apenas-imagens/Captura%20de%20tela%20de%202024-09-09%2022-56-27.png)
+
+
+Um exemplo de utilização do compilador está disponível neste [link](https://youtu.be/8U54GH_gsxc).
